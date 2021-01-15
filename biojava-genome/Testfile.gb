@@ -1,0 +1,136 @@
+LOCUS       NM_000266               2058 bp    DNA              linear 15-jan.-2021
+DEFINITION  Homo sapiens Norrie disease (pseudoglioma) (NDP), mRNA.
+ACCESSION   NM_000266
+VERSION     NM_000266
+KEYWORDS    .
+SOURCE      
+FEATURES             Location/Qualifiers
+     gene            1..2058
+                     /note=Norrie disease (pseudoglioma)
+                     /dbxref=
+                     /dbxref=
+                     /dbxref=
+                     /dbxref=
+                     /gene=NDP
+                     /gene_synonym=EVR2; FEVR; ND
+     source          1..2058
+                     /dbxref=
+                     /organism=Homo sapiens
+                     /chromosome=X
+                     /map=Xp11.4
+                     /mol_type=mRNA
+     exon            1..372
+                     /inference=alignment:Splign:1.39.8
+                     /gene=NDP
+                     /gene_synonym=EVR2; FEVR; ND
+     STS             263..978
+                     /dbxref=
+                     /gene=NDP
+                     /gene_synonym=EVR2; FEVR; ND
+                     /standard_name=GDB:607687
+     exon            373..753
+                     /inference=alignment:Splign:1.39.8
+                     /gene=NDP
+                     /gene_synonym=EVR2; FEVR; ND
+     misc_feature    502..504
+                     /note=upstream in-frame stop codon
+                     /gene=NDP
+                     /gene_synonym=EVR2; FEVR; ND
+     CDS             580..981
+                     /note=norrin; norrie disease protein; X-linked exudative
+                     vitreoretinopathy 2 protein
+                     /codon_start=1
+                     /dbxref=
+                     /dbxref=
+                     /dbxref=
+                     /dbxref=
+                     /dbxref=
+                     /dbxref=
+                     /product=norrin precursor
+                     /protein_id=NP_000257.1
+                     /gene=NDP
+                     /translation=MRKHVLAASFSMLSLLVIMGDTDSKTDSSFIMDSDPRRCMRHHYVD
+                     SISHPLYKCSSKMVLLARCEGHCSQASRSEPLVSFSTVLKQPFRSSCHCCRPQTSKLKA
+                     LRLRCSGGMRLTATYRYILSCHCEECNS
+                     /gene_synonym=EVR2; FEVR; ND
+     sig_peptide     580..651
+                     /inference=COORDINATES: ab initio prediction:SignalP:4.0
+                     /gene=NDP
+                     /gene_synonym=EVR2; FEVR; ND
+     mat_peptide     652..978
+                     /product=norrin
+                     /gene=NDP
+                     /gene_synonym=EVR2; FEVR; ND
+     exon            754..2004
+                     /inference=alignment:Splign:1.39.8
+                     /gene=NDP
+                     /gene_synonym=EVR2; FEVR; ND
+     STS             1206..1442
+                     /dbxref=
+                     /gene=NDP
+                     /gene_synonym=EVR2; FEVR; ND
+                     /standard_name=GDB:607670
+     STS             1214..1542
+                     /dbxref=
+                     /gene=NDP
+                     /gene_synonym=EVR2; FEVR; ND
+                     /standard_name=SHGC-12355
+     STS             1623..1949
+                     /dbxref=
+                     /gene=NDP
+                     /gene_synonym=EVR2; FEVR; ND
+                     /standard_name=GDB:607683
+     STS             1623..1740
+                     /dbxref=
+                     /gene=NDP
+                     /gene_synonym=EVR2; FEVR; ND
+                     /standard_name=GDB:607667
+     STS             1722..1856
+                     /dbxref=
+                     /gene=NDP
+                     /gene_synonym=EVR2; FEVR; ND
+                     /standard_name=STS-X65724
+     polyA_signal    1983..1988
+                     /gene=NDP
+                     /gene_synonym=EVR2; FEVR; ND
+     polyA_site      2004..2004
+                     /gene=NDP
+                     /gene_synonym=EVR2; FEVR; ND
+
+ORIGIN
+        1 aagatgctcc gtggaaggga gccgagcggt gggcagaggc tgagtccccg ataacgagcg
+       61 cctcacattt ccgtggcatt cccatttgct agtgcgctgc tgcggccgca cgcctgattg
+      121 atatatgact gcaatggcac ttttccattt gacattctct ctctctctct ccctctctct
+      181 ctctccctct ctctctccct ctctctctct ccctgtgtcg cttaaacaac agtcctaact
+      241 tttgtgtgtt gcaaatataa aaggcaagcc atgtgacaga gggacagaag aacaaaagca
+      301 tttggaagta acaggacctc tttctagctc tcagaaaagt ctgagaagaa aggagccctg
+      361 cgttccccta agctgtgcag cagatactgt gatgatggat tgcaagtgca aagagtaaga
+      421 caaaactcca gcacataaag gacaatgaca accagaaagc ttcagcccga tcctgccctt
+      481 tccttgaacg ggactggatc ctaggaggtg aagccatttc caattttttg tcctctgcct
+      541 ccctctgctg ttcttctaga gaagtttttc cttacaacaa tgagaaaaca tgtactagct
+      601 gcatcctttt ctatgctctc cctgctggtg ataatgggag atacagacag taaaacggac
+      661 agctcattca taatggactc ggaccctcga cgctgcatga ggcaccacta tgtggattct
+      721 atcagtcacc cattgtacaa gtgtagctca aagatggtgc tcctggccag gtgcgagggg
+      781 cactgcagcc aggcgtcacg ctccgagcct ttggtgtcgt tcagcactgt cctcaagcaa
+      841 cccttccgtt cctcctgtca ctgctgccgg ccccagactt ccaagctgaa ggcactgcgg
+      901 ctgcgatgct cagggggcat gcgactcact gccacctacc ggtacatcct ctcctgtcac
+      961 tgcgaggaat gcaattcctg aggcccgctg ctgtgtgtgg cttctggatg ggacaactgt
+     1021 agaggcagtt cgaccagcca gggaaagact ggcaagaaaa gagttaaggc aaaaaaggat
+     1081 gcaacaattc tcccgggact ctgcatattc tagtaataaa gactctacat gcttgttgac
+     1141 agagagagat actctgggaa cttctttgca gttcccatct cctttctctg gtacaatttc
+     1201 ttttggttca ttttcagatt caggcatttt cccccttggc tctcaatgct gtttgggttt
+     1261 ccaacaattc agcattagtg ggaaaaagtg ggccctcata cacaagcgtg tcaggctgtc
+     1321 agtgtttggt gcacgctggg gaagaattta ctttggaaag tagaaaagcc cagcttttcc
+     1381 tgggacatct tctgttattg ttgatgtttt tttttacctt gtcattttgg tctaaggttg
+     1441 ccattgctgc taaaggttac cgatttcaaa gtccagatac caagcatgtg gatatgttta
+     1501 gctacgttta ctcacagcca gcgaactgac attaaaataa ctaacaaaca gattctttta
+     1561 tgtgatgctg gaactcttga cagctataat tattattcag aaatgacttt ttgaaagtaa
+     1621 aagcagcata aagaatttgt cacaggaagg ctgtctcaga taaattatgg taaaattttg
+     1681 taagggagca gacttttaaa gacttgcaca aatacggatc ctgcactgac tctggaaaag
+     1741 gcatatatgt actagtggca tggagaatgc accatactca tgcatgcaaa ttagacaacc
+     1801 aagtatgaat ctatttgtgg gtgtgctata gctttagccg tgtcacgggc atcattctct
+     1861 aatatccact tgtccatgtg aaacatgttg ccaaaatggt ggcctggctt gtcttctgaa
+     1921 cgtttggttc aaatgtgttt tggtcctgga ggctcaaatt ttgagttatt cccacgtttt
+     1981 gaaataaaaa gagtatattc aaaaaaaaaa aaaaaaaaaa aaaaaaaaaa aaaaaaaaaa
+     2041 aaaaaaaaaa aaaaaaaa
+//
