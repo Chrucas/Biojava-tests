@@ -18,11 +18,22 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 
+/*
+CORRECT:
+The values of this test are mostly the files to be read/wrote to. These files do indeed look correct.
+There is no need for ordering of these files as such they are ordered how they should.
+The values are files and the file sizes have a reasonably small size.
+These tests do refer to something outside of the class. They refer to the test gb file: NM_000266.gb.
+But this file is needed as we are testing the reading and writing capabilities of certain modules in this library.
+Throughout the test we check if the file exists or if it can be created.
+
+ */
+
 public class UT3Tests {
     @Test
     public void readGBFileTest() {
         //Arrange
-        File dnaFile = new File("C:\\Users\\Dr.Chruc\\Documents\\biojava" +
+        File dnaFile = new File("C:\\Users\\Dr.Chruc\\Documents\\biojava\\Biojava-tests" +
                                             "\\biojava-core\\src\\test\\resources\\NM_000266.gb");
         ByteArrayOutputStream fragWriter = new ByteArrayOutputStream();
         ArrayList<DNASequence> seqs = new ArrayList<>();
@@ -55,8 +66,8 @@ public class UT3Tests {
     @Test
     public void writeGBFileTest(){
         //Arrange
-        File dnaFile = new File("C:\\Users\\Dr.Chruc\\Documents\\biojava" +
-                "\\biojava-core\\src\\test\\resources\\NM_000266.gb");
+        File dnaFile = new File("C:\\Users\\Dr.Chruc\\Documents\\biojava\\Biojava-tests" +
+                                            "\\biojava-core\\src\\test\\resources\\NM_000266.gb");
         File myFile = new File("Testfile.gb");
         ArrayList<DNASequence> seqs = new ArrayList<>();
         LinkedHashMap<String, DNASequence> dnaSequences = null;
