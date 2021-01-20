@@ -26,6 +26,8 @@ import org.biojava.nbio.structure.align.model.AFPChain;
 import org.biojava.nbio.structure.align.util.AtomCache;
 import org.biojava.nbio.structure.align.xml.AFPChainXMLConverter;
 import org.biojava.nbio.structure.align.xml.AFPChainXMLParser;
+import org.junit.Ignore;
+import org.junit.Test;
 
 import java.io.IOException;
 
@@ -57,7 +59,7 @@ public class AFPChainSerialisationTest
 //
 //   }
 
-	@org.junit.Test
+	@Test @Ignore
 	public void testSerialization1a21_1hwg() throws IOException, StructureException{
 
 
@@ -220,7 +222,7 @@ public class AFPChainSerialisationTest
 	}
 
 
-	@org.junit.Test
+	@Test @Ignore
 	public void testMulti() throws IOException, StructureException {
 		Atom[] ca1 = null;
 		Atom[] ca2 = null;

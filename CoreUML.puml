@@ -9,14 +9,6 @@ class org.biojava.nbio.core.sequence.io.GenericFastaHeaderParser {
 + {static} void main(String[])
 }
 class org.biojava.nbio.core.sequence.io.GenericGenbankHeaderParser {
-- String accession
-- String identifier
-- String name
-- int version
-- boolean versionSeen
-- ArrayList<String> comments
-- List<AbstractReference> references
-- String description
 + void parseHeader(String,S)
 - void reset()
 + void setVersion(int)
@@ -28,12 +20,6 @@ class org.biojava.nbio.core.sequence.io.GenericGenbankHeaderParser {
 + void addReference(AbstractReference)
 }
 class org.biojava.nbio.core.sequence.io.FastaWriter {
-- {static} Logger logger
-~ OutputStream os
-~ Collection<S> sequences
-~ FastaHeaderFormatInterface<S,C> headerFormat
-- int lineLength
-~ byte[] lineSep
 + void setLineSeparator(String)
 + void process()
 + {static} void main(String[])
@@ -41,15 +27,6 @@ class org.biojava.nbio.core.sequence.io.FastaWriter {
 + void setLineLength(int)
 }
 class org.biojava.nbio.core.util.PrettyXMLWriter {
-- int indentUnit
-- PrintWriter writer
-- boolean isOpeningTag
-- boolean afterNewline
-- int indent
-- Map<String,String> namespacePrefixes
-- int namespaceSeed
-- LinkedList<List<String>> namespaceBindings
-- List<String> namespacesDeclared
 + void declareNamespace(String,String)
 - void handleDeclaredNamespaces()
 # void writeIndent()
@@ -71,19 +48,15 @@ class org.biojava.nbio.core.util.PrettyXMLWriter {
 + void close()
 }
 class org.biojava.nbio.core.sequence.SequenceComparator {
-- {static} long serialVersionUID
 + int compare(AbstractSequence<?>,AbstractSequence<?>)
 }
 class org.biojava.nbio.core.util.FlatFileCache {
-- {static} Logger logger
-- {static} SoftHashMap<String,byte[]> cache
 + {static} void addToCache(String,File)
 + {static} InputStream getInputStream(String)
 + {static} int size()
 + {static} void clear()
 }
 class org.biojava.nbio.core.sequence.io.GenbankReaderHelper {
-- {static} Logger logger
 + {static} LinkedHashMap<String,DNASequence> readGenbankDNASequence(File,boolean)
 + {static} LinkedHashMap<String,ProteinSequence> readGenbankProteinSequence(File,boolean)
 + {static} LinkedHashMap<String,RNASequence> readGenbankRNASequence(File,boolean)
@@ -96,12 +69,6 @@ class org.biojava.nbio.core.sequence.io.GenbankReaderHelper {
 + {static} void main(String[])
 }
 class org.biojava.nbio.core.search.io.SearchIO {
-- {static} HashMap<String,ResultFactory> extensionFactoryAssociation
-- ResultFactory factory
-- File file
-- double evalueThreshold
-- List<Result> results
-- String NOT_SUPPORTED_FILE_EXCEPTION
 - void readResults()
 + void writeResults()
 - ResultFactory guessFactory(File)
@@ -109,34 +76,17 @@ class org.biojava.nbio.core.search.io.SearchIO {
 + Iterator<Result> iterator()
 }
 class org.biojava.nbio.core.sequence.io.FastaGeneWriter {
-- {static} Logger logger
-~ boolean showExonUppercase
-~ OutputStream os
-~ Collection<GeneSequence> sequences
-~ FastaHeaderFormatInterface<GeneSequence,NucleotideCompound> headerFormat
-- int lineLength
 + void process()
 + int getLineLength()
 + void setLineLength(int)
 + {static} void main(String[])
 }
 class org.biojava.nbio.core.sequence.io.ProteinSequenceCreator {
-- CompoundSet<AminoAcidCompound> compoundSet
 + AbstractSequence<AminoAcidCompound> getSequence(String,long)
 + AbstractSequence<AminoAcidCompound> getSequence(List<AminoAcidCompound>)
 + AbstractSequence<AminoAcidCompound> getSequence(ProxySequenceReader<AminoAcidCompound>,long)
 }
 class org.biojava.nbio.core.sequence.io.FastaReader {
-- {static} Logger logger
-~ SequenceCreatorInterface<C> sequenceCreator
-~ SequenceHeaderParserInterface<S,C> headerParser
-~ BufferedReaderBytesRead br
-~ InputStreamReader isr
-~ FileInputStream fi
-~ long fileIndex
-~ long sequenceIndex
-~ String line
-~ String header
 + LinkedHashMap<String,S> process()
 + LinkedHashMap<String,S> process(int)
 + void close()
@@ -145,33 +95,11 @@ class org.biojava.nbio.core.sequence.io.FastaReader {
 interface org.biojava.nbio.core.sequence.template.ProxySequenceReader {
 }
 class org.biojava.nbio.core.sequence.io.FileProxyDNASequenceCreator {
-~ CompoundSet<NucleotideCompound> compoundSet
-~ File file
-~ SequenceParserInterface sequenceParser
 + AbstractSequence<NucleotideCompound> getSequence(String,long)
 + AbstractSequence<NucleotideCompound> getSequence(ProxySequenceReader<NucleotideCompound>,long)
 + AbstractSequence<NucleotideCompound> getSequence(List<NucleotideCompound>)
 }
 class org.biojava.nbio.core.search.io.blast.BlastHspBuilder {
-- int hspNum
-- double hspBitScore
-- int hspScore
-- double hspEvalue
-- int hspQueryFrom
-- int hspQueryTo
-- int hspHitFrom
-- int hspHitTo
-- int hspQueryFrame
-- int hspHitFrame
-- int hspIdentity
-- int hspPositive
-- int hspGaps
-- int hspAlignLen
-- String hspQseq
-- String hspHseq
-- String hspIdentityString
-- Double percentageIdentity
-- Integer mismatchCount
 + BlastHspBuilder setHspNum(int)
 + BlastHspBuilder setHspBitScore(double)
 + BlastHspBuilder setHspScore(int)
@@ -2311,12 +2239,6 @@ class org.biojava.nbio.core.sequence.loader.UniprotProxySequenceReader {
 + Map<String,List<DBReferenceInfo>> getDatabaseReferences()
 }
 class org.biojava.nbio.core.util.SingleLinkageClusterer {
-- {static} Logger logger
-- double[][] matrix
-- boolean isScoreMatrix
-- int numItems
-- LinkedPair[] dendrogram
-- ArrayList<Integer> indicesToCheck
 + LinkedPair[] getDendrogram()
 - void clusterIt()
 - void merge(LinkedPair)
@@ -2330,18 +2252,12 @@ class org.biojava.nbio.core.util.SingleLinkageClusterer {
 - String matrixToString()
 }
 class org.biojava.nbio.core.util.SingleLinkageClusterer.LinkedPair {
-- int first
-- int second
-- double closestDistance
 + int getFirst()
 + int getSecond()
 + double getClosestDistance()
 + String toString()
 }
 class org.biojava.nbio.core.util.ConcurrencyTools {
-- {static} Logger logger
-- {static} ThreadPoolExecutor pool
-- {static} int tasks
 + {static} ThreadPoolExecutor getThreadPool()
 + {static} void setThreadPoolCPUsAvailable(int)
 + {static} void setThreadPoolCPUsFraction(float)
@@ -2355,16 +2271,10 @@ class org.biojava.nbio.core.util.ConcurrencyTools {
 + {static} Future<T> submit(Callable<T>)
 }
 class org.biojava.nbio.core.alignment.SimpleProfilePair {
-- {static} long serialVersionUID
-- Profile<S,C> query
 + Profile<S,C> getQuery()
 + Profile<S,C> getTarget()
 }
 class org.biojava.nbio.core.sequence.location.SimplePoint {
-- {static} long serialVersionUID
-- int position
-- boolean unknown
-- boolean uncertain
 + Integer getPosition()
 # void setPosition(int)
 + boolean isUnknown()
@@ -2383,9 +2293,6 @@ class org.biojava.nbio.core.sequence.location.SimplePoint {
 + Point clonePoint()
 }
 class org.biojava.nbio.core.util.CRC64Checksum {
-- {static} long POLY64
-- {static} long[] crcTable
-- long crc
 + void update(int)
 + void update(byte[],int,int)
 + void update(String)
@@ -2407,11 +2314,6 @@ class org.biojava.nbio.core.sequence.compound.AmbiguityDNARNAHybridCompoundSet.I
 + {static} AmbiguityDNARNAHybridCompoundSet INSTANCE
 }
 class org.biojava.nbio.core.sequence.io.GenbankWriter {
-~ int SEQUENCE_INDENT
-~ OutputStream os
-~ Collection<S> sequences
-~ GenbankHeaderFormatInterface<S,C> headerFormat
-- int lineLength
 + void process()
 + int getLineLength()
 + void setLineLength(int)
@@ -2420,35 +2322,6 @@ interface org.biojava.nbio.core.sequence.features.FeaturesKeyWordInterface {
 + List<String> getKeyWords()
 }
 class org.biojava.nbio.core.util.UncompressInputStream {
-- {static} Logger logger
-- {static} int TBL_CLEAR
-- {static} int TBL_FIRST
-- int[] tab_prefix
-- byte[] tab_suffix
-- int[] zeros
-- byte[] stack
-- boolean block_mode
-- int n_bits
-- int maxbits
-- int maxmaxcode
-- int maxcode
-- int bitmask
-- int oldcode
-- byte finchar
-- int stackp
-- int free_ent
-- byte[] data
-- int bit_pos
-- boolean eof
-- {static} int EXTRA
-~ {static} int LZW_MAGIC
-- {static} int MAX_BITS
-- {static} int INIT_BITS
-- {static} int HDR_MAXBITS
-- {static} int HDR_EXTENDED
-- {static} int HDR_FREE
-- {static} int HDR_BLOCK_MODE
-- {static} boolean debugTiming
 + int read()
 + int read(byte[],int,int)
 - int resetbuf(int)
@@ -2474,15 +2347,6 @@ class org.biojava.nbio.core.sequence.io.FastaWriterHelper {
 + {static} void writeSequences(OutputStream,Collection<Sequence<?>>)
 }
 abstract class org.biojava.nbio.core.sequence.features.AbstractFeature {
-~ List<FeatureInterface<S,C>> childrenFeatures
-~ FeatureInterface<S,C> parentFeature
-~ AbstractLocation sequenceLocation
-~ String type
-~ String source
-- String description
-- String shortDescription
-- Object userObject
-- Map<String,List<Qualifier>> Qualifiers
 + {static} Comparator<FeatureInterface<?,?>> LOCATION_LENGTH
 + {static} Comparator<FeatureInterface<?,?>> LENGTH
 + {static} Comparator<FeatureInterface<?,?>> TYPE
@@ -2509,9 +2373,6 @@ abstract class org.biojava.nbio.core.sequence.features.AbstractFeature {
 class org.biojava.nbio.core.sequence.features.TextFeature {
 }
 class org.biojava.nbio.core.sequence.io.util.ClasspathResource {
-- String location
-- boolean preCache
-- Boolean isGzip
 + InputStream getInputStream()
 + BufferedReader getBufferedReader()
 + List<String> getList()
@@ -2526,16 +2387,12 @@ class org.biojava.nbio.core.sequence.compound.DNACompoundSet.InitaliseOnDemand {
 + {static} DNACompoundSet INSTANCE
 }
 class org.biojava.nbio.core.sequence.features.QualityFeature {
-- List<Number> qualities
 + List<Number> getQualities()
 + void setQualities(List<Number>)
 + Number getQualityAt(int)
 + List<Number> getQualities(int,int)
 }
 class org.biojava.nbio.core.sequence.loader.StringProxySequenceReader {
-- String sequence
-- CompoundSet<C> compoundSet
-- List<C> parsedCompounds
 + void setCompoundSet(CompoundSet<C>)
 + void setContents(String)
 + void setContents(String,ArrayList)
@@ -2557,7 +2414,6 @@ class org.biojava.nbio.core.sequence.loader.StringProxySequenceReader {
 + int hashCode()
 }
 class org.biojava.nbio.core.sequence.transcription.CaseInsensitiveCompound {
-- NucleotideCompound compound
 + boolean equalsIgnoreCase(Compound)
 + boolean equals(Object)
 + int hashCode()
@@ -2578,13 +2434,6 @@ interface org.biojava.nbio.core.alignment.template.MutableProfilePair {
 ~ void setTarget(Profile<S,C>)
 }
 class org.biojava.nbio.core.alignment.matrices.ScaledSubstitutionMatrix {
-- {static} String comment
-- String description
-- short[][] matrix
-- short max
-- AminoAcidCompoundSet compoundSet
-- List<AminoAcidCompound> rows
-- int scale
 + int getScale()
 + void setScale(int)
 + String getDescription()
@@ -2635,11 +2484,6 @@ class org.biojava.nbio.core.util.Hashcoder {
 + {static} int hash(int,Object)
 }
 class org.biojava.nbio.core.sequence.compound.AminoAcidCompoundSet {
-- {static} long serialVersionUID
-- Map<String,AminoAcidCompound> aminoAcidCompoundCache
-- Map<String,AminoAcidCompound> aminoAcidCompoundCache3Letter
-- Map<AminoAcidCompound,Set<AminoAcidCompound>> equivalentsCache
-- {static} AminoAcidCompoundSet aminoAcidCompoundSet
 + String getStringForCompound(AminoAcidCompound)
 + AminoAcidCompound getCompoundForString(String)
 + int getMaxSingleCompoundStringLength()
@@ -2654,11 +2498,6 @@ class org.biojava.nbio.core.sequence.compound.AminoAcidCompoundSet {
 + boolean isComplementable()
 }
 class org.biojava.nbio.core.sequence.io.GenericInsdcHeaderFormat {
-# {static} int MAX_WIDTH
-# {static} int QUALIFIER_INDENT
-# {static} String QUALIFIER_INDENT_STR
-# {static} String QUALIFIER_INDENT_TMP
-- {static} String lineSep
 - String _write_feature_qualifier(String,String,boolean)
 - String _wrap_location(String)
 # String _write_feature(FeatureInterface<AbstractSequence<C>,C>,int)
@@ -2669,13 +2508,6 @@ class org.biojava.nbio.core.sequence.io.GenericInsdcHeaderFormat {
 # ArrayList<String> _split_multi_line(String,int)
 }
 class org.biojava.nbio.core.alignment.matrices.SimpleSubstitutionMatrix {
-- {static} long serialVersionUID
-- {static} String comment
-- CompoundSet<C> compoundSet
-- String description
-- short[][] matrix
-- short max
-- List<C> rows
 + {static} SubstitutionMatrix<AminoAcidCompound> getBlosum62()
 + CompoundSet<C> getCompoundSet()
 + String getDescription()
@@ -2701,7 +2533,6 @@ class org.biojava.nbio.core.util.Equals {
 + {static} boolean classEqual(Object,Object)
 }
 class org.biojava.nbio.core.sequence.location.SequenceLocation {
-- S sequence
 + S getSequence()
 + void setSequence(S)
 }
@@ -2734,9 +2565,6 @@ interface org.biojava.nbio.core.alignment.template.ProfileView {
 class org.biojava.nbio.core.sequence.BasicSequence {
 }
 class org.biojava.nbio.core.sequence.io.FileProxyProteinSequenceCreator {
-~ CompoundSet<AminoAcidCompound> compoundSet
-~ File file
-~ SequenceParserInterface sequenceParser
 + AbstractSequence<AminoAcidCompound> getSequence(String,long)
 + AbstractSequence<AminoAcidCompound> getSequence(ProxySequenceReader<AminoAcidCompound>,long)
 + AbstractSequence<AminoAcidCompound> getSequence(List<AminoAcidCompound>)
@@ -2773,13 +2601,6 @@ class org.biojava.nbio.core.sequence.io.PlainFastaHeaderParser {
 + void parseHeader(String,S)
 }
 abstract class org.biojava.nbio.core.search.io.Hit {
-- int hitNum
-- String hitId
-- String hitDef
-- String hitAccession
-- int hitLen
-- List<Hsp> hsps
-- Sequence hitSequence
 + int hashCode()
 + boolean equals(Object)
 + int getHitNum()

@@ -36,6 +36,7 @@ import org.biojava.nbio.structure.align.xml.AFPChainXMLParser;
 import org.biojava.nbio.structure.geometry.Matrices;
 import org.biojava.nbio.structure.geometry.SuperPositions;
 import org.biojava.nbio.structure.jama.Matrix;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -48,7 +49,7 @@ import static org.junit.Assert.*;
 
 public class TestFlexibleRotationMatrices {
 
-	@Test
+	@Test @Ignore
 	public void testFlexibleRotationMatrices(){
 
 		String name1 = "1a21.A";

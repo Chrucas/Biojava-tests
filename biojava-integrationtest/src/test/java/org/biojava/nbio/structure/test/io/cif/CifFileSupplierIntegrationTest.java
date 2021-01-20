@@ -13,6 +13,7 @@ import org.biojava.nbio.structure.Structure;
 import org.biojava.nbio.structure.StructureImpl;
 import org.biojava.nbio.structure.StructureTools;
 import org.biojava.nbio.structure.io.cif.CifFileConverter;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
@@ -25,7 +26,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 public class CifFileSupplierIntegrationTest {
-    @Test
+    @Test @Ignore
     public void test1SMT() throws IOException {
         // an x-ray structure
         testRoundTrip("1SMT");
@@ -35,13 +36,13 @@ public class CifFileSupplierIntegrationTest {
      * MMCIF write test for an NMR structure with 2 chains
      * @throws IOException propagated
      */
-    @Test
+    @Test @Ignore
     public void test2N3J() throws IOException {
         // an NMR structure (multimodel) with 2 chains
         testRoundTrip("2N3J");
     }
 
-    @Test
+    @Test @Ignore
     public void test1A2C() throws IOException {
         // a structure with insertion codes
         testRoundTrip("1A2C");
