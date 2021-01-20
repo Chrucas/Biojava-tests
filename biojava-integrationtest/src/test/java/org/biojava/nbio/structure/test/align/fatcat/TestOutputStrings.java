@@ -21,6 +21,7 @@ package org.biojava.nbio.structure.test.align.fatcat;
 
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class TestOutputStrings {
@@ -199,7 +200,7 @@ public class TestOutputStrings {
 //   }
 
 	// exact
-	@Test
+	@Test @Ignore
 	public void test1buz1aliFlexible(){
 
 		String pdb1 = "1buz";
@@ -320,7 +321,7 @@ public class TestOutputStrings {
 
 
 
-	@Test
+	@Test @Ignore
 	public void test1a641hngFlexible(){
 		String pdb1 = "1a64";
 		String chain1 = "A";
@@ -501,7 +502,7 @@ public class TestOutputStrings {
 
 
 	//exact
-	@Test
+	@Test @Ignore
 	public void test1a211hwgFlexible(){
 
 		String pdb1 = "1a21";

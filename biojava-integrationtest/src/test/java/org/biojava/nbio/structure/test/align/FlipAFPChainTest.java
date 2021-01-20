@@ -36,6 +36,7 @@ import org.biojava.nbio.structure.align.xml.AFPChainFlipper;
 import org.biojava.nbio.structure.align.xml.AFPChainXMLConverter;
 import org.biojava.nbio.structure.align.xml.AFPChainXMLParser;
 import org.biojava.nbio.structure.jama.Matrix;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -44,7 +45,7 @@ import static org.junit.Assert.*;
 
 public class FlipAFPChainTest {
 
-	@Test
+	@Test @Ignore
 	public void testFlippingMultiBlock(){
 
 		try {
@@ -60,7 +61,7 @@ public class FlipAFPChainTest {
 
 	}
 
-	@Test
+	@Test @Ignore
 	public void testFlipping(){
 
 		try {

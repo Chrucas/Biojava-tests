@@ -41,13 +41,14 @@ import org.biojava.nbio.structure.align.xml.AFPChainXMLConverter;
 import org.biojava.nbio.structure.align.xml.AFPChainXMLParser;
 import org.biojava.nbio.structure.jama.Matrix;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
 
 public class FlipAFPChainTest {
 
-	@Test
+	@Test @Ignore
 	public void testFlipping(){
 		try {
 
