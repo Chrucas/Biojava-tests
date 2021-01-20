@@ -1,0 +1,2990 @@
+@startuml
+interface org.biojava.nbio.core.alignment.template.MutableProfile {
+~ void setSequences(List<AlignedSequence<S,C>>)
+}
+class org.biojava.nbio.core.sequence.io.GenericFastaHeaderParser {
+- {static} Logger logger
+- String[] getHeaderValues(String)
++ void parseHeader(String,S)
++ {static} void main(String[])
+}
+class org.biojava.nbio.core.sequence.io.GenericGenbankHeaderParser {
+- String accession
+- String identifier
+- String name
+- int version
+- boolean versionSeen
+- ArrayList<String> comments
+- List<AbstractReference> references
+- String description
++ void parseHeader(String,S)
+- void reset()
++ void setVersion(int)
++ void setAccession(String)
++ void setDescription(String)
++ void setIdentifier(String)
++ void setName(String)
++ void setComment(String)
++ void addReference(AbstractReference)
+}
+class org.biojava.nbio.core.sequence.io.FastaWriter {
+- {static} Logger logger
+~ OutputStream os
+~ Collection<S> sequences
+~ FastaHeaderFormatInterface<S,C> headerFormat
+- int lineLength
+~ byte[] lineSep
++ void setLineSeparator(String)
++ void process()
++ {static} void main(String[])
++ int getLineLength()
++ void setLineLength(int)
+}
+class org.biojava.nbio.core.util.PrettyXMLWriter {
+- int indentUnit
+- PrintWriter writer
+- boolean isOpeningTag
+- boolean afterNewline
+- int indent
+- Map<String,String> namespacePrefixes
+- int namespaceSeed
+- LinkedList<List<String>> namespaceBindings
+- List<String> namespacesDeclared
++ void declareNamespace(String,String)
+- void handleDeclaredNamespaces()
+# void writeIndent()
+- void _openTag()
+- String allocPrefix(String)
++ void openTag(String,String)
++ void openTag(String)
++ void attribute(String,String,String)
++ void attribute(String,String)
+- void _closeTag()
++ void closeTag(String,String)
++ void closeTag(String)
++ void println(String)
++ void print(String)
++ void printRaw(String)
+# void printChars(String)
+# void printAttributeValue(String)
+# void numericalEntity(char)
++ void close()
+}
+class org.biojava.nbio.core.sequence.SequenceComparator {
+- {static} long serialVersionUID
++ int compare(AbstractSequence<?>,AbstractSequence<?>)
+}
+class org.biojava.nbio.core.util.FlatFileCache {
+- {static} Logger logger
+- {static} SoftHashMap<String,byte[]> cache
++ {static} void addToCache(String,File)
++ {static} InputStream getInputStream(String)
++ {static} int size()
++ {static} void clear()
+}
+class org.biojava.nbio.core.sequence.io.GenbankReaderHelper {
+- {static} Logger logger
++ {static} LinkedHashMap<String,DNASequence> readGenbankDNASequence(File,boolean)
++ {static} LinkedHashMap<String,ProteinSequence> readGenbankProteinSequence(File,boolean)
++ {static} LinkedHashMap<String,RNASequence> readGenbankRNASequence(File,boolean)
++ {static} LinkedHashMap<String,ProteinSequence> readGenbankProteinSequence(File)
++ {static} LinkedHashMap<String,ProteinSequence> readGenbankProteinSequence(InputStream)
++ {static} LinkedHashMap<String,DNASequence> readGenbankDNASequence(InputStream)
++ {static} LinkedHashMap<String,DNASequence> readGenbankDNASequence(File)
++ {static} LinkedHashMap<String,RNASequence> readGenbankRNASequence(InputStream)
++ {static} LinkedHashMap<String,RNASequence> readGenbankRNASequence(File)
++ {static} void main(String[])
+}
+class org.biojava.nbio.core.search.io.SearchIO {
+- {static} HashMap<String,ResultFactory> extensionFactoryAssociation
+- ResultFactory factory
+- File file
+- double evalueThreshold
+- List<Result> results
+- String NOT_SUPPORTED_FILE_EXCEPTION
+- void readResults()
++ void writeResults()
+- ResultFactory guessFactory(File)
++ double getEvalueThreshold()
++ Iterator<Result> iterator()
+}
+class org.biojava.nbio.core.sequence.io.FastaGeneWriter {
+- {static} Logger logger
+~ boolean showExonUppercase
+~ OutputStream os
+~ Collection<GeneSequence> sequences
+~ FastaHeaderFormatInterface<GeneSequence,NucleotideCompound> headerFormat
+- int lineLength
++ void process()
++ int getLineLength()
++ void setLineLength(int)
++ {static} void main(String[])
+}
+class org.biojava.nbio.core.sequence.io.ProteinSequenceCreator {
+- CompoundSet<AminoAcidCompound> compoundSet
++ AbstractSequence<AminoAcidCompound> getSequence(String,long)
++ AbstractSequence<AminoAcidCompound> getSequence(List<AminoAcidCompound>)
++ AbstractSequence<AminoAcidCompound> getSequence(ProxySequenceReader<AminoAcidCompound>,long)
+}
+class org.biojava.nbio.core.sequence.io.FastaReader {
+- {static} Logger logger
+~ SequenceCreatorInterface<C> sequenceCreator
+~ SequenceHeaderParserInterface<S,C> headerParser
+~ BufferedReaderBytesRead br
+~ InputStreamReader isr
+~ FileInputStream fi
+~ long fileIndex
+~ long sequenceIndex
+~ String line
+~ String header
++ LinkedHashMap<String,S> process()
++ LinkedHashMap<String,S> process(int)
++ void close()
++ {static} void main(String[])
+}
+interface org.biojava.nbio.core.sequence.template.ProxySequenceReader {
+}
+class org.biojava.nbio.core.sequence.io.FileProxyDNASequenceCreator {
+~ CompoundSet<NucleotideCompound> compoundSet
+~ File file
+~ SequenceParserInterface sequenceParser
++ AbstractSequence<NucleotideCompound> getSequence(String,long)
++ AbstractSequence<NucleotideCompound> getSequence(ProxySequenceReader<NucleotideCompound>,long)
++ AbstractSequence<NucleotideCompound> getSequence(List<NucleotideCompound>)
+}
+class org.biojava.nbio.core.search.io.blast.BlastHspBuilder {
+- int hspNum
+- double hspBitScore
+- int hspScore
+- double hspEvalue
+- int hspQueryFrom
+- int hspQueryTo
+- int hspHitFrom
+- int hspHitTo
+- int hspQueryFrame
+- int hspHitFrame
+- int hspIdentity
+- int hspPositive
+- int hspGaps
+- int hspAlignLen
+- String hspQseq
+- String hspHseq
+- String hspIdentityString
+- Double percentageIdentity
+- Integer mismatchCount
++ BlastHspBuilder setHspNum(int)
++ BlastHspBuilder setHspBitScore(double)
++ BlastHspBuilder setHspScore(int)
++ BlastHspBuilder setHspEvalue(double)
++ BlastHspBuilder setHspQueryFrom(int)
++ BlastHspBuilder setHspQueryTo(int)
++ BlastHspBuilder setHspHitFrom(int)
++ BlastHspBuilder setHspHitTo(int)
++ BlastHspBuilder setHspQueryFrame(int)
++ BlastHspBuilder setHspHitFrame(int)
++ BlastHspBuilder setHspIdentity(int)
++ BlastHspBuilder setHspPositive(int)
++ BlastHspBuilder setHspGaps(int)
++ BlastHspBuilder setHspAlignLen(int)
++ BlastHspBuilder setHspQseq(String)
++ BlastHspBuilder setHspHseq(String)
++ BlastHspBuilder setHspIdentityString(String)
++ BlastHspBuilder setPercentageIdentity(Double)
++ BlastHspBuilder setMismatchCount(Integer)
++ BlastHsp createBlastHsp()
+}
+abstract class org.biojava.nbio.core.sequence.template.AbstractNucleotideCompoundSet {
+# void addNucleotideCompound(String,String,String)
+# {abstract}C newNucleotideCompound(String,String,String)
+# void calculateIndirectAmbiguities()
+- void checkAdd(Map<NucleotideCompound,List<NucleotideCompound>>,NucleotideCompound,NucleotideCompound)
+- NucleotideCompound toLowerCase(NucleotideCompound)
++ NucleotideCompound getAmbiguity(NucleotideCompound)
++ boolean isComplementable()
+}
+abstract class org.biojava.nbio.core.sequence.template.AbstractSequence {
+- {static} Logger logger
+- TaxonomyID taxonomy
+- AccessionID accession
+- SequenceReader<C> sequenceStorage
+- CompoundSet<C> compoundSet
+- AnnotationType annotationType
+- String description
+- String originalHeader
+- Collection<Object> userCollection
+- Integer bioBegin
+- Integer bioEnd
+- AbstractSequence<?> parentSequence
+- String source
+- ArrayList<String> notesList
+- Double sequenceScore
+- FeaturesKeyWordInterface featuresKeyWord
+- DatabaseReferenceInterface databaseReferences
+- FeatureRetriever featureRetriever
+- ArrayList<FeatureInterface<AbstractSequence<C>,C>> features
+- LinkedHashMap<String,ArrayList<FeatureInterface<AbstractSequence<C>,C>>> groupedFeatures
+- List<String> comments
+- List<AbstractReference> references
++ void setProxySequenceReader(SequenceReader<C>)
++ SequenceReader<C> getProxySequenceReader()
++ Integer getBioBegin()
++ void setBioBegin(Integer)
++ Integer getBioEnd()
++ void setBioEnd(Integer)
++ Collection<Object> getUserCollection()
++ void setUserCollection(Collection<Object>)
++ AnnotationType getAnnotationType()
++ void setAnnotationType(AnnotationType)
++ String getDescription()
++ void setDescription(String)
++ String getOriginalHeader()
++ void setOriginalHeader(String)
++ AbstractSequence<?> getParentSequence()
++ void setParentSequence(AbstractSequence<?>)
++ String getSource()
++ void setSource(String)
++ void addNote(String)
++ void removeNote(String)
++ ArrayList<String> getNotesList()
++ void setNotesList(ArrayList<String>)
++ Double getSequenceScore()
++ void setSequenceScore(Double)
++ List<AbstractReference> getReferences()
++ void setReferences(List<AbstractReference>)
++ List<FeatureInterface<AbstractSequence<C>,C>> getFeatures(String,int)
++ List<FeatureInterface<AbstractSequence<C>,C>> getFeatures(int)
++ List<FeatureInterface<AbstractSequence<C>,C>> getFeatures()
++ void addFeature(int,int,FeatureInterface<AbstractSequence<C>,C>)
++ void addFeature(FeatureInterface<AbstractSequence<C>,C>)
++ void removeFeature(FeatureInterface<AbstractSequence<C>,C>)
++ List<FeatureInterface<AbstractSequence<C>,C>> getFeaturesByType(String)
++ List<String> getComments()
++ void setComments(List<String>)
++ FeaturesKeyWordInterface getFeaturesKeyWord()
++ void setFeaturesKeyWord(FeaturesKeyWordInterface)
++ DatabaseReferenceInterface getDatabaseReferences()
++ void setDatabaseReferences(DatabaseReferenceInterface)
++ FeatureRetriever getFeatureRetriever()
++ void setFeatureRetriever(FeatureRetriever)
++ AccessionID getAccession()
++ void setAccession(AccessionID)
++ TaxonomyID getTaxonomy()
++ void setTaxonomy(TaxonomyID)
++ CompoundSet<C> getCompoundSet()
++ void setCompoundSet(CompoundSet<C>)
++ boolean equals(Object)
++ int hashCode()
++ String toString()
+- SequenceReader<C> getSequenceStorage()
++ String getSequenceAsString(Integer,Integer,Strand)
++ String getSequenceAsString()
++ List<C> getAsList()
++ C getCompoundAt(int)
++ int getIndexOf(C)
++ int getLastIndexOf(C)
++ int getLength()
++ SequenceView<C> getSubSequence(Integer,Integer)
++ Iterator<C> iterator()
++ int countCompounds(C)
++ SequenceView<C> getInverse()
+}
+class org.biojava.nbio.core.alignment.matrices.AAIndexFileParser {
+~ int scale
+~ Map<String,SubstitutionMatrix<AminoAcidCompound>> matrices
+~ ScaledSubstitutionMatrix currentMatrix
+~ String currentRows
+~ String currentCols
+~ int currentRowPos
+- short[][] matrix
+~ short max
+~ short min
+- List<AminoAcidCompound> rows
+~ boolean inMatrix
+~ boolean symmetricMatrix
++ void parse(InputStream)
+- void processScores(String)
+- int determineScale(String)
+- void initMatrix(String)
+- void newMatrix(String)
+- SubstitutionMatrix<AminoAcidCompound> finalizeMatrix()
++ Map<String,SubstitutionMatrix<AminoAcidCompound>> getMatrices()
+}
+class org.biojava.nbio.core.search.io.blast.BlastResult {
+}
+interface org.biojava.nbio.core.sequence.features.FeatureInterface {
++ String getShortDescription()
++ void setShortDescription(String)
++ String getDescription()
++ void setDescription(String)
++ AbstractLocation getLocations()
++ void setLocation(AbstractLocation)
++ String getType()
++ void setType(String)
++ String getSource()
++ void setSource(String)
++ void setParentFeature(FeatureInterface<S,C>)
++ FeatureInterface<S,C> getParentFeature()
++ List<FeatureInterface<S,C>> getChildrenFeatures()
++ void setChildrenFeatures(List<FeatureInterface<S,C>>)
++ Object getUserObject()
++ void setUserObject(Object)
++ Map<String,List<Qualifier>> getQualifiers()
++ void setQualifiers(Map<String,List<Qualifier>>)
++ void addQualifier(String,Qualifier)
+}
+class org.biojava.nbio.core.sequence.io.FileProxyRNASequenceCreator {
+~ CompoundSet<NucleotideCompound> compoundSet
+~ File file
+~ SequenceParserInterface sequenceParser
++ AbstractSequence<NucleotideCompound> getSequence(String,long)
++ AbstractSequence<NucleotideCompound> getSequence(ProxySequenceReader<NucleotideCompound>,long)
++ AbstractSequence<NucleotideCompound> getSequence(List<NucleotideCompound>)
+}
+interface org.biojava.nbio.core.sequence.features.DatabaseReferenceInterface {
++ Map<String,List<DBReferenceInfo>> getDatabaseReferences()
+}
+class org.biojava.nbio.core.sequence.storage.FourBitSequenceReader {
+}
+class org.biojava.nbio.core.sequence.storage.FourBitSequenceReader.FourBitArrayWorker {
+- {static} byte MASK
+# byte bitMask()
+# int compoundsPerDatatype()
+# Map<C,Integer> generateCompoundsToIndex()
+- C getOptionalUpperCasedCompound(C,CompoundSet<C>)
+- List<C> sortedCompounds(CompoundSet<C>)
+# List<C> generateIndexToCompounds()
+}
+class org.biojava.nbio.core.sequence.features.Qualifier {
+~ String value
+~ String name
+~ boolean needsQuotes
++ String getName()
++ String getValue()
++ boolean needsQuotes()
++ void setName(String)
++ void setNeedsQuotes(boolean)
++ void setValue(String)
++ String toString()
+}
+class org.biojava.nbio.core.sequence.transcription.TranscriptionEngine {
+- Table table
+- RNAToAminoAcidTranslator rnaAminoAcidTranslator
+- DNAToRNATranslator dnaRnaTranslator
+- SequenceCreatorInterface<AminoAcidCompound> proteinSequenceCreator
+- SequenceCreatorInterface<NucleotideCompound> rnaSequenceCreator
+- CompoundSet<NucleotideCompound> dnaCompounds
+- CompoundSet<NucleotideCompound> rnaCompounds
+- CompoundSet<AminoAcidCompound> aminoAcidCompounds
++ {static} TranscriptionEngine getDefault()
++ Sequence<AminoAcidCompound> translate(Sequence<NucleotideCompound>)
++ Map<Frame,Sequence<AminoAcidCompound>> multipleFrameTranslation(Sequence<NucleotideCompound>,Frame)
++ Table getTable()
++ RNAToAminoAcidTranslator getRnaAminoAcidTranslator()
++ DNAToRNATranslator getDnaRnaTranslator()
++ SequenceCreatorInterface<AminoAcidCompound> getProteinSequenceCreator()
++ SequenceCreatorInterface<NucleotideCompound> getRnaSequenceCreator()
++ CompoundSet<NucleotideCompound> getDnaCompounds()
++ CompoundSet<NucleotideCompound> getRnaCompounds()
++ CompoundSet<AminoAcidCompound> getAminoAcidCompounds()
+}
+class org.biojava.nbio.core.sequence.transcription.TranscriptionEngine.IOD {
++ {static} TranscriptionEngine INSTANCE
+}
+class org.biojava.nbio.core.sequence.transcription.TranscriptionEngine.Builder {
+- Table table
+- RNAToAminoAcidTranslator rnaAminoAcidTranslator
+- DNAToRNATranslator dnaRnaTranslator
+- SequenceCreatorInterface<AminoAcidCompound> proteinSequenceCreator
+- SequenceCreatorInterface<NucleotideCompound> rnaSequenceCreator
+- CompoundSet<NucleotideCompound> dnaCompounds
+- CompoundSet<NucleotideCompound> rnaCompounds
+- CompoundSet<AminoAcidCompound> aminoAcidCompounds
+- boolean initMet
+- boolean trimStop
+- boolean translateNCodons
+- boolean decorateRna
+- boolean stopAtStopCodons
+- boolean waitForStartCodon
++ TranscriptionEngine build()
++ Builder table(Integer)
++ Builder table(String)
++ Builder table(Table)
++ Builder dnaCompounds(CompoundSet<NucleotideCompound>)
++ Builder rnaCompounds(CompoundSet<NucleotideCompound>)
++ Builder aminoAcidsCompounds(CompoundSet<AminoAcidCompound>)
++ Builder dnaRnaTranslator(DNAToRNATranslator)
++ Builder rnaAminoAcidTranslator(RNAToAminoAcidTranslator)
++ Builder proteinCreator(SequenceCreatorInterface<AminoAcidCompound>)
++ Builder rnaCreator(SequenceCreatorInterface<NucleotideCompound>)
++ Builder initMet(boolean)
++ Builder trimStop(boolean)
++ Builder translateNCodons(boolean)
++ Builder stopAtStopCodons(boolean)
++ Builder waitForStartCodon(boolean)
++ Builder decorateRna(boolean)
+- CompoundSet<NucleotideCompound> getDnaCompounds()
+- CompoundSet<NucleotideCompound> getRnaCompounds()
+- CompoundSet<AminoAcidCompound> getAminoAcidCompounds()
+- DNAToRNATranslator getDnaRnaTranslator()
+- RNAToAminoAcidTranslator getRnaAminoAcidTranslator()
+- CompoundSet<Codon> getCodons()
+- SequenceCreatorInterface<AminoAcidCompound> getProteinCreator()
+- SequenceCreatorInterface<NucleotideCompound> getRnaCreator()
+- Table getTable()
+- boolean isInitMet()
+- boolean isTrimStop()
+- boolean isTranslateNCodons()
+- boolean isDecorateRna()
+- boolean isStopAtStopCodons()
+- boolean isWaitForStartCodon()
+}
+class org.biojava.nbio.core.sequence.ExonComparator {
+- {static} long serialVersionUID
++ int compare(ExonSequence,ExonSequence)
+}
+class org.biojava.nbio.core.sequence.io.GenbankWriterHelper {
++ {static} String LINEAR_DNA
++ {static} String CIRCULAR_DNA
++ {static} void writeProteinSequence(File,Collection<ProteinSequence>)
++ {static} void writeProteinSequence(OutputStream,Collection<ProteinSequence>)
++ {static} void writeNucleotideSequence(File,Collection<DNASequence>)
++ {static} void writeNucleotideSequence(OutputStream,Collection<DNASequence>)
++ {static} void writeNucleotideSequence(OutputStream,Collection<DNASequence>,String)
++ {static} void writeSequence(File,Sequence<?>)
++ {static} void writeSequence(OutputStream,Sequence<?>)
+- {static} Collection<Sequence<?>> singleSeqToCollection(Sequence<?>)
++ {static} void writeSequences(OutputStream,Collection<Sequence<?>>)
+}
+class org.biojava.nbio.core.sequence.template.SequenceMixin {
++ {static} int countCompounds(Sequence<C>,C)
++ {static} int countGC(Sequence<NucleotideCompound>)
++ {static} int countAT(Sequence<NucleotideCompound>)
++ {static} Map<C,Double> getDistribution(Sequence<C>)
++ {static} Map<C,Integer> getComposition(Sequence<C>)
++ {static} void write(Appendable,Sequence<C>)
++ {static} StringBuilder toStringBuilder(Sequence<C>)
++ {static} String toString(Sequence<C>)
++ {static} List<C> toList(Sequence<C>)
++ {static} int indexOf(Sequence<C>,C)
++ {static} int lastIndexOf(Sequence<C>,C)
++ {static} Iterator<C> createIterator(Sequence<C>)
++ {static} SequenceView<C> createSubSequence(Sequence<C>,int,int)
++ {static} Sequence<C> shuffle(Sequence<C>)
++ {static} String checksum(Sequence<C>)
++ {static} List<SequenceView<C>> nonOverlappingKmers(Sequence<C>,int)
++ {static} List<SequenceView<C>> overlappingKmers(Sequence<C>,int)
++ {static} SequenceView<C> inverse(Sequence<C>)
++ {static} boolean sequenceEqualityIgnoreCase(Sequence<C>,Sequence<C>)
++ {static} boolean sequenceEquality(Sequence<C>,Sequence<C>)
+- {static} boolean baseSequenceEquality(Sequence<C>,Sequence<C>,boolean)
+}
+class org.biojava.nbio.core.sequence.template.SequenceMixin.SequenceIterator {
+- Sequence<C> sequence
+- int length
+- int currentPosition
++ boolean hasNext()
++ C next()
++ void remove()
+}
+interface org.biojava.nbio.core.sequence.template.Sequence {
++ int getLength()
++ C getCompoundAt(int)
++ int getIndexOf(C)
++ int getLastIndexOf(C)
++ String getSequenceAsString()
++ List<C> getAsList()
++ SequenceView<C> getSubSequence(Integer,Integer)
++ CompoundSet<C> getCompoundSet()
++ int countCompounds(C)
++ SequenceView<C> getInverse()
+}
+class org.biojava.nbio.core.sequence.compound.RNACompoundSet {
++ {static} RNACompoundSet getRNACompoundSet()
++ NucleotideCompound newNucleotideCompound(String,String,String)
+}
+class org.biojava.nbio.core.sequence.compound.RNACompoundSet.InitaliseOnDemand {
++ {static} RNACompoundSet INSTANCE
+}
+class org.biojava.nbio.core.search.io.blast.BlastResultBuilder {
+- String program
+- String version
+- String reference
+- String dbFile
+- HashMap<String,String> programSpecificParameters
+- int iterationNumber
+- String queryID
+- String queryDef
+- int queryLength
+- Sequence querySequence
+- List<Hit> hits
++ BlastResultBuilder setProgram(String)
++ BlastResultBuilder setVersion(String)
++ BlastResultBuilder setReference(String)
++ BlastResultBuilder setDbFile(String)
++ BlastResultBuilder setProgramSpecificParameters(HashMap<String,String>)
++ BlastResultBuilder setIterationNumber(int)
++ BlastResultBuilder setQueryID(String)
++ BlastResultBuilder setQueryDef(String)
++ BlastResultBuilder setQueryLength(int)
++ BlastResultBuilder setHits(List<Hit>)
++ BlastResultBuilder setQuerySequence(Sequence)
++ BlastResult createBlastResult()
+}
+class org.biojava.nbio.core.sequence.compound.AmbiguityRNACompoundSet {
++ {static} AmbiguityRNACompoundSet getRNACompoundSet()
+}
+class org.biojava.nbio.core.sequence.compound.AmbiguityRNACompoundSet.InitaliseOnDemand {
++ {static} AmbiguityRNACompoundSet INSTANCE
+}
+class org.biojava.nbio.core.sequence.storage.JoiningSequenceReader {
+- {static} boolean BINARY_SEARCH
+- List<Sequence<C>> sequences
+- CompoundSet<C> compoundSet
+- int[] maxSequenceIndex
+- int[] minSequenceIndex
+- List<Sequence<C>> grepSequences(List<Sequence<C>>)
+- CompoundSet<C> grepCompoundSet()
++ C getCompoundAt(int)
++ CompoundSet<C> getCompoundSet()
++ int getLength()
+- int getSequenceIndex(int)
+- int[] getMinSequenceIndex()
+- int[] getMaxSequenceIndex()
+- void initSeqIndexes()
+- int linearSearch(int)
+- int binarySearch(int)
++ Iterator<C> iterator()
++ void setCompoundSet(CompoundSet<C>)
++ void setContents(String)
++ int countCompounds(C)
++ AccessionID getAccession()
++ List<C> getAsList()
++ boolean equals(Object)
++ int hashCode()
++ int getIndexOf(C)
++ int getLastIndexOf(C)
++ String getSequenceAsString()
++ SequenceView<C> getSubSequence(Integer,Integer)
++ SequenceView<C> getInverse()
+}
+class org.biojava.nbio.core.sequence.io.embl.EmblReader {
++ {static} EmblRecord process(File)
+- {static} void populateSequence(String,StringBuilder)
+- {static} void populateEmblReferences(String,String,EmblReference,LinkedList<EmblReference>)
+- {static} void populateAccessionNumber(String,LinkedList<String>)
+- {static} EmblId populateID(String)
+}
+class org.biojava.nbio.core.sequence.loader.GenbankProxySequenceReader {
+- {static} Logger logger
+- {static} String eutilBaseURL
+- String genbankDirectoryCache
+- GenbankSequenceParser<AbstractSequence<C>,C> genbankParser
+- GenericGenbankHeaderParser<AbstractSequence<C>,C> headerParser
+- String header
+- Map<String,List<AbstractFeature<AbstractSequence<C>,C>>> features
+- BufferedInputStream getBufferedInputStream(String,String)
+- void copyInputStreamToFile(InputStream,File)
+- InputStream getEutilsInputStream(String,String)
++ String getGenbankDirectoryCache()
++ void setGenbankDirectoryCache(String)
++ String getHeader()
++ GenericGenbankHeaderParser<AbstractSequence<C>,C> getHeaderParser()
++ Map<String,List<AbstractFeature<AbstractSequence<C>,C>>> getFeatures()
++ Map<String,List<DBReferenceInfo>> getDatabaseReferences()
++ List<String> getKeyWords()
++ {static} void main(String[])
+}
+interface org.biojava.nbio.core.alignment.template.MutableAlignedSequence {
+~ void setLocationInAlignment(Location)
+~ void shiftAtAlignmentLocation(Location,int)
+~ void shiftAtSequenceLocation(Location,int)
+}
+class org.biojava.nbio.core.alignment.matrices.DefaultAAIndexProvider {
+- {static} Logger logger
+~ Map<String,SubstitutionMatrix<AminoAcidCompound>> matrices
++ SubstitutionMatrix<AminoAcidCompound> getMatrix(String)
++ InputStream getInputStreamToAAindexFile()
+}
+abstract class org.biojava.nbio.core.sequence.location.template.AbstractLocation {
+- {static} long serialVersionUID
+- Point start
+- Point end
+- Strand strand
+- List<Location> subLocations
+- boolean circular
+- boolean betweenCompounds
+- AccessionID accession
+- boolean partialOn5prime
+- boolean partialOn3prime
+# void assertLocation()
++ Point getEnd()
++ Point getStart()
++ int getLength()
++ Strand getStrand()
++ List<Location> getSubLocations()
++ boolean isComplex()
++ AccessionID getAccession()
++ boolean isPartialOn5prime()
++ void setPartialOn5prime(boolean)
++ boolean isPartialOn3prime()
++ void setPartialOn3prime(boolean)
++ boolean isPartial()
++ Iterator<Location> iterator()
++ List<Location> getRelevantSubLocations()
+- List<Location> getAllSubLocations(Location)
++ boolean equals(Object)
++ int hashCode()
++ boolean isCircular()
++ boolean isBetweenCompounds()
++ Sequence<C> getSubSequence(Sequence<C>)
++ Sequence<C> getRelevantSubSequence(Sequence<C>)
+# Sequence<C> reverseSequence(Sequence<C>)
+# boolean canComplement(Sequence<C>)
++ String toString()
+# void setCircular(boolean)
+# void setEnd(Point)
+# void setStart(Point)
++ void setStrand(Strand)
++ void setBetweenCompounds(boolean)
++ void setSubLocations(List<Location>)
++ void setAccession(AccessionID)
+}
+class org.biojava.nbio.core.sequence.compound.CodonCompound {
+- NucleotideCompound one
+- NucleotideCompound two
+- NucleotideCompound three
+- boolean start
++ boolean equalsIgnoreCase(Compound)
++ boolean equals(Object)
++ int hashCode()
++ NucleotideCompound getOne()
++ NucleotideCompound getTwo()
++ NucleotideCompound getThree()
++ boolean isStart()
++ String getDescription()
++ String getLongName()
++ Float getMolecularWeight()
++ String getShortName()
++ void setDescription(String)
++ void setLongName(String)
++ void setMolecularWeight(Float)
++ void setShortName(String)
+}
+abstract class org.biojava.nbio.core.sequence.reference.AbstractReference {
+- String title
+- String authors
+- String journal
++ String getTitle()
++ void setTitle(String)
++ String getAuthors()
++ void setAuthors(String)
++ String getJournal()
++ void setJournal(String)
+}
+interface org.biojava.nbio.core.alignment.template.AlignedSequence {
+~ void clearCache()
+~ int[] getAlignmentFromSequence()
+~ int[] getSequenceFromAlignment()
+~ int getAlignmentIndexAt(int)
+~ Point getEnd()
+~ Location getLocationInAlignment()
+~ int getNumGaps()
+~ int getNumGapPositions()
+~ double getCoverage()
+~ S getOriginalSequence()
+~ int getOverlapCount()
+~ int getSequenceIndexAt(int)
+~ Point getStart()
+~ boolean isCircular()
+~ boolean isGap(int)
+}
+class org.biojava.nbio.core.sequence.io.DNASequenceCreator {
+- CompoundSet<NucleotideCompound> compoundSet
++ AbstractSequence<NucleotideCompound> getSequence(String,long)
++ AbstractSequence<NucleotideCompound> getSequence(ProxySequenceReader<NucleotideCompound>,long)
++ AbstractSequence<NucleotideCompound> getSequence(List<NucleotideCompound>)
+}
+class org.biojava.nbio.core.util.SequenceTools {
+# {static} String NUCLEOTIDE_LETTERS
++ {static} String permuteCyclic(String,int)
++ {static} void permuteCyclic(T[],T[],int)
++ {static} int percentNucleotideSequence(String)
++ {static} boolean isNucleotideSequence(String)
++ Sequence<?> getSequenceFromString(String)
++ {static} boolean equalLengthSequences(ProteinSequence[])
+}
+class org.biojava.nbio.core.sequence.views.RnaSequenceView {
+- CompoundSet<NucleotideCompound> rnaCompounds
+- Map<NucleotideCompound,NucleotideCompound> dnaToRna
+- Map<NucleotideCompound,NucleotideCompound> rnaToDna
++ String getSequenceAsString()
++ NucleotideCompound getCompoundAt(int)
++ int getIndexOf(NucleotideCompound)
++ int getLastIndexOf(NucleotideCompound)
++ Map<NucleotideCompound,NucleotideCompound> getRnaToDna()
++ Map<NucleotideCompound,NucleotideCompound> getDnaToRna()
+# void buildTranslators()
++ void setCompoundSet(CompoundSet<NucleotideCompound>)
++ void setContents(String)
+}
+class org.biojava.nbio.core.sequence.loader.SequenceFileProxyLoader {
+~ SequenceParserInterface sequenceParser
+- CompoundSet<C> compoundSet
+- List<C> parsedCompounds
+~ File file
+~ long sequenceStartIndex
+~ int sequenceLength
++ void setCompoundSet(CompoundSet<C>)
+- boolean init()
++ void setContents(String)
++ int getLength()
++ C getCompoundAt(int)
++ int getIndexOf(C)
++ int getLastIndexOf(C)
++ String toString()
++ String getSequenceAsString()
++ String getSequenceAsString(Integer,Integer,Strand)
++ List<C> getAsList()
++ boolean equals(Object)
++ int hashCode()
++ SequenceView<C> getSubSequence(Integer,Integer)
++ Iterator<C> iterator()
++ CompoundSet<C> getCompoundSet()
++ AccessionID getAccession()
++ int countCompounds(C)
++ SequenceView<C> getInverse()
+}
+class org.biojava.nbio.core.sequence.CDSComparator {
+- {static} long serialVersionUID
++ int compare(CDSSequence,CDSSequence)
+}
+interface org.biojava.nbio.core.sequence.template.SequenceReader {
++ void setCompoundSet(CompoundSet<C>)
++ void setContents(String)
+}
+class org.biojava.nbio.core.sequence.loader.ArrayListProxySequenceReader {
+}
+class org.biojava.nbio.core.sequence.storage.SequenceAsStringHelper {
++ String getSequenceAsString(List<C>,CompoundSet<C>,Integer,Integer,Strand)
+}
+interface org.biojava.nbio.core.sequence.io.template.SequenceCreatorInterface {
++ AbstractSequence<C> getSequence(String,long)
++ AbstractSequence<C> getSequence(ProxySequenceReader<C>,long)
++ AbstractSequence<C> getSequence(List<C>)
+}
+interface org.biojava.nbio.core.util.XMLWriter {
++ void printRaw(String)
++ void openTag(String,String)
++ void openTag(String)
++ void attribute(String,String,String)
++ void attribute(String,String)
++ void print(String)
++ void println(String)
++ void closeTag(String,String)
++ void closeTag(String)
++ void declareNamespace(String,String)
++ void close()
+}
+class org.biojava.nbio.core.alignment.matrices.SubstitutionMatrixHelper {
+- {static} long serialVersionUID
+- {static} Map<String,SubstitutionMatrix<AminoAcidCompound>> aminoAcidMatrices
+- {static} Map<String,SubstitutionMatrix<NucleotideCompound>> nucleotideMatrices
++ {static} SubstitutionMatrix<AminoAcidCompound> getMatrixFromAAINDEX(String)
++ {static} SubstitutionMatrix<AminoAcidCompound> getIdentity()
++ {static} SubstitutionMatrix<AminoAcidCompound> getBlosum100()
++ {static} SubstitutionMatrix<AminoAcidCompound> getBlosum30()
++ {static} SubstitutionMatrix<AminoAcidCompound> getBlosum35()
++ {static} SubstitutionMatrix<AminoAcidCompound> getBlosum40()
++ {static} SubstitutionMatrix<AminoAcidCompound> getBlosum45()
++ {static} SubstitutionMatrix<AminoAcidCompound> getBlosum50()
++ {static} SubstitutionMatrix<AminoAcidCompound> getBlosum55()
++ {static} SubstitutionMatrix<AminoAcidCompound> getBlosum60()
++ {static} SubstitutionMatrix<AminoAcidCompound> getBlosum62()
++ {static} SubstitutionMatrix<AminoAcidCompound> getBlosum65()
++ {static} SubstitutionMatrix<AminoAcidCompound> getBlosum70()
++ {static} SubstitutionMatrix<AminoAcidCompound> getBlosum75()
++ {static} SubstitutionMatrix<AminoAcidCompound> getBlosum80()
++ {static} SubstitutionMatrix<AminoAcidCompound> getBlosum85()
++ {static} SubstitutionMatrix<AminoAcidCompound> getBlosum90()
++ {static} SubstitutionMatrix<AminoAcidCompound> getGonnet250()
++ {static} SubstitutionMatrix<NucleotideCompound> getNuc4_2()
++ {static} SubstitutionMatrix<NucleotideCompound> getNuc4_4()
++ {static} SubstitutionMatrix<AminoAcidCompound> getPAM250()
++ {static} SubstitutionMatrix<AminoAcidCompound> getAminoAcidSubstitutionMatrix(String)
+- {static} SubstitutionMatrix<AminoAcidCompound> getAminoAcidMatrix(String)
+- {static} SubstitutionMatrix<NucleotideCompound> getNucleotideMatrix(String)
+- {static} InputStreamReader getReader(String)
+}
+interface org.biojava.nbio.core.search.io.ResultFactory {
+~ List<String> getFileExtensions()
+~ void setFile(File)
+~ List<Result> createObjects(double)
+~ void storeObjects(List<Result>)
+~ void setQueryReferences(List<Sequence>)
+~ void setDatabaseReferences(List<Sequence>)
+}
+class org.biojava.nbio.core.sequence.template.SequenceProxyView {
+- Integer bioStart
+- Integer bioEnd
+- Sequence<C> sequence
++ Sequence<C> getViewedSequence()
++ String getSequenceAsString()
++ List<C> getAsList()
++ boolean equals(Object)
++ int hashCode()
++ C getCompoundAt(int)
++ int getIndexOf(C)
++ int getLastIndexOf(C)
++ int getLength()
++ CompoundSet<C> getCompoundSet()
++ SequenceView<C> getSubSequence(Integer,Integer)
++ Iterator<C> iterator()
++ AccessionID getAccession()
++ Integer getBioStart()
++ void setBioStart(Integer)
++ Integer getBioEnd()
++ void setBioEnd(Integer)
++ int countCompounds(C)
++ SequenceView<C> getInverse()
+}
+class org.biojava.nbio.core.sequence.compound.AmbiguityDNACompoundSet {
++ {static} AmbiguityDNACompoundSet getDNACompoundSet()
+}
+class org.biojava.nbio.core.sequence.compound.AmbiguityDNACompoundSet.InitaliseOnDemand {
++ {static} AmbiguityDNACompoundSet INSTANCE
+}
+class org.biojava.nbio.core.sequence.io.CasePreservingProteinSequenceCreator {
+- {static} Logger logger
++ AbstractSequence<AminoAcidCompound> getSequence(ProxySequenceReader<AminoAcidCompound>,long)
++ AbstractSequence<AminoAcidCompound> getSequence(String,long)
++ AbstractSequence<AminoAcidCompound> getSequence(List<AminoAcidCompound>)
+- {static} List<Object> getStringCase(String)
++ {static} void main(String[])
++ {static} void setLowercaseToNull(ProteinSequence,Object[])
+}
+class org.biojava.nbio.core.search.io.blast.BlastTabularParser {
+- String blastReference
+- {static} Logger log
+- File targetFile
+- int fileLinesCount
+- PARSING_CONSISTENCY parsingConsistency
+~ int queryIdNumber
+~ HashMap<String,String> queryIdMapping
+~ String programName
+- String queryId
+- String subjectId
+- String percIdentity
+- String alnLength
+- String mismatchCount
+- String gapOpenCount
+- String queryStart
+- String queryEnd
+- String subjectStart
+- String subjectEnd
+- String evalue
+- String bitScore
++ List<String> getFileExtensions()
++ void setFile(File)
++ List<Result> createObjects(double)
+- String fetchData(Scanner)
++ void storeObjects(List<Result>)
++ void setQueryReferences(List<Sequence>)
++ void setDatabaseReferences(List<Sequence>)
++ void setParsingConsistency(PARSING_CONSISTENCY)
+}
+class org.biojava.nbio.core.util.FileDownloadUtils {
+- {static} Logger logger
++ {static} void copy(File,File)
++ {static} String getFileExtension(File)
++ {static} String getFilePrefix(File)
++ {static} void downloadFile(URL,File)
++ {static} String toUnixPath(String)
++ {static} String expandUserHome(String)
++ {static} boolean ping(String,int)
++ {static} URLConnection prepareURLConnection(String,int)
++ {static} void deleteDirectory(Path)
++ {static} void deleteDirectory(String)
++ {static} void main(String[])
+}
+interface org.biojava.nbio.core.sequence.template.Accessioned {
+~ AccessionID getAccession()
+}
+class org.biojava.nbio.core.sequence.SequenceOptimizationHints {
+- {static} SequenceUsage sequenceUsage
+- {static} SequenceCollection sequenceCollection
++ {static} SequenceUsage getSequenceUsage()
++ {static} void setSequenceUsage(SequenceUsage)
++ {static} SequenceCollection getSequenceCollection()
++ {static} void setSequenceCollection(SequenceCollection)
+}
+class org.biojava.nbio.core.sequence.TaxonomyID {
+- String id
+~ DataSource dataSource
++ String getID()
++ DataSource getDataSource()
+}
+abstract class org.biojava.nbio.core.search.io.Result {
+- String program
+- String version
+- String reference
+- String dbFile
+- HashMap<String,String> programSpecificParameters
+- int iterationNumber
+- String queryID
+- String queryDef
+- int queryLength
+- Sequence querySequence
+- List<Hit> hits
+- int hitCounter
++ int hashCode()
++ boolean equals(Object)
++ int getIterationNumber()
++ String getQueryID()
++ String getQueryDef()
++ int getQueryLength()
++ int getHitCounter()
++ String getProgram()
++ String getVersion()
++ String getReference()
++ String getDbFile()
++ Set<String> getProgramSpecificParametersList()
++ String getProgramSpecificParameter(String)
++ Sequence getQuerySequence()
++ Iterator<Hit> iterator()
+}
+interface org.biojava.nbio.core.sequence.io.template.SequenceHeaderParserInterface {
++ void parseHeader(String,S)
+}
+class org.biojava.nbio.core.alignment.SimpleSequencePair {
+- {static} long serialVersionUID
+- int identicals
++ C getCompoundInQueryAt(int)
++ C getCompoundInTargetAt(int)
++ int getIndexInQueryAt(int)
++ int getIndexInQueryForTargetAt(int)
++ int getIndexInTargetAt(int)
++ int getIndexInTargetForQueryAt(int)
++ int getNumIdenticals()
++ int getNumSimilars()
++ AlignedSequence<S,C> getQuery()
++ AlignedSequence<S,C> getTarget()
++ double getPercentageOfIdentity(boolean)
+}
+class org.biojava.nbio.core.sequence.features.DBReferenceInfo {
+- LinkedHashMap<String,String> properties
+- String database
+- String id
++ void addProperty(String,String)
++ LinkedHashMap<String,String> getProperties()
++ void setProperties(LinkedHashMap<String,String>)
++ String getDatabase()
++ void setDatabase(String)
++ String getId()
++ void setId(String)
++ String toString()
+}
+class org.biojava.nbio.core.sequence.features.QuantityFeature {
+- List<Number> quantities
++ void addQuantity(Number)
++ List<Number> getQuantities()
++ void setQuantities(List<Number>)
+}
+class org.biojava.nbio.core.sequence.io.embl.EmblId {
+- String primaryAccession
+- String sequenceVersion
+- String topology
+- String moleculeType
+- String dataClass
+- String taxonomicDivision
+- String sequenceLength
++ String getPrimaryAccession()
++ String getSequenceVersion()
++ String getTopology()
++ String getMoleculeType()
++ String getDataClass()
++ String getTaxonomicDivision()
++ String getSequenceLength()
+}
+class org.biojava.nbio.core.sequence.location.InsdcParser {
+- boolean isSequenceCircular
+- long sequenceLength
+- DataSource dataSource
+# {static} Pattern singleLocationPattern
+# {static} Pattern genbankSplitPattern
+# {static} String locationSplitPattern
+# Integer featureGlobalStart
+- complexFeaturesAppendEnum complexFeaturesAppendMode
++ void setComplexFeaturesAppendMode(complexFeaturesAppendEnum)
++ DataSource getDataSource()
++ void setSequenceCircular(boolean)
++ void setSequenceLength(long)
++ Location parse(String)
+- List<Location> parseLocationString(String,int)
+- List<String> splitString(String)
+- Strand getGroupLocationStrand(List<Location>)
++ {static} void main(String[])
+}
+class org.biojava.nbio.core.alignment.SimpleAlignedSequence {
+- {static} long serialVersionUID
+- {static} String gap
+- AlignedSequence<S,C> prev
+- S original
+- int length
+- Location location
+- int numGaps
+- int numGapPositions
+- int[] alignmentFromSequence
+- int[] sequenceFromAlignment
++ void clearCache()
+- void setAlignmentFromSequence()
++ int[] getAlignmentFromSequence()
++ int getAlignmentIndexAt(int)
++ Point getEnd()
++ Location getLocationInAlignment()
++ int getNumGaps()
++ S getOriginalSequence()
++ int getOverlapCount()
+- void setSequenceFromAlignment()
++ int[] getSequenceFromAlignment()
++ int getSequenceIndexAt(int)
++ Point getStart()
++ boolean isCircular()
++ boolean isGap(int)
++ int countCompounds(C)
++ AccessionID getAccession()
++ List<C> getAsList()
++ boolean equals(Object)
++ int hashCode()
++ C getCompoundAt(int)
++ CompoundSet<C> getCompoundSet()
++ int getIndexOf(C)
++ int getLastIndexOf(C)
++ int getLength()
++ String getSequenceAsString()
++ SequenceView<C> getSubSequence(Integer,Integer)
++ Iterator<C> iterator()
++ String toString()
+- void setLocation(List<Step>)
++ SequenceView<C> getInverse()
++ int getNumGapPositions()
++ double getCoverage()
+}
+class org.biojava.nbio.core.sequence.transcription.RNAToAminoAcidTranslator {
+- boolean trimStops
+- boolean initMetOnly
+- Map<Table.CaseInsensitiveTriplet,Codon> quickLookup
+- Map<AminoAcidCompound,List<Codon>> aminoAcidToCodon
+- Codon[] codonArray
+- AminoAcidCompound unknownAminoAcidCompound
+- AminoAcidCompound methionineAminoAcidCompound
+- boolean translateNCodons
+- boolean stopAtStopCodons
+- boolean waitForStartCodon
++ List<Sequence<AminoAcidCompound>> createSequences(Sequence<NucleotideCompound>)
+# void postProcessCompoundLists(List<List<AminoAcidCompound>>)
+# void trimStop(List<AminoAcidCompound>)
++ boolean translateNCodons()
+}
+class org.biojava.nbio.core.sequence.storage.TwoBitSequenceReader {
+}
+class org.biojava.nbio.core.sequence.storage.TwoBitSequenceReader.TwoBitArrayWorker {
+- {static} byte MASK
+# byte bitMask()
+# int compoundsPerDatatype()
+# Map<C,Integer> generateCompoundsToIndex()
+# List<C> generateIndexToCompounds()
+}
+class org.biojava.nbio.core.sequence.io.util.IOUtils {
+- {static} Logger logger
+- {static} int BUFFER
++ {static} void close(Closeable)
++ {static} void copy(InputStream,OutputStream)
++ {static} void processReader(BufferedReader,ReaderProcessor)
++ {static} List<String> getList(BufferedReader)
++ {static} List<String> getList(InputStream)
++ {static} List<String> getList(File)
++ {static} InputStream openFile(File)
++ {static} int getGCGChecksum(List<S>)
++ {static} int getGCGChecksum(S)
++ {static} String getGCGHeader(List<S>)
++ {static} String getGCGType(CompoundSet<C>)
++ {static} String getIDFormat(List<S>)
++ {static} String getPDBCharacter(boolean,char,char,boolean,char)
++ {static} String getPDBConservation(boolean,char,char,boolean)
+- {static} String getPDBString(boolean,char,char,boolean,String,String,String,String)
++ {static} String getPDBLegend()
++ {static} void print(String,File)
+}
+interface org.biojava.nbio.core.sequence.io.util.IOUtils.ReaderProcessor {
+~ void process(String)
+}
+class org.biojava.nbio.core.sequence.storage.SingleCompoundSequenceReader {
+- C compound
+- CompoundSet<C> compoundSet
+- int length
++ void setCompoundSet(CompoundSet<C>)
++ void setContents(String)
++ int getLength()
++ C getCompoundAt(int)
++ int getIndexOf(C)
++ int getLastIndexOf(C)
++ String getSequenceAsString()
++ List<C> getAsList()
++ SequenceView<C> getSubSequence(Integer,Integer)
++ CompoundSet<C> getCompoundSet()
++ AccessionID getAccession()
++ int countCompounds(C)
++ Iterator<C> iterator()
++ SequenceView<C> getInverse()
++ int hashCode()
++ boolean equals(Object)
++ boolean equals(Sequence<C>)
+}
+class org.biojava.nbio.core.sequence.TranscriptSequence {
+- {static} Logger logger
+- ArrayList<CDSSequence> cdsSequenceList
+- LinkedHashMap<String,CDSSequence> cdsSequenceHashMap
+- StartCodonSequence startCodonSequence
+- StopCodonSequence stopCodonSequence
+- GeneSequence parentGeneSequence
++ int getLength()
++ Strand getStrand()
++ CDSSequence removeCDS(String)
++ LinkedHashMap<String,CDSSequence> getCDSSequences()
++ CDSSequence addCDS(AccessionID,int,int,int)
++ ArrayList<ProteinSequence> getProteinCDSSequences()
++ DNASequence getDNACodingSequence()
++ ProteinSequence getProteinSequence()
++ ProteinSequence getProteinSequence(TranscriptionEngine)
++ StartCodonSequence getStartCodonSequence()
++ void addStartCodonSequence(AccessionID,int,int)
++ StopCodonSequence getStopCodonSequence()
++ void addStopCodonSequence(AccessionID,int,int)
+}
+interface org.biojava.nbio.core.sequence.location.template.AccesionedLocation {
+~ ProxySequenceReader<? extends Compound> getProxySequenceReader()
+}
+class org.biojava.nbio.core.sequence.views.ReversedSequenceView {
+- int sequenceSize
++ String getSequenceAsString()
+# int toIndex(int)
++ C getCompoundAt(int)
+}
+class org.biojava.nbio.core.util.XMLHelper {
++ {static} Element addChildElement(Element,String)
++ {static} Document getNewDocument()
++ {static} Document loadXML(String)
++ {static} Document inputStreamToDocument(InputStream)
++ {static} void outputToStream(Document,OutputStream)
++ {static} void outputToStream(Element,OutputStream)
++ {static} Element selectParentElement(Element,String)
++ {static} Element selectSingleElement(Element,String)
++ {static} ArrayList<Element> selectElements(Element,String)
+}
+abstract class org.biojava.nbio.core.sequence.template.AbstractCompound {
+- String base
+- String upperedBase
+- String shortName
+- String longName
+- String description
+- Float molecularWeight
++ String getBase()
++ String getUpperedBase()
++ String getDescription()
++ void setDescription(String)
++ String getShortName()
++ void setShortName(String)
++ String getLongName()
++ void setLongName(String)
++ Float getMolecularWeight()
++ void setMolecularWeight(Float)
++ String toString()
++ boolean equals(Object)
++ int hashCode()
++ boolean equalsIgnoreCase(Compound)
+}
+class org.biojava.nbio.core.exceptions.Messages {
++ {static} String ENDOFFILE
++ {static} String SECTIONKEYNULL
+}
+class org.biojava.nbio.core.sequence.location.FuzzyPoint {
++ {static} Resolver<FuzzyPoint> MIN_RESOLVER
++ {static} Resolver<FuzzyPoint> MAX_RESOLVER
++ {static} Resolver<FuzzyPoint> MEAN_RESOLVER
+- int min
+- int max
+- Resolver<FuzzyPoint> resolver
++ Integer getPosition()
+# Integer getMax()
+# Integer getMin()
+# Resolver<FuzzyPoint> getResolver()
++ Point reverse(int)
++ Point offset(int)
++ boolean equals(Object)
++ int hashCode()
++ int compareTo(Point)
+}
+class org.biojava.nbio.core.sequence.compound.AminoAcidCompound {
+- {static} long serialVersionUID
+- AminoAcidCompoundSet compoundSet
++ boolean equals(Object)
++ int hashCode()
++ boolean equalsIgnoreCase(Compound)
++ CompoundSet<AminoAcidCompound> getCompoundSet()
+}
+class org.biojava.nbio.core.sequence.StartCodonSequence {
++ DNASequence parentGeneSequence
++ int getLength()
+}
+class org.biojava.nbio.core.util.SoftHashMap {
+- {static} Logger logger
++ {static} int DEFAULT_LIMIT
+- Map<K,SoftReference<V>> map
+- int max_limit
+- LinkedList<V> hardCache
+- ReferenceQueue<V> queue
++ V get(Object)
+- void clearGCCollected()
++ V put(K,V)
++ V remove(Object)
++ void clear()
++ int size()
++ Set<Map.Entry<K,V>> entrySet()
+}
+class org.biojava.nbio.core.util.SoftHashMap.SoftValue {
+- Object key
+}
+class org.biojava.nbio.core.sequence.compound.NucleotideCompound {
+- CompoundSet<NucleotideCompound> compoundSet
+- String complementStr
+- Set<NucleotideCompound> constituents
++ String getShortName()
++ ComplementCompound getComplement()
++ boolean equals(Object)
++ int hashCode()
++ boolean equalsIgnoreCase(Compound)
++ Set<NucleotideCompound> getConstituents()
++ boolean isAmbiguous()
+}
+class org.biojava.nbio.core.sequence.io.embl.EmblRecord {
+- EmblId emblId
+- List<EmblReference> emblReference
+- List<String> accessionNumber
+- String projectIdentifier
+- String orGanelle
+- String createdDate
+- String featureHeader
+- String featureTable
+- String lastUpdatedDate
+- String sequenceDescription
+- List<String> keyword
+- String organismSpecies
+- String organismClassification
+- String databaseCrossReference
+- String assemblyHeader
+- String assemblyInformation
+- String constructedSequence
+- String sequenceHeader
+- String sequence
++ EmblId getEmblId()
++ void setEmblId(EmblId)
++ List<EmblReference> getEmblReference()
++ void setEmblReference(List<EmblReference>)
++ List<String> getAccessionNumber()
++ void setAccessionNumber(List<String>)
++ String getProjectIdentifier()
++ void setProjectIdentifier(String)
++ String getOrGanelle()
++ void setOrGanelle(String)
++ String getCreatedDate()
++ void setCreatedDate(String)
++ String getFeatureHeader()
++ void setFeatureHeader(String)
++ String getFeatureTable()
++ void setFeatureTable(String)
++ String getLastUpdatedDate()
++ void setLastUpdatedDate(String)
++ String getSequenceDescription()
++ void setSequenceDescription(String)
++ List<String> getKeyword()
++ void setKeyword(List<String>)
++ String getOrganismSpecies()
++ void setOrganismSpecies(String)
++ String getOrganismClassification()
++ void setOrganismClassification(String)
++ String getDatabaseCrossReference()
++ void setDatabaseCrossReference(String)
++ String getAssemblyHeader()
++ void setAssemblyHeader(String)
++ String getAssemblyInformation()
++ void setAssemblyInformation(String)
++ String getConstructedSequence()
++ void setConstructedSequence(String)
++ String getSequenceHeader()
++ void setSequenceHeader(String)
++ String getSequence()
++ void setSequence(String)
+}
+class org.biojava.nbio.core.sequence.io.embl.EmblReference {
+- String referenceNumber
+- String referenceComment
+- String referencePosition
+- String referenceCrossReference
+- String referenceGroup
+- String referenceAuthor
+- String referenceTitle
+- String referenceLocation
++ String getReferenceNumber()
++ void setReferenceNumber(String)
++ String getReferenceComment()
++ void setReferenceComment(String)
++ String getReferencePosition()
++ void setReferencePosition(String)
++ String getReferenceCrossReference()
++ void setReferenceCrossReference(String)
++ String getReferenceGroup()
++ void setReferenceGroup(String)
++ String getReferenceAuthor()
++ void setReferenceAuthor(String)
++ String getReferenceTitle()
++ void setReferenceTitle(String)
++ String getReferenceLocation()
++ void setReferenceLocation(String)
++ EmblReference copyEmblReference(EmblReference)
+}
+class org.biojava.nbio.core.sequence.ProteinSequence {
+- {static} Logger logger
++ void setParentDNASequence(AbstractSequence<NucleotideCompound>,Integer,Integer)
+- DNASequence getRawParentSequence(String)
+- String getSequence(Location)
++ {static} void main(String[])
+}
+interface org.biojava.nbio.core.sequence.io.template.GenbankHeaderFormatInterface {
++ {static} String UNKNOWN_DNA
++ String getHeader(S)
+}
+class org.biojava.nbio.core.sequence.ChromosomeSequence {
+- int chromosomeNumber
+- LinkedHashMap<String,GeneSequence> geneSequenceHashMap
++ int getChromosomeNumber()
++ void setChromosomeNumber(int)
++ LinkedHashMap<String,GeneSequence> getGeneSequences()
++ GeneSequence removeGeneSequence(String)
++ GeneSequence addGene(AccessionID,int,int,Strand)
++ GeneSequence getGene(String)
+}
+class org.biojava.nbio.core.sequence.io.IUPACParser {
++ {static} String IUPAC_LOCATION
+- InputStream is
+- List<IUPACTable> tables
+- Map<String,IUPACTable> nameLookup
+- Map<Integer,IUPACTable> idLookup
++ {static} IUPACParser getInstance()
++ List<IUPACTable> getTables()
++ IUPACTable getTable(String)
++ IUPACTable getTable(Integer)
+- void populateLookups()
+- List<IUPACTable> parseTables()
+}
+class org.biojava.nbio.core.sequence.io.IUPACParser.IOD {
++ {static} IUPACParser INSTANCE
+}
+class org.biojava.nbio.core.sequence.io.IUPACParser.IUPACTable {
+- Integer id
+- String name
+- String aminoAcidString
+- String startCodons
+- String baseOne
+- String baseTwo
+- String baseThree
+- List<Codon> codons
+- CompoundSet<Codon> compounds
++ Integer getId()
++ String getName()
++ boolean isStart(AminoAcidCompound)
++ List<Codon> getCodons(CompoundSet<NucleotideCompound>,CompoundSet<AminoAcidCompound>)
+- NucleotideCompound getCompound(List<String>,int,CompoundSet<NucleotideCompound>)
++ CompoundSet<Codon> getCodonCompoundSet(CompoundSet<NucleotideCompound>,CompoundSet<AminoAcidCompound>)
+- List<List<String>> codonStrings()
+- List<String> aminoAcids()
+- List<String> startCodons()
+- List<String> split(String)
+}
+class org.biojava.nbio.core.sequence.io.GenericGenbankHeaderFormat {
+- {static} int HEADER_WIDTH
+- {static} String lineSep
+- String seqType
+- String _write_single_line(String,String)
+- String _write_multi_line(String,String)
+- String _get_date(S)
+- String _get_data_division(S)
+- String _write_the_first_line(S)
+- String _write_comment(S)
++ String getHeader(S)
+}
+class org.biojava.nbio.core.sequence.storage.BitSequenceReader {
+- AccessionID accession
+- BitArrayWorker<C> worker
++ void setCompoundSet(CompoundSet<C>)
++ void setContents(String)
++ int countCompounds(C)
++ AccessionID getAccession()
++ List<C> getAsList()
++ C getCompoundAt(int)
++ CompoundSet<C> getCompoundSet()
++ int getIndexOf(C)
++ int getLastIndexOf(C)
++ int getLength()
++ String getSequenceAsString()
++ SequenceView<C> getSubSequence(int,int)
++ Iterator<C> iterator()
++ SequenceView<C> getSubSequence(Integer,Integer)
++ SequenceView<C> getInverse()
++ int hashCode()
++ boolean equals(Object)
+}
+abstract class org.biojava.nbio.core.sequence.storage.BitSequenceReader.BitArrayWorker {
+- CompoundSet<C> compoundSet
+- int length
+- int[] sequence
+- List<C> indexToCompoundsLookup
+- Map<C,Integer> compoundsToIndexLookup
++ {static} int BYTES_PER_INT
+- Integer hashcode
+# {abstract}byte bitMask()
+# {abstract}int compoundsPerDatatype()
+# {abstract}List<C> generateIndexToCompounds()
+# {abstract}Map<C,Integer> generateCompoundsToIndex()
+# int bitsPerCompound()
++ int seqArraySize(int)
++ void populate(Sequence<C>)
++ void populate(String)
++ void setCompoundAt(char,int)
++ void setCompoundAt(C,int)
++ C getCompoundAt(int)
+# byte processUnknownCompound(C,int)
+# List<C> getIndexToCompoundsLookup()
+# Map<C,Integer> getCompoundsToIndexLookup()
+- int biologicalIndexToArrayIndex(int)
+- byte shiftBy(int)
++ CompoundSet<C> getCompoundSet()
++ int getLength()
++ int hashCode()
++ boolean equals(Object)
+}
+class org.biojava.nbio.core.search.io.blast.BlastHitBuilder {
+- int hitNum
+- String hitId
+- String hitDef
+- String hitAccession
+- int hitLen
+- Sequence hitSequence
+- List<Hsp> hsps
++ BlastHitBuilder setHitNum(int)
++ BlastHitBuilder setHitId(String)
++ BlastHitBuilder setHitDef(String)
++ BlastHitBuilder setHitAccession(String)
++ BlastHitBuilder setHitLen(int)
++ BlastHitBuilder setHitSequence(Sequence)
++ BlastHitBuilder setHsps(List<Hsp>)
++ BlastHit createBlastHit()
+}
+class org.biojava.nbio.core.sequence.views.ComplementSequenceView {
++ String getSequenceAsString()
++ C getCompoundAt(int)
++ int getIndexOf(C)
++ int getLastIndexOf(C)
+}
+class org.biojava.nbio.core.sequence.io.BufferedReaderBytesRead {
+- Reader in
+- char[] cb
+- int nChars
+- {static} int INVALIDATED
+- {static} int UNMARKED
+- int markedChar
+- int readAheadLimit
+- boolean skipLF
+- boolean markedSkipLF
+- {static} int defaultCharBufferSize
+- {static} int defaultExpectedLineLength
+~ long bytesRead
++ long getBytesRead()
+- void ensureOpen()
+- void fill()
++ int read()
+- int read1(char[],int,int)
++ int read(char[],int,int)
+- String readLine(boolean)
++ String readLine()
++ long skip(long)
++ boolean ready()
++ boolean markSupported()
++ void mark(int)
++ void reset()
++ void close()
+}
+abstract class org.biojava.nbio.core.search.io.Hsp {
+- {static} Logger logger
+- Integer hspNum
+- Double hspBitScore
+- Integer hspScore
+- Double hspEvalue
+- Integer hspQueryFrom
+- Integer hspQueryTo
+- Integer hspHitFrom
+- Integer hspHitTo
+- Integer hspQueryFrame
+- Integer hspHitFrame
+- Integer hspIdentity
+- Integer hspPositive
+- Integer hspGaps
+- Integer hspAlignLen
+- String hspQseq
+- String hspHseq
+- String hspIdentityString
+- Double percentageIdentity
+- Integer mismatchCount
+- SimpleSequencePair<S,C> returnAln
++ int hashCode()
++ boolean equals(Object)
++ SequencePair<S,C> getAlignment()
+- Sequence getSequence(String)
+- List<Step> getAlignmentsSteps(String)
++ int getHspNum()
++ double getHspBitScore()
++ int getHspScore()
++ double getHspEvalue()
++ int getHspQueryFrom()
++ int getHspQueryTo()
++ int getHspHitFrom()
++ int getHspHitTo()
++ int getHspQueryFrame()
++ int getHspHitFrame()
++ int getHspIdentity()
++ int getHspPositive()
++ int getHspGaps()
++ int getHspAlignLen()
++ String getHspQseq()
++ String getHspHseq()
++ String getHspIdentityString()
++ Double getPercentageIdentity()
++ Integer getMismatchCount()
+}
+class org.biojava.nbio.core.sequence.location.InsdcLocations {
+}
+class org.biojava.nbio.core.sequence.location.InsdcLocations.BondLocation {
+# void assertLocation()
+}
+class org.biojava.nbio.core.sequence.location.InsdcLocations.OrderLocation {
+}
+class org.biojava.nbio.core.sequence.location.InsdcLocations.GroupLocation {
+}
+class org.biojava.nbio.core.sequence.location.InsdcLocations.OneOfLocation {
+}
+class org.biojava.nbio.core.alignment.SimpleProfile {
+- {static} long serialVersionUID
+- List<AlignedSequence<S,C>> list
+- List<S> originals
+- int length
+# {static} SubstitutionMatrix<AminoAcidCompound> matrix
++ AlignedSequence<S,C> getAlignedSequence(int)
++ AlignedSequence<S,C> getAlignedSequence(S)
++ List<AlignedSequence<S,C>> getAlignedSequences()
++ List<AlignedSequence<S,C>> getAlignedSequences(int)
++ List<AlignedSequence<S,C>> getAlignedSequences(S)
++ C getCompoundAt(int,int)
++ C getCompoundAt(S,int)
++ int[] getCompoundCountsAt(int)
++ int[] getCompoundCountsAt(int,List<C>)
++ List<C> getCompoundsAt(int)
++ CompoundSet<C> getCompoundSet()
++ float[] getCompoundWeightsAt(int)
++ float[] getCompoundWeightsAt(int,List<C>)
++ int getIndexOf(C)
++ int[] getIndicesAt(int)
++ int getLastIndexOf(C)
++ int getLength()
++ List<S> getOriginalSequences()
++ int getSize()
++ ProfileView<S,C> getSubProfile(Location)
++ boolean hasGap(int)
++ boolean isCircular()
++ String toString(int)
++ String toString(StringFormat)
++ String toString()
++ Iterator<AlignedSequence<S,C>> iterator()
+- String toString(int,String,String,boolean,boolean,boolean,boolean,boolean,boolean)
+- void printSequenceAlignmentWeb(StringBuilder,int,String,boolean,String,boolean,String,int,int)
+- void printConservation(StringBuilder,String,int,boolean,int,int,boolean)
+- boolean isSimilar(char,char)
+}
+class org.biojava.nbio.core.sequence.DNASequence {
+- {static} Logger logger
+- DNAType dnaType
++ RNASequence getRNASequence()
++ RNASequence getRNASequence(TranscriptionEngine)
++ RNASequence getRNASequence(Frame)
++ RNASequence getRNASequence(TranscriptionEngine,Frame)
++ int getGCCount()
++ SequenceView<NucleotideCompound> getReverse()
++ SequenceView<NucleotideCompound> getComplement()
++ SequenceView<NucleotideCompound> getReverseComplement()
++ DNAType getDNAType()
++ void setDNAType(DNAType)
++ {static} void main(String[])
+}
+class org.biojava.nbio.core.sequence.io.FastaSequenceParser {
++ String getSequence(BufferedReader,int)
+}
+class org.biojava.nbio.core.sequence.ExonSequence {
++ int getLength()
+}
+interface org.biojava.nbio.core.sequence.template.Compound {
++ boolean equalsIgnoreCase(Compound)
++ String getDescription()
++ void setDescription(String)
++ String getShortName()
++ void setShortName(String)
++ String getLongName()
++ void setLongName(String)
++ Float getMolecularWeight()
++ void setMolecularWeight(Float)
+}
+class org.biojava.nbio.core.sequence.io.GenericFastaHeaderFormat {
++ String getHeader(S)
+}
+class org.biojava.nbio.core.sequence.AccessionID {
+- String id
+- DataSource source
+- Integer version
+- String identifier
++ String getID()
++ DataSource getDataSource()
++ boolean equals(Object)
++ int hashCode()
++ Integer getVersion()
++ void setVersion(Integer)
++ String getIdentifier()
++ void setIdentifier(String)
++ String toString()
+}
+class org.biojava.nbio.core.exceptions.TranslationException {
+- {static} long serialVersionUID
+}
+class org.biojava.nbio.core.exceptions.CompoundNotFoundException {
+- {static} long serialVersionUID
+}
+class org.biojava.nbio.core.sequence.location.LocationHelper {
++ {static} Location location(List<Location>)
++ {static} Location location(List<Location>,String)
++ {static} Location location(int,int,Strand,int)
++ {static} Location circularLocation(int,int,Strand,int)
++ {static} Location getMin(List<Location>)
++ {static} Location getMax(List<Location>)
+- {static} Location scanLocations(List<Location>,LocationPredicate)
++ {static} int modulateCircularIndex(int,int)
++ {static} int completeCircularPasses(int,int)
++ {static} boolean detectCicular(List<Location>)
++ {static} boolean consistentAccessions(List<Location>)
++ {static} Strand detectStrand(List<Location>)
++ {static} Point detectStart(List<Location>)
++ {static} Point detectEnd(List<Location>,boolean)
+}
+interface org.biojava.nbio.core.sequence.location.LocationHelper.LocationPredicate {
+~ boolean accept(Location,Location)
+}
+interface org.biojava.nbio.core.alignment.template.ProfilePair {
+~ Profile<S,C> getQuery()
+~ Profile<S,C> getTarget()
+}
+class org.biojava.nbio.core.sequence.io.GenbankReader {
+- SequenceCreatorInterface<C> sequenceCreator
+- GenbankSequenceParser<S,C> genbankParser
+- BufferedReader bufferedReader
+- boolean closed
+- Logger logger
++ boolean isClosed()
++ LinkedHashMap<String,S> process()
++ LinkedHashMap<String,S> process(int)
++ void close()
+}
+interface org.biojava.nbio.core.sequence.io.template.FastaHeaderFormatInterface {
++ String getHeader(S)
+}
+class org.biojava.nbio.core.sequence.io.RNASequenceCreator {
+- CompoundSet<NucleotideCompound> compoundSet
++ AbstractSequence<NucleotideCompound> getSequence(String,long)
++ AbstractSequence<NucleotideCompound> getSequence(ProxySequenceReader<NucleotideCompound>,long)
++ AbstractSequence<NucleotideCompound> getSequence(List<NucleotideCompound>)
+}
+abstract class org.biojava.nbio.core.sequence.template.AbstractCompoundSet {
+- {static} Logger logger
+- Map<CharSequence,C> charSeqToCompound
+- int maxCompoundCharSequenceLength
+- Boolean compoundStringLengthEqual
+~ Map<C,Set<C>> equivalentsMap
+# void addCompound(C,C,Iterable<C>)
+# void addCompound(C,C,C)
+# void addEquivalent(C,C)
+# void addCompound(C)
++ String getStringForCompound(C)
++ C getCompoundForString(String)
++ int getMaxSingleCompoundStringLength()
++ boolean isCompoundStringLengthEqual()
++ boolean hasCompound(C)
++ boolean compoundsEquivalent(C,C)
++ Set<C> getEquivalentCompounds(C)
++ boolean compoundsEqual(C,C)
++ boolean isValidSequence(Sequence<C>)
++ List<C> getAllCompounds()
+- void assertCompound(C)
++ boolean isComplementable()
++ int hashCode()
++ boolean equals(Object)
+}
+class org.biojava.nbio.core.sequence.io.FastaReaderHelper {
++ {static} LinkedHashMap<String,DNASequence> readFastaDNASequence(File,boolean)
++ {static} LinkedHashMap<String,RNASequence> readFastaRNASequence(File,boolean)
++ {static} LinkedHashMap<String,ProteinSequence> readFastaProteinSequence(File)
++ {static} LinkedHashMap<String,ProteinSequence> readFastaProteinSequence(InputStream)
++ {static} LinkedHashMap<String,DNASequence> readFastaDNASequence(InputStream)
++ {static} LinkedHashMap<String,DNASequence> readFastaDNASequence(File)
++ {static} LinkedHashMap<String,RNASequence> readFastaRNASequence(InputStream)
++ {static} LinkedHashMap<String,RNASequence> readFastaRNASequence(File)
++ {static} void main(String[])
+}
+abstract class org.biojava.nbio.core.sequence.template.AbstractCompoundTranslator {
+- SequenceCreatorInterface<T> creator
+- Map<F,List<T>> mapper
+- CompoundSet<F> fromCompoundSet
+- CompoundSet<T> toCompoundSet
++ SequenceCreatorInterface<T> getCreator()
++ CompoundSet<F> getFromCompoundSet()
++ CompoundSet<T> getToCompoundSet()
+# void addStrings(String,String)
+# void addCompounds(F,T)
++ List<T> translateMany(F)
++ T translate(F)
++ List<Sequence<T>> createSequences(Sequence<F>)
+# {abstract}void postProcessCompoundLists(List<List<T>>)
+# void addCompoundsToList(List<T>,List<List<T>>)
+# List<Sequence<T>> workingListToSequences(List<List<T>>)
+- List<List<T>> duplicateList(List<List<T>>)
+# void addCompoundToLists(List<List<T>>,T)
++ Sequence<T> createSequence(Sequence<F>)
+}
+class org.biojava.nbio.core.sequence.reference.GenbankReference {
+- String authors
+- String title
+- String journal
++ String getAuthors()
++ void setAuthors(String)
++ String getTitle()
++ void setTitle(String)
++ String getJournal()
++ void setJournal(String)
+}
+interface org.biojava.nbio.core.sequence.location.template.Point {
+~ Integer getPosition()
+~ boolean isUnknown()
+~ boolean isUncertain()
+~ Point reverse(int)
+~ Point offset(int)
+~ boolean isLower(Point)
+~ boolean isHigher(Point)
+~ Point clonePoint()
+}
+interface org.biojava.nbio.core.sequence.location.template.Point.Resolver {
+~ int resolve(T)
+}
+interface org.biojava.nbio.core.sequence.template.ComplementCompound {
++ ComplementCompound getComplement()
+}
+class org.biojava.nbio.core.sequence.StopCodonSequence {
++ DNASequence parentGeneSequence
++ int getLength()
+}
+interface org.biojava.nbio.core.sequence.template.CompoundSet {
++ int getMaxSingleCompoundStringLength()
++ boolean isCompoundStringLengthEqual()
++ C getCompoundForString(String)
++ String getStringForCompound(C)
++ boolean compoundsEquivalent(C,C)
++ boolean isValidSequence(Sequence<C>)
++ Set<C> getEquivalentCompounds(C)
++ boolean hasCompound(C)
++ List<C> getAllCompounds()
+~ boolean isComplementable()
+}
+interface org.biojava.nbio.core.alignment.matrices.AAIndexProvider {
++ SubstitutionMatrix<AminoAcidCompound> getMatrix(String)
+}
+class org.biojava.nbio.core.alignment.matrices.AAindexFactory {
+- {static} AAIndexProvider provider
++ {static} AAIndexProvider getAAIndexProvider()
++ {static} void setAAIndexProvider(AAIndexProvider)
+}
+interface org.biojava.nbio.core.sequence.transcription.Table {
+~ List<Codon> getCodons(CompoundSet<NucleotideCompound>,CompoundSet<AminoAcidCompound>)
+~ CompoundSet<Codon> getCodonCompoundSet(CompoundSet<NucleotideCompound>,CompoundSet<AminoAcidCompound>)
+~ boolean isStart(AminoAcidCompound)
+}
+class org.biojava.nbio.core.sequence.transcription.Table.Codon {
+- CaseInsensitiveTriplet triplet
+- boolean start
+- boolean stop
+- AminoAcidCompound aminoAcid
+- String stringified
++ NucleotideCompound getOne()
++ NucleotideCompound getTwo()
++ NucleotideCompound getThree()
++ boolean isStart()
++ boolean isStop()
++ AminoAcidCompound getAminoAcid()
++ CaseInsensitiveTriplet getTriplet()
++ boolean equals(Object)
++ int hashCode()
++ String toString()
++ boolean equalsIgnoreCase(Compound)
++ String getDescription()
++ String getLongName()
++ Float getMolecularWeight()
++ String getShortName()
++ void setDescription(String)
++ void setLongName(String)
++ void setMolecularWeight(Float)
++ void setShortName(String)
+}
+class org.biojava.nbio.core.sequence.transcription.Table.CaseInsensitiveTriplet {
+- NucleotideCompound one
+- NucleotideCompound two
+- NucleotideCompound three
+- boolean hashSet
+- int hash
+- boolean stringSet
+- String stringify
++ NucleotideCompound getOne()
++ NucleotideCompound getTwo()
++ NucleotideCompound getThree()
++ boolean equals(Object)
++ int hashCode()
++ String toString()
++ int intValue()
++ int compoundToInt(NucleotideCompound)
+}
+class org.biojava.nbio.core.sequence.MultipleSequenceAlignment {
+- List<S> sequences
+- Integer length
++ void addAlignedSequence(S)
++ boolean removeAlignedSequence(S)
++ S getAlignedSequence(int)
++ List<S> getAlignedSequences()
++ List<C> getCompoundsAt(int)
++ CompoundSet<C> getCompoundSet()
++ int getLength()
++ int getSize()
++ String toString(int)
++ String toString(StringFormat)
++ String toString()
+- String toString(int,String,String,boolean,boolean,boolean,boolean)
+- void printSequenceAlignmentWeb(StringBuilder,int,String,int,int)
+- void printConservation(StringBuilder,String,int,int,boolean)
+}
+class org.biojava.nbio.core.sequence.io.ABITrace {
+- String sequence
+- int[] A
+- int traceLength
+- byte[] traceData
+- int macJunk
+- {static} int absIndexBase
+- int PLOC
+- int DATA9
+- void ABITraceInit(BufferedInputStream)
++ int getSequenceLength()
++ int getTraceLength()
++ int[] getBasecalls()
++ int[] getQcalls()
++ AbstractSequence<NucleotideCompound> getSequence()
++ int[] getTrace(String)
++ BufferedImage getImage(int,int)
+- int transmute(int,int,double)
+- double calculateScale(int)
+- int getMaximum()
+- void initData(byte[])
+- void setTraces()
+- void setSeq()
+- void setQcalls()
+- void setBasecalls()
+- void setIndex()
+- int getIntAt(int)
+- void getSubArray(byte[],int)
+- boolean isABI()
+}
+class org.biojava.nbio.core.util.StringManipulationHelper {
+- {static} Logger logger
+- {static} String UNIX_NEWLINE
++ {static} String convertStreamToString(InputStream)
++ {static} boolean equalsToIgnoreEndline(String,String)
++ {static} boolean equalsToXml(String,String)
++ {static} String padLeft(String,int)
++ {static} String padRight(String,int)
++ {static} String join(AbstractCollection<String>,String)
+}
+interface org.biojava.nbio.core.sequence.location.template.Location {
++ {static} Location EMPTY
+~ Point getStart()
+~ Point getEnd()
+~ int getLength()
+~ Strand getStrand()
+~ List<Location> getSubLocations()
+~ List<Location> getRelevantSubLocations()
+~ boolean isComplex()
+~ boolean isCircular()
+~ boolean isBetweenCompounds()
+~ Sequence<C> getSubSequence(Sequence<C>)
+~ Sequence<C> getRelevantSubSequence(Sequence<C>)
+}
+class org.biojava.nbio.core.sequence.location.template.Location.Tools {
++ {static} Location location(List<Location>,Integer,String)
++ {static} Location location(int,int,Strand,int)
++ {static} Location circularLocation(int,int,Strand,int)
++ {static} Location getMin(List<Location>)
++ {static} Location getMax(List<Location>)
+- {static} Location scanLocations(List<Location>,LocationPredicate)
++ {static} int modulateCircularIndex(int,int)
++ {static} int completeCircularPasses(int,int)
+}
+interface org.biojava.nbio.core.sequence.location.template.Location.Tools.LocationPredicate {
+~ boolean accept(Location,Location)
+}
+class org.biojava.nbio.core.sequence.GeneSequence {
+- {static} Logger logger
+- LinkedHashMap<String,TranscriptSequence> transcriptSequenceHashMap
+- LinkedHashMap<String,IntronSequence> intronSequenceHashMap
+- LinkedHashMap<String,ExonSequence> exonSequenceHashMap
+- ArrayList<IntronSequence> intronSequenceList
+- ArrayList<ExonSequence> exonSequenceList
+~ boolean intronAdded
+- Strand strand
+- ChromosomeSequence chromosomeSequence
++ ChromosomeSequence getParentChromosomeSequence()
++ int getLength()
++ void addIntronsUsingExons()
++ Strand getStrand()
++ void setStrand(Strand)
++ TranscriptSequence getTranscript(String)
++ LinkedHashMap<String,TranscriptSequence> getTranscripts()
++ TranscriptSequence removeTranscript(String)
++ TranscriptSequence addTranscript(AccessionID,int,int)
++ IntronSequence removeIntron(String)
++ IntronSequence addIntron(AccessionID,int,int)
++ ExonSequence removeExon(String)
++ ExonSequence addExon(AccessionID,int,int)
++ ArrayList<ExonSequence> getExonSequences()
++ ArrayList<IntronSequence> getIntronSequences()
++ DNASequence getSequence5PrimeTo3Prime()
+}
+interface org.biojava.nbio.core.alignment.template.MutableSequencePair {
+~ void setPair(AlignedSequence<S,C>,AlignedSequence<S,C>)
+~ void setQuery(AlignedSequence<S,C>)
+~ void setTarget(AlignedSequence<S,C>)
+}
+class org.biojava.nbio.core.sequence.features.FeatureDbReferenceInfo {
+- AbstractLocation location
+- FeatureInterface<S,C> parentFeature
+- List<FeatureInterface<S,C>> childrenFeatures
+- String description
+- String shortDescription
+- Object userObject
+- Map<String,List<Qualifier>> qualifiers
++ String getShortDescription()
++ void setShortDescription(String)
++ String getDescription()
++ void setDescription(String)
++ AbstractLocation getLocations()
++ void setLocation(AbstractLocation)
++ String getType()
++ void setType(String)
++ String getSource()
++ void setSource(String)
++ void setParentFeature(FeatureInterface<S,C>)
++ FeatureInterface<S,C> getParentFeature()
++ List<FeatureInterface<S,C>> getChildrenFeatures()
++ void setChildrenFeatures(List<FeatureInterface<S,C>>)
++ Object getUserObject()
++ void setUserObject(Object)
++ Map<String,List<Qualifier>> getQualifiers()
++ void setQualifiers(Map<String,List<Qualifier>>)
++ void addQualifier(String,Qualifier)
+}
+interface org.biojava.nbio.core.sequence.edits.Edit {
+~ Sequence<C> edit(Sequence<C>)
+}
+abstract class org.biojava.nbio.core.sequence.edits.Edit.AbstractEdit {
+- {static} Logger logger
+- int start
+- int end
+- String stringSequence
+- Sequence<C> sequence
+# {abstract}Sequence<C> getFivePrime(Sequence<C>)
+# {abstract}Sequence<C> getThreePrime(Sequence<C>)
++ Sequence<C> edit(Sequence<C>)
+# void setStringSequence(String)
+# void setSequence(Sequence<C>)
++ Sequence<C> getTargetSequence(Sequence<C>)
+# Sequence<C> getEmptySequence(Sequence<C>)
++ int getStart()
++ int getEnd()
+}
+class org.biojava.nbio.core.sequence.edits.Edit.Delete {
+# int getRealStart()
+# int getRealEnd()
+# Sequence<C> getFivePrime(Sequence<C>)
+# Sequence<C> getThreePrime(Sequence<C>)
+}
+class org.biojava.nbio.core.sequence.edits.Edit.Insert {
+- boolean singlePosition
+# Sequence<C> getFivePrime(Sequence<C>)
+# Sequence<C> getThreePrime(Sequence<C>)
+}
+class org.biojava.nbio.core.sequence.edits.Edit.Substitute {
++ int getEnd(Sequence<C>)
+# Sequence<C> getFivePrime(Sequence<C>)
+# Sequence<C> getThreePrime(Sequence<C>)
+}
+interface org.biojava.nbio.core.alignment.template.SubstitutionMatrix {
+~ CompoundSet<C> getCompoundSet()
+~ String getDescription()
+~ short[][] getMatrix()
+~ String getMatrixAsString()
+~ short getMaxValue()
+~ short getMinValue()
+~ String getName()
+~ short getValue(C,C)
+~ SubstitutionMatrix<C> normalizeMatrix(short)
+~ void setDescription(String)
+~ void setName(String)
+~ Map<C,Short> getRow(C)
+~ Map<C,Short> getColumn(C)
+}
+class org.biojava.nbio.core.sequence.RNASequence {
++ SequenceView<NucleotideCompound> getReverseComplement()
++ SequenceView<NucleotideCompound> getInverse()
++ SequenceView<NucleotideCompound> getComplement()
++ ProteinSequence getProteinSequence()
++ ProteinSequence getProteinSequence(TranscriptionEngine)
++ double getGC()
+}
+interface org.biojava.nbio.core.sequence.template.CompoundTranslator {
+~ T translate(F)
+~ List<T> translateMany(F)
+~ Sequence<T> createSequence(Sequence<F>)
+~ List<Sequence<T>> createSequences(Sequence<F>)
+}
+class org.biojava.nbio.core.sequence.storage.ArrayListSequenceReader {
+- CompoundSet<C> compoundSet
+- ArrayList<C> parsedCompounds
+- Integer hashcode
++ String getSequenceAsString()
++ String getSequenceAsString(Integer,Integer,Strand)
++ List<C> getAsList()
++ C getCompoundAt(int)
++ int getIndexOf(C)
++ int getLastIndexOf(C)
++ int getLength()
++ Iterator<C> iterator()
++ void setCompoundSet(CompoundSet<C>)
++ CompoundSet<C> getCompoundSet()
++ void setContents(String)
++ void setContents(List<C>)
++ SequenceView<C> getSubSequence(Integer,Integer)
++ AccessionID getAccession()
++ int countCompounds(C)
++ SequenceView<C> getInverse()
++ int hashCode()
++ boolean equals(Object)
+}
+class org.biojava.nbio.core.sequence.CDSSequence {
+~ Integer phase
+~ TranscriptSequence parentTranscriptSequence
++ int getLength()
++ Integer getPhase()
++ Strand getStrand()
++ String getCodingSequence()
+}
+class org.biojava.nbio.core.util.InputStreamProvider {
++ {static} int GZIP_MAGIC
++ {static} String CACHE_PROPERTY
+- boolean cacheRawFiles
++ InputStream getInputStream(String)
+- int getMagicNumber(InputStream)
++ InputStream getInputStream(URL)
++ InputStream getInputStream(File)
+- InputStream getInputStreamFromFile(File)
+- InputStream openCompressedFile(File)
+- InputStream openCompressedURL(URL)
+- InputStream openGZIPFile(File)
+- InputStream openGZIPURL(URL)
+}
+interface org.biojava.nbio.core.sequence.io.template.SequenceParserInterface {
++ String getSequence(BufferedReader,int)
+}
+class org.biojava.nbio.core.exceptions.ParserException {
+- {static} long serialVersionUID
+}
+class org.biojava.nbio.core.sequence.io.GenbankSequenceParser {
+- String seqData
+- GenericGenbankHeaderParser<S,C> headerParser
+- String header
+- String accession
+- boolean isCircularSequence
+- Map<String,List<DBReferenceInfo>> mapDB
+- Map<String,List<AbstractFeature<AbstractSequence<C>,C>>> featureCollection
+- Logger log
+- CompoundSet<?> compoundType
++ {static} String GENBANK_FORMAT
+# {static} String LOCUS_TAG
+# {static} String DEFINITION_TAG
+# {static} String ACCESSION_TAG
+# {static} String VERSION_TAG
+# {static} String KEYWORDS_TAG
+# {static} String SOURCE_TAG
+# {static} String ORGANISM_TAG
+# {static} String REFERENCE_TAG
+# {static} String AUTHORS_TAG
+# {static} String CONSORTIUM_TAG
+# {static} String TITLE_TAG
+# {static} String JOURNAL_TAG
+# {static} String PUBMED_TAG
+# {static} String MEDLINE_TAG
+# {static} String REMARK_TAG
+# {static} String COMMENT_TAG
+# {static} String FEATURE_TAG
+# {static} String BASE_COUNT_TAG_FULL
+# {static} String BASE_COUNT_TAG
+# {static} String START_SEQUENCE_TAG
+# {static} String DBSOURCE
+# {static} String PRIMARY
+# {static} String DBLINK
+# {static} String END_SEQUENCE_TAG
+# {static} Pattern lp
+# {static} Pattern vp
+# {static} Pattern refRange
+# {static} Pattern refp
+# {static} Pattern dbxp
+# {static} InsdcParser locationParser
+# {static} Pattern sectp
+# {static} Pattern readableFiles
+# {static} Pattern headerLine
+- String parse(BufferedReader)
+- void parseStartSequenceTag(List<String[]>)
+- void parseFeatureTag(List<String[]>)
+- void parseCommentTag(List<String[]>)
+- void parseReferenceTag(List<String[]>)
+- void parseVersionTag(List<String[]>)
+- void parseAccessionTag(List<String[]>)
+- void parseDefinitionTag(List<String[]>)
+- void parseLocusTag(List<String[]>)
+- List<String[]> readSection(BufferedReader)
++ String getSequence(BufferedReader,int)
++ String getHeader()
++ GenericGenbankHeaderParser<S,C> getSequenceHeaderParser()
++ Map<String,List<DBReferenceInfo>> getDatabaseReferences()
++ List<String> getKeyWords()
++ List<AbstractFeature<AbstractSequence<C>,C>> getFeatures(String)
++ Map<String,List<AbstractFeature<AbstractSequence<C>,C>>> getFeatures()
++ void parseFeatures(AbstractSequence<C>)
++ CompoundSet<?> getCompoundType()
+}
+interface org.biojava.nbio.core.sequence.features.FeatureRetriever {
+~ Map<String,List<AbstractFeature<AbstractSequence<C>,C>>> getFeatures()
+}
+interface org.biojava.nbio.core.sequence.template.SequenceView {
++ Sequence<C> getViewedSequence()
++ Integer getBioStart()
++ Integer getBioEnd()
+}
+class org.biojava.nbio.core.search.io.blast.BlastXMLParser {
+- {static} org.slf4j.Logger logger
+~ Document blastDoc
+- File targetFile
+- List<Sequence> queryReferences
+- Map<String,Sequence> queryReferencesMap
++ void setFile(File)
+- void readFile(String)
++ List<Result> createObjects(double)
++ List<String> getFileExtensions()
++ void setQueryReferences(List<Sequence>)
++ void setDatabaseReferences(List<Sequence>)
+- void mapIds()
++ void storeObjects(List<Result>)
+}
+class org.biojava.nbio.core.search.io.blast.BlastHsp {
+}
+class org.biojava.nbio.core.search.io.blast.BlastHit {
+}
+class org.biojava.nbio.core.sequence.views.WindowedSequence {
+- Sequence<C> sequence
+- int windowSize
++ int getWindowSize()
++ Sequence<C> getBackingSequence()
+# int toStartIndex(int)
++ int getLength()
++ List<C> getCompounds(int)
++ SequenceView<C> get(int)
++ Iterator<SequenceView<C>> iterator()
+}
+class org.biojava.nbio.core.sequence.views.WindowedSequence.WindowedSequenceIterator {
+- int end
+- int window
+- int offset
+- int currentIndex
+- Sequence<C> seq
++ boolean hasNext()
++ SequenceView<C> next()
++ void remove()
+}
+interface org.biojava.nbio.core.alignment.template.SequencePair {
+~ C getCompoundInQueryAt(int)
+~ C getCompoundInTargetAt(int)
+~ int getIndexInQueryAt(int)
+~ int getIndexInQueryForTargetAt(int)
+~ int getIndexInTargetAt(int)
+~ int getIndexInTargetForQueryAt(int)
+~ int getNumIdenticals()
+~ double getPercentageOfIdentity(boolean)
+~ int getNumSimilars()
+~ AlignedSequence<S,C> getQuery()
+~ AlignedSequence<S,C> getTarget()
+}
+class org.biojava.nbio.core.sequence.loader.UniprotProxySequenceReader {
+- {static} Logger logger
+- {static} String SPID_PATTERN
+- {static} String TREMBLID_PATTERN
++ {static} Pattern UP_AC_PATTERN
++ {static} String DEFAULT_UNIPROT_BASE_URL
+- {static} String uniprotbaseURL
+- {static} String uniprotDirectoryCache
+- String sequence
+- CompoundSet<C> compoundSet
+- List<C> parsedCompounds
+~ Document uniprotDoc
++ {static} UniprotProxySequenceReader<C> parseUniprotXMLString(String,CompoundSet<C>)
++ void setCompoundSet(CompoundSet<C>)
++ void setContents(String)
++ int getLength()
++ C getCompoundAt(int)
++ int getIndexOf(C)
++ int getLastIndexOf(C)
++ String toString()
++ String getSequenceAsString()
++ List<C> getAsList()
++ boolean equals(Object)
++ int hashCode()
++ SequenceView<C> getInverse()
++ String getSequenceAsString(Integer,Integer,Strand)
++ SequenceView<C> getSubSequence(Integer,Integer)
++ Iterator<C> iterator()
++ CompoundSet<C> getCompoundSet()
++ AccessionID getAccession()
++ ArrayList<AccessionID> getAccessions()
++ ArrayList<String> getAliases()
++ ArrayList<String> getProteinAliases()
+- void getProteinAliasesFromNameGroup(ArrayList<String>,Element)
+- void getProteinAliasesFromElement(ArrayList<String>,Element)
++ ArrayList<String> getGeneAliases()
++ int countCompounds(C)
+- Document getUniprotXML(String)
+- void writeCache(StringBuilder,String)
+- {static} HttpURLConnection openURLConnection(URL)
+- StringBuilder fetchUniprotXML(String)
+- StringBuilder fetchFromCache(String)
+- String getSequence(Document)
++ {static} String getUniprotbaseURL()
++ {static} void setUniprotbaseURL(String)
++ {static} String getUniprotDirectoryCache()
++ {static} void setUniprotDirectoryCache(String)
++ {static} void main(String[])
++ String getGeneName()
++ String getOrganismName()
++ ArrayList<String> getKeyWords()
++ Map<String,List<DBReferenceInfo>> getDatabaseReferences()
+}
+class org.biojava.nbio.core.util.SingleLinkageClusterer {
+- {static} Logger logger
+- double[][] matrix
+- boolean isScoreMatrix
+- int numItems
+- LinkedPair[] dendrogram
+- ArrayList<Integer> indicesToCheck
++ LinkedPair[] getDendrogram()
+- void clusterIt()
+- void merge(LinkedPair)
+- double link(double,double)
+- double getDistance(int,int)
+- void updateIndicesToCheck(int)
+- LinkedPair getClosestPair()
++ Map<Integer,Set<Integer>> getClusters(double)
+- boolean isWithinCutoff(int,double)
+- String clustersToString(Map<Integer,Set<Integer>>)
+- String matrixToString()
+}
+class org.biojava.nbio.core.util.SingleLinkageClusterer.LinkedPair {
+- int first
+- int second
+- double closestDistance
++ int getFirst()
++ int getSecond()
++ double getClosestDistance()
++ String toString()
+}
+class org.biojava.nbio.core.util.ConcurrencyTools {
+- {static} Logger logger
+- {static} ThreadPoolExecutor pool
+- {static} int tasks
++ {static} ThreadPoolExecutor getThreadPool()
++ {static} void setThreadPoolCPUsAvailable(int)
++ {static} void setThreadPoolCPUsFraction(float)
++ {static} void setThreadPoolDefault()
++ {static} void setThreadPoolSingle()
++ {static} void setThreadPoolSize(int)
++ {static} void setThreadPool(ThreadPoolExecutor)
++ {static} void shutdown()
++ {static} void shutdownAndAwaitTermination()
++ {static} Future<T> submit(Callable<T>,String)
++ {static} Future<T> submit(Callable<T>)
+}
+class org.biojava.nbio.core.alignment.SimpleProfilePair {
+- {static} long serialVersionUID
+- Profile<S,C> query
++ Profile<S,C> getQuery()
++ Profile<S,C> getTarget()
+}
+class org.biojava.nbio.core.sequence.location.SimplePoint {
+- {static} long serialVersionUID
+- int position
+- boolean unknown
+- boolean uncertain
++ Integer getPosition()
+# void setPosition(int)
++ boolean isUnknown()
+# void setUnknown(boolean)
++ boolean isUncertain()
+# void setUncertain(boolean)
++ Point reverse(int)
++ Point offset(int)
+# int reverse(int,int)
++ boolean equals(Object)
++ int hashCode()
++ String toString()
++ int compareTo(Point)
++ boolean isLower(Point)
++ boolean isHigher(Point)
++ Point clonePoint()
+}
+class org.biojava.nbio.core.util.CRC64Checksum {
+- {static} long POLY64
+- {static} long[] crcTable
+- long crc
++ void update(int)
++ void update(byte[],int,int)
++ void update(String)
++ long getValue()
++ String toString()
++ void reset()
+}
+class org.biojava.nbio.core.sequence.compound.ABITracerCompoundSet {
++ {static} ABITracerCompoundSet getABITracerCompoundSet()
++ NucleotideCompound newNucleotideCompound(String,String,String)
+}
+class org.biojava.nbio.core.sequence.compound.ABITracerCompoundSet.InitaliseOnDemand {
++ {static} ABITracerCompoundSet INSTANCE
+}
+class org.biojava.nbio.core.sequence.compound.AmbiguityDNARNAHybridCompoundSet {
++ {static} AmbiguityDNARNAHybridCompoundSet getDNARNAHybridCompoundSet()
+}
+class org.biojava.nbio.core.sequence.compound.AmbiguityDNARNAHybridCompoundSet.InitaliseOnDemand {
++ {static} AmbiguityDNARNAHybridCompoundSet INSTANCE
+}
+class org.biojava.nbio.core.sequence.io.GenbankWriter {
+~ int SEQUENCE_INDENT
+~ OutputStream os
+~ Collection<S> sequences
+~ GenbankHeaderFormatInterface<S,C> headerFormat
+- int lineLength
++ void process()
++ int getLineLength()
++ void setLineLength(int)
+}
+interface org.biojava.nbio.core.sequence.features.FeaturesKeyWordInterface {
++ List<String> getKeyWords()
+}
+class org.biojava.nbio.core.util.UncompressInputStream {
+- {static} Logger logger
+- {static} int TBL_CLEAR
+- {static} int TBL_FIRST
+- int[] tab_prefix
+- byte[] tab_suffix
+- int[] zeros
+- byte[] stack
+- boolean block_mode
+- int n_bits
+- int maxbits
+- int maxmaxcode
+- int maxcode
+- int bitmask
+- int oldcode
+- byte finchar
+- int stackp
+- int free_ent
+- byte[] data
+- int bit_pos
+- boolean eof
+- {static} int EXTRA
+~ {static} int LZW_MAGIC
+- {static} int MAX_BITS
+- {static} int INIT_BITS
+- {static} int HDR_MAXBITS
+- {static} int HDR_EXTENDED
+- {static} int HDR_FREE
+- {static} int HDR_BLOCK_MODE
+- {static} boolean debugTiming
++ int read()
++ int read(byte[],int,int)
+- int resetbuf(int)
+- void fill()
++ long skip(long)
++ int available()
+- void parse_header()
++ boolean markSupported()
++ {static} long uncompress(String,FileOutputStream)
++ {static} long uncompress(InputStream,OutputStream)
++ {static} void main(String[])
+}
+class org.biojava.nbio.core.sequence.io.FastaWriterHelper {
++ {static} void writeProteinSequence(File,Collection<ProteinSequence>)
++ {static} void writeProteinSequence(OutputStream,Collection<ProteinSequence>)
++ {static} void writeGeneSequence(File,Collection<GeneSequence>,boolean)
++ {static} void writeGeneSequence(OutputStream,Collection<GeneSequence>,boolean)
++ {static} void writeNucleotideSequence(File,Collection<DNASequence>)
++ {static} void writeNucleotideSequence(OutputStream,Collection<DNASequence>)
++ {static} void writeSequence(File,Sequence<?>)
++ {static} void writeSequence(OutputStream,Sequence<?>)
+- {static} Collection<Sequence<?>> singleSeqToCollection(Sequence<?>)
++ {static} void writeSequences(OutputStream,Collection<Sequence<?>>)
+}
+abstract class org.biojava.nbio.core.sequence.features.AbstractFeature {
+~ List<FeatureInterface<S,C>> childrenFeatures
+~ FeatureInterface<S,C> parentFeature
+~ AbstractLocation sequenceLocation
+~ String type
+~ String source
+- String description
+- String shortDescription
+- Object userObject
+- Map<String,List<Qualifier>> Qualifiers
++ {static} Comparator<FeatureInterface<?,?>> LOCATION_LENGTH
++ {static} Comparator<FeatureInterface<?,?>> LENGTH
++ {static} Comparator<FeatureInterface<?,?>> TYPE
++ AbstractLocation getLocations()
++ void setLocation(AbstractLocation)
++ String getType()
++ void setType(String)
++ String getSource()
++ void setSource(String)
++ void setParentFeature(FeatureInterface<S,C>)
++ FeatureInterface<S,C> getParentFeature()
++ List<FeatureInterface<S,C>> getChildrenFeatures()
++ void setChildrenFeatures(List<FeatureInterface<S,C>>)
++ String getDescription()
++ void setDescription(String)
++ String getShortDescription()
++ void setShortDescription(String)
++ Object getUserObject()
++ void setUserObject(Object)
++ Map<String,List<Qualifier>> getQualifiers()
++ void setQualifiers(Map<String,List<Qualifier>>)
++ void addQualifier(String,Qualifier)
+}
+class org.biojava.nbio.core.sequence.features.TextFeature {
+}
+class org.biojava.nbio.core.sequence.io.util.ClasspathResource {
+- String location
+- boolean preCache
+- Boolean isGzip
++ InputStream getInputStream()
++ BufferedReader getBufferedReader()
++ List<String> getList()
+- InputStream createClasspathInputStream()
+- boolean isGzip()
+}
+class org.biojava.nbio.core.sequence.compound.DNACompoundSet {
++ {static} DNACompoundSet getDNACompoundSet()
++ NucleotideCompound newNucleotideCompound(String,String,String)
+}
+class org.biojava.nbio.core.sequence.compound.DNACompoundSet.InitaliseOnDemand {
++ {static} DNACompoundSet INSTANCE
+}
+class org.biojava.nbio.core.sequence.features.QualityFeature {
+- List<Number> qualities
++ List<Number> getQualities()
++ void setQualities(List<Number>)
++ Number getQualityAt(int)
++ List<Number> getQualities(int,int)
+}
+class org.biojava.nbio.core.sequence.loader.StringProxySequenceReader {
+- String sequence
+- CompoundSet<C> compoundSet
+- List<C> parsedCompounds
++ void setCompoundSet(CompoundSet<C>)
++ void setContents(String)
++ void setContents(String,ArrayList)
++ int getLength()
++ C getCompoundAt(int)
++ int getIndexOf(C)
++ int getLastIndexOf(C)
++ String toString()
++ String getSequenceAsString()
++ List<C> getAsList()
++ String getSequenceAsString(Integer,Integer,Strand)
++ SequenceView<C> getSubSequence(Integer,Integer)
++ Iterator<C> iterator()
++ CompoundSet<C> getCompoundSet()
++ AccessionID getAccession()
++ int countCompounds(C)
++ SequenceView<C> getInverse()
++ boolean equals(Object)
++ int hashCode()
+}
+class org.biojava.nbio.core.sequence.transcription.CaseInsensitiveCompound {
+- NucleotideCompound compound
++ boolean equalsIgnoreCase(Compound)
++ boolean equals(Object)
++ int hashCode()
++ NucleotideCompound getUnderlyingCompound()
++ String getDescription()
++ String getLongName()
++ Float getMolecularWeight()
++ String getShortName()
++ String toString()
++ void setDescription(String)
++ void setLongName(String)
++ void setMolecularWeight(Float)
++ void setShortName(String)
+}
+interface org.biojava.nbio.core.alignment.template.MutableProfilePair {
+~ void setPair(Profile<S,C>,Profile<S,C>)
+~ void setQuery(Profile<S,C>)
+~ void setTarget(Profile<S,C>)
+}
+class org.biojava.nbio.core.alignment.matrices.ScaledSubstitutionMatrix {
+- {static} String comment
+- String description
+- short[][] matrix
+- short max
+- AminoAcidCompoundSet compoundSet
+- List<AminoAcidCompound> rows
+- int scale
++ int getScale()
++ void setScale(int)
++ String getDescription()
++ void setDescription(String)
++ String getName()
++ void setName(String)
++ short[][] getMatrix()
++ void setMatrix(short[][])
++ short getMax()
++ void setMax(short)
++ short getMin()
++ void setMin(short)
++ List<AminoAcidCompound> getRows()
++ void setRows(List<AminoAcidCompound>)
++ List<AminoAcidCompound> getCols()
++ void setCols(List<AminoAcidCompound>)
++ {static} String getComment()
++ String toString()
++ CompoundSet<AminoAcidCompound> getCompoundSet()
++ String getMatrixAsString()
++ short getMaxValue()
++ short getMinValue()
++ short getValue(AminoAcidCompound,AminoAcidCompound)
++ SubstitutionMatrix<AminoAcidCompound> normalizeMatrix(short)
++ Map<AminoAcidCompound,Short> getRow(AminoAcidCompound)
++ Map<AminoAcidCompound,Short> getColumn(AminoAcidCompound)
+}
+interface org.biojava.nbio.core.sequence.reference.ReferenceInterface {
+~ void setTitle(String)
+~ String getTitle()
+~ void setAuthors(String)
+~ String getAuthors()
+~ void setJournal(String)
+~ String getJournal()
+}
+class org.biojava.nbio.core.sequence.location.SimpleLocation {
+- {static} List<Location> EMPTY_LOCS
+}
+class org.biojava.nbio.core.util.Hashcoder {
++ {static} int SEED
++ {static} int PRIME
++ {static} int hash(int,boolean)
++ {static} int hash(int,char)
++ {static} int hash(int,int)
++ {static} int hash(int,long)
++ {static} int hash(int,float)
++ {static} int hash(int,double)
++ {static} int hash(int,Object)
+}
+class org.biojava.nbio.core.sequence.compound.AminoAcidCompoundSet {
+- {static} long serialVersionUID
+- Map<String,AminoAcidCompound> aminoAcidCompoundCache
+- Map<String,AminoAcidCompound> aminoAcidCompoundCache3Letter
+- Map<AminoAcidCompound,Set<AminoAcidCompound>> equivalentsCache
+- {static} AminoAcidCompoundSet aminoAcidCompoundSet
++ String getStringForCompound(AminoAcidCompound)
++ AminoAcidCompound getCompoundForString(String)
++ int getMaxSingleCompoundStringLength()
++ boolean isCompoundStringLengthEqual()
++ {static} AminoAcidCompoundSet getAminoAcidCompoundSet()
++ boolean compoundsEquivalent(AminoAcidCompound,AminoAcidCompound)
++ Set<AminoAcidCompound> getEquivalentCompounds(AminoAcidCompound)
+- void addAmbiguousEquivalents(String,String,String)
++ boolean hasCompound(AminoAcidCompound)
++ boolean isValidSequence(Sequence<AminoAcidCompound>)
++ List<AminoAcidCompound> getAllCompounds()
++ boolean isComplementable()
+}
+class org.biojava.nbio.core.sequence.io.GenericInsdcHeaderFormat {
+# {static} int MAX_WIDTH
+# {static} int QUALIFIER_INDENT
+# {static} String QUALIFIER_INDENT_STR
+# {static} String QUALIFIER_INDENT_TMP
+- {static} String lineSep
+- String _write_feature_qualifier(String,String,boolean)
+- String _wrap_location(String)
+# String _write_feature(FeatureInterface<AbstractSequence<C>,C>,int)
+- String _insdc_feature_location_string(FeatureInterface<AbstractSequence<C>,C>,int)
+- String _insdc_location_string_ignoring_strand_and_subfeatures(AbstractLocation,int)
+- String _insdc_feature_position_string(Point)
+- String _insdc_feature_position_string(Point,int)
+# ArrayList<String> _split_multi_line(String,int)
+}
+class org.biojava.nbio.core.alignment.matrices.SimpleSubstitutionMatrix {
+- {static} long serialVersionUID
+- {static} String comment
+- CompoundSet<C> compoundSet
+- String description
+- short[][] matrix
+- short max
+- List<C> rows
++ {static} SubstitutionMatrix<AminoAcidCompound> getBlosum62()
++ CompoundSet<C> getCompoundSet()
++ String getDescription()
++ short[][] getMatrix()
++ String getMatrixAsString()
++ short getMaxValue()
++ short getMinValue()
++ String getName()
+- {static} int getIndexOfCompound(List<C>,C)
++ short getValue(C,C)
++ SubstitutionMatrix<C> normalizeMatrix(short)
++ void setDescription(String)
++ void setName(String)
++ String toString()
++ Map<C,Short> getRow(C)
++ Map<C,Short> getColumn(C)
+}
+class org.biojava.nbio.core.util.Equals {
++ {static} boolean equal(int,int)
++ {static} boolean equal(long,long)
++ {static} boolean equal(boolean,boolean)
++ {static} boolean equal(Object,Object)
++ {static} boolean classEqual(Object,Object)
+}
+class org.biojava.nbio.core.sequence.location.SequenceLocation {
+- S sequence
++ S getSequence()
++ void setSequence(S)
+}
+interface org.biojava.nbio.core.sequence.template.LightweightProfile {
+~ S getAlignedSequence(int)
+~ List<S> getAlignedSequences()
+~ List<C> getCompoundsAt(int)
+~ CompoundSet<C> getCompoundSet()
+~ int getLength()
+~ int getSize()
+~ String toString()
+~ String toString(int)
+~ String toString(StringFormat)
+}
+class org.biojava.nbio.core.sequence.transcription.DNAToRNATranslator {
+- boolean shortCutTranslation
++ List<Sequence<NucleotideCompound>> createSequences(Sequence<NucleotideCompound>)
+# RNASequence wrapToRna(Sequence<NucleotideCompound>)
+- void defaultMappings()
+- void thyamineToUracil()
++ Sequence<NucleotideCompound> createSequence(Sequence<NucleotideCompound>,Frame)
++ Sequence<NucleotideCompound> createSequence(Sequence<NucleotideCompound>)
+# void postProcessCompoundLists(List<List<NucleotideCompound>>)
+}
+interface org.biojava.nbio.core.alignment.template.ProfileView {
+~ int getEnd()
+~ int getStart()
+~ Profile<S,C> getViewedProfile()
+}
+class org.biojava.nbio.core.sequence.BasicSequence {
+}
+class org.biojava.nbio.core.sequence.io.FileProxyProteinSequenceCreator {
+~ CompoundSet<AminoAcidCompound> compoundSet
+~ File file
+~ SequenceParserInterface sequenceParser
++ AbstractSequence<AminoAcidCompound> getSequence(String,long)
++ AbstractSequence<AminoAcidCompound> getSequence(ProxySequenceReader<AminoAcidCompound>,long)
++ AbstractSequence<AminoAcidCompound> getSequence(List<AminoAcidCompound>)
+}
+interface org.biojava.nbio.core.alignment.template.Profile {
+~ AlignedSequence<S,C> getAlignedSequence(int)
+~ AlignedSequence<S,C> getAlignedSequence(S)
+~ List<AlignedSequence<S,C>> getAlignedSequences()
+~ List<AlignedSequence<S,C>> getAlignedSequences(int)
+~ List<AlignedSequence<S,C>> getAlignedSequences(S)
+~ C getCompoundAt(int,int)
+~ C getCompoundAt(S,int)
+~ int[] getCompoundCountsAt(int)
+~ int[] getCompoundCountsAt(int,List<C>)
+~ List<C> getCompoundsAt(int)
+~ CompoundSet<C> getCompoundSet()
+~ float[] getCompoundWeightsAt(int)
+~ float[] getCompoundWeightsAt(int,List<C>)
+~ int[] getIndicesAt(int)
+~ int getIndexOf(C)
+~ int getLastIndexOf(C)
+~ int getLength()
+~ List<S> getOriginalSequences()
+~ int getSize()
+~ ProfileView<S,C> getSubProfile(Location)
+~ boolean hasGap(int)
+~ boolean isCircular()
+~ String toString()
+~ String toString(int)
+~ String toString(StringFormat)
+}
+class org.biojava.nbio.core.sequence.io.PlainFastaHeaderParser {
+- String[] getHeaderValues(String)
++ void parseHeader(String,S)
+}
+abstract class org.biojava.nbio.core.search.io.Hit {
+- int hitNum
+- String hitId
+- String hitDef
+- String hitAccession
+- int hitLen
+- List<Hsp> hsps
+- Sequence hitSequence
++ int hashCode()
++ boolean equals(Object)
++ int getHitNum()
++ String getHitId()
++ String getHitDef()
++ String getHitAccession()
++ int getHitLen()
++ Sequence getHitSequence()
++ Iterator<Hsp> iterator()
+}
+class org.biojava.nbio.core.sequence.IntronSequence {
++ int getLength()
+}
+
+
+org.biojava.nbio.core.alignment.template.Profile <|-- org.biojava.nbio.core.alignment.template.MutableProfile
+org.biojava.nbio.core.sequence.io.template.SequenceHeaderParserInterface <|.. org.biojava.nbio.core.sequence.io.GenericFastaHeaderParser
+org.biojava.nbio.core.sequence.io.template.SequenceHeaderParserInterface <|.. org.biojava.nbio.core.sequence.io.GenericGenbankHeaderParser
+org.biojava.nbio.core.util.XMLWriter <|.. org.biojava.nbio.core.util.PrettyXMLWriter
+java.util.Comparator <|.. org.biojava.nbio.core.sequence.SequenceComparator
+java.io.Serializable <|.. org.biojava.nbio.core.sequence.SequenceComparator
+org.biojava.nbio.core.search.io.Iterable <|.. org.biojava.nbio.core.search.io.SearchIO
+org.biojava.nbio.core.sequence.io.template.SequenceCreatorInterface <|.. org.biojava.nbio.core.sequence.io.ProteinSequenceCreator
+org.biojava.nbio.core.sequence.template.SequenceReader <|-- org.biojava.nbio.core.sequence.template.ProxySequenceReader
+org.biojava.nbio.core.sequence.io.template.SequenceCreatorInterface <|.. org.biojava.nbio.core.sequence.io.FileProxyDNASequenceCreator
+org.biojava.nbio.core.sequence.template.AbstractCompoundSet <|-- org.biojava.nbio.core.sequence.template.AbstractNucleotideCompoundSet
+org.biojava.nbio.core.sequence.template.Sequence <|.. org.biojava.nbio.core.sequence.template.AbstractSequence
+org.biojava.nbio.core.search.io.Result <|-- org.biojava.nbio.core.search.io.blast.BlastResult
+org.biojava.nbio.core.sequence.io.template.SequenceCreatorInterface <|.. org.biojava.nbio.core.sequence.io.FileProxyRNASequenceCreator
+org.biojava.nbio.core.sequence.storage.BitSequenceReader <|-- org.biojava.nbio.core.sequence.storage.FourBitSequenceReader
+org.biojava.nbio.core.sequence.storage.FourBitSequenceReader +.. org.biojava.nbio.core.sequence.storage.FourBitSequenceReader.FourBitArrayWorker
+org.biojava.nbio.core.sequence.storage.BitArrayWorker <|-- org.biojava.nbio.core.sequence.storage.FourBitSequenceReader.FourBitArrayWorker
+org.biojava.nbio.core.sequence.transcription.TranscriptionEngine +.. org.biojava.nbio.core.sequence.transcription.TranscriptionEngine.IOD
+org.biojava.nbio.core.sequence.transcription.TranscriptionEngine +.. org.biojava.nbio.core.sequence.transcription.TranscriptionEngine.Builder
+java.util.Comparator <|.. org.biojava.nbio.core.sequence.ExonComparator
+java.io.Serializable <|.. org.biojava.nbio.core.sequence.ExonComparator
+org.biojava.nbio.core.sequence.template.SequenceMixin +.. org.biojava.nbio.core.sequence.template.SequenceMixin.SequenceIterator
+org.biojava.nbio.core.sequence.template.Iterator <|.. org.biojava.nbio.core.sequence.template.SequenceMixin.SequenceIterator
+org.biojava.nbio.core.sequence.template.Iterable <|-- org.biojava.nbio.core.sequence.template.Sequence
+org.biojava.nbio.core.sequence.template.Accessioned <|-- org.biojava.nbio.core.sequence.template.Sequence
+org.biojava.nbio.core.sequence.template.AbstractNucleotideCompoundSet <|-- org.biojava.nbio.core.sequence.compound.RNACompoundSet
+org.biojava.nbio.core.sequence.compound.RNACompoundSet +.. org.biojava.nbio.core.sequence.compound.RNACompoundSet.InitaliseOnDemand
+org.biojava.nbio.core.sequence.compound.RNACompoundSet <|-- org.biojava.nbio.core.sequence.compound.AmbiguityRNACompoundSet
+org.biojava.nbio.core.sequence.compound.AmbiguityRNACompoundSet +.. org.biojava.nbio.core.sequence.compound.AmbiguityRNACompoundSet.InitaliseOnDemand
+org.biojava.nbio.core.sequence.storage.ProxySequenceReader <|.. org.biojava.nbio.core.sequence.storage.JoiningSequenceReader
+org.biojava.nbio.core.sequence.loader.FeaturesKeyWordInterface <|.. org.biojava.nbio.core.sequence.loader.GenbankProxySequenceReader
+org.biojava.nbio.core.sequence.loader.DatabaseReferenceInterface <|.. org.biojava.nbio.core.sequence.loader.GenbankProxySequenceReader
+org.biojava.nbio.core.sequence.loader.FeatureRetriever <|.. org.biojava.nbio.core.sequence.loader.GenbankProxySequenceReader
+org.biojava.nbio.core.sequence.loader.StringProxySequenceReader <|-- org.biojava.nbio.core.sequence.loader.GenbankProxySequenceReader
+org.biojava.nbio.core.alignment.template.AlignedSequence <|-- org.biojava.nbio.core.alignment.template.MutableAlignedSequence
+org.biojava.nbio.core.alignment.matrices.AAIndexProvider <|.. org.biojava.nbio.core.alignment.matrices.DefaultAAIndexProvider
+java.io.Serializable <|.. org.biojava.nbio.core.sequence.location.template.AbstractLocation
+org.biojava.nbio.core.sequence.location.template.Location <|.. org.biojava.nbio.core.sequence.location.template.AbstractLocation
+org.biojava.nbio.core.sequence.template.AbstractCompound <|-- org.biojava.nbio.core.sequence.compound.CodonCompound
+org.biojava.nbio.core.sequence.reference.ReferenceInterface <|.. org.biojava.nbio.core.sequence.reference.AbstractReference
+org.biojava.nbio.core.sequence.template.Sequence <|-- org.biojava.nbio.core.alignment.template.AlignedSequence
+org.biojava.nbio.core.sequence.io.template.SequenceCreatorInterface <|.. org.biojava.nbio.core.sequence.io.DNASequenceCreator
+org.biojava.nbio.core.sequence.views.ProxySequenceReader <|.. org.biojava.nbio.core.sequence.views.RnaSequenceView
+org.biojava.nbio.core.sequence.views.SequenceProxyView <|-- org.biojava.nbio.core.sequence.views.RnaSequenceView
+org.biojava.nbio.core.sequence.loader.ProxySequenceReader <|.. org.biojava.nbio.core.sequence.loader.SequenceFileProxyLoader
+java.util.Comparator <|.. org.biojava.nbio.core.sequence.CDSComparator
+java.io.Serializable <|.. org.biojava.nbio.core.sequence.CDSComparator
+org.biojava.nbio.core.sequence.template.Sequence <|-- org.biojava.nbio.core.sequence.template.SequenceReader
+org.biojava.nbio.core.sequence.template.ProxySequenceReader <|.. org.biojava.nbio.core.sequence.loader.ArrayListProxySequenceReader
+org.biojava.nbio.core.sequence.storage.ArrayListSequenceReader <|-- org.biojava.nbio.core.sequence.loader.ArrayListProxySequenceReader
+java.io.Serializable <|.. org.biojava.nbio.core.alignment.matrices.SubstitutionMatrixHelper
+org.biojava.nbio.core.sequence.template.SequenceView <|.. org.biojava.nbio.core.sequence.template.SequenceProxyView
+org.biojava.nbio.core.sequence.compound.DNACompoundSet <|-- org.biojava.nbio.core.sequence.compound.AmbiguityDNACompoundSet
+org.biojava.nbio.core.sequence.compound.AmbiguityDNACompoundSet +.. org.biojava.nbio.core.sequence.compound.AmbiguityDNACompoundSet.InitaliseOnDemand
+org.biojava.nbio.core.sequence.io.ProteinSequenceCreator <|-- org.biojava.nbio.core.sequence.io.CasePreservingProteinSequenceCreator
+org.biojava.nbio.core.search.io.ResultFactory <|.. org.biojava.nbio.core.search.io.blast.BlastTabularParser
+org.biojava.nbio.core.search.io.Iterable <|.. org.biojava.nbio.core.search.io.Result
+org.biojava.nbio.core.alignment.template.SequencePair <|.. org.biojava.nbio.core.alignment.SimpleSequencePair
+org.biojava.nbio.core.alignment.SimpleProfile <|-- org.biojava.nbio.core.alignment.SimpleSequencePair
+org.biojava.nbio.core.sequence.features.Qualifier <|-- org.biojava.nbio.core.sequence.features.DBReferenceInfo
+org.biojava.nbio.core.sequence.features.AbstractFeature <|-- org.biojava.nbio.core.sequence.features.QuantityFeature
+java.io.Serializable <|.. org.biojava.nbio.core.alignment.SimpleAlignedSequence
+org.biojava.nbio.core.alignment.template.AlignedSequence <|.. org.biojava.nbio.core.alignment.SimpleAlignedSequence
+org.biojava.nbio.core.sequence.template.AbstractCompoundTranslator <|-- org.biojava.nbio.core.sequence.transcription.RNAToAminoAcidTranslator
+org.biojava.nbio.core.sequence.storage.BitSequenceReader <|-- org.biojava.nbio.core.sequence.storage.TwoBitSequenceReader
+org.biojava.nbio.core.sequence.storage.TwoBitSequenceReader +.. org.biojava.nbio.core.sequence.storage.TwoBitSequenceReader.TwoBitArrayWorker
+org.biojava.nbio.core.sequence.storage.BitArrayWorker <|-- org.biojava.nbio.core.sequence.storage.TwoBitSequenceReader.TwoBitArrayWorker
+org.biojava.nbio.core.sequence.io.util.IOUtils +.. org.biojava.nbio.core.sequence.io.util.IOUtils.ReaderProcessor
+org.biojava.nbio.core.sequence.storage.ProxySequenceReader <|.. org.biojava.nbio.core.sequence.storage.SingleCompoundSequenceReader
+org.biojava.nbio.core.sequence.DNASequence <|-- org.biojava.nbio.core.sequence.TranscriptSequence
+org.biojava.nbio.core.sequence.location.template.Location <|-- org.biojava.nbio.core.sequence.location.template.AccesionedLocation
+org.biojava.nbio.core.sequence.template.Accessioned <|-- org.biojava.nbio.core.sequence.location.template.AccesionedLocation
+org.biojava.nbio.core.sequence.template.SequenceProxyView <|-- org.biojava.nbio.core.sequence.views.ReversedSequenceView
+org.biojava.nbio.core.sequence.template.Compound <|.. org.biojava.nbio.core.sequence.template.AbstractCompound
+org.biojava.nbio.core.sequence.location.SimplePoint <|-- org.biojava.nbio.core.sequence.location.FuzzyPoint
+java.io.Serializable <|.. org.biojava.nbio.core.sequence.compound.AminoAcidCompound
+org.biojava.nbio.core.sequence.template.AbstractCompound <|-- org.biojava.nbio.core.sequence.compound.AminoAcidCompound
+org.biojava.nbio.core.sequence.DNASequence <|-- org.biojava.nbio.core.sequence.StartCodonSequence
+org.biojava.nbio.core.util.AbstractMap <|-- org.biojava.nbio.core.util.SoftHashMap
+org.biojava.nbio.core.util.SoftHashMap +.. org.biojava.nbio.core.util.SoftHashMap.SoftValue
+org.biojava.nbio.core.util.SoftReference <|-- org.biojava.nbio.core.util.SoftHashMap.SoftValue
+org.biojava.nbio.core.sequence.template.ComplementCompound <|.. org.biojava.nbio.core.sequence.compound.NucleotideCompound
+org.biojava.nbio.core.sequence.template.AbstractCompound <|-- org.biojava.nbio.core.sequence.compound.NucleotideCompound
+org.biojava.nbio.core.sequence.template.AbstractSequence <|-- org.biojava.nbio.core.sequence.ProteinSequence
+org.biojava.nbio.core.sequence.DNASequence <|-- org.biojava.nbio.core.sequence.ChromosomeSequence
+org.biojava.nbio.core.sequence.io.IUPACParser +.. org.biojava.nbio.core.sequence.io.IUPACParser.IOD
+org.biojava.nbio.core.sequence.io.IUPACParser +.. org.biojava.nbio.core.sequence.io.IUPACParser.IUPACTable
+org.biojava.nbio.core.sequence.io.Table <|.. org.biojava.nbio.core.sequence.io.IUPACParser.IUPACTable
+org.biojava.nbio.core.sequence.io.template.GenbankHeaderFormatInterface <|.. org.biojava.nbio.core.sequence.io.GenericGenbankHeaderFormat
+org.biojava.nbio.core.sequence.io.GenericInsdcHeaderFormat <|-- org.biojava.nbio.core.sequence.io.GenericGenbankHeaderFormat
+org.biojava.nbio.core.sequence.storage.ProxySequenceReader <|.. org.biojava.nbio.core.sequence.storage.BitSequenceReader
+org.biojava.nbio.core.sequence.storage.BitSequenceReader +.. org.biojava.nbio.core.sequence.storage.BitSequenceReader.BitArrayWorker
+org.biojava.nbio.core.sequence.template.SequenceProxyView <|-- org.biojava.nbio.core.sequence.views.ComplementSequenceView
+java.io.Reader <|-- org.biojava.nbio.core.sequence.io.BufferedReaderBytesRead
+org.biojava.nbio.core.sequence.location.InsdcLocations +.. org.biojava.nbio.core.sequence.location.InsdcLocations.BondLocation
+org.biojava.nbio.core.sequence.location.AbstractLocation <|-- org.biojava.nbio.core.sequence.location.InsdcLocations.BondLocation
+org.biojava.nbio.core.sequence.location.InsdcLocations +.. org.biojava.nbio.core.sequence.location.InsdcLocations.OrderLocation
+org.biojava.nbio.core.sequence.location.SimpleLocation <|-- org.biojava.nbio.core.sequence.location.InsdcLocations.OrderLocation
+org.biojava.nbio.core.sequence.location.InsdcLocations +.. org.biojava.nbio.core.sequence.location.InsdcLocations.GroupLocation
+org.biojava.nbio.core.sequence.location.SimpleLocation <|-- org.biojava.nbio.core.sequence.location.InsdcLocations.GroupLocation
+org.biojava.nbio.core.sequence.location.InsdcLocations +.. org.biojava.nbio.core.sequence.location.InsdcLocations.OneOfLocation
+org.biojava.nbio.core.sequence.location.AbstractLocation <|-- org.biojava.nbio.core.sequence.location.InsdcLocations.OneOfLocation
+java.io.Serializable <|.. org.biojava.nbio.core.alignment.SimpleProfile
+org.biojava.nbio.core.alignment.template.Profile <|.. org.biojava.nbio.core.alignment.SimpleProfile
+org.biojava.nbio.core.sequence.AbstractSequence <|-- org.biojava.nbio.core.sequence.DNASequence
+org.biojava.nbio.core.sequence.io.template.SequenceParserInterface <|.. org.biojava.nbio.core.sequence.io.FastaSequenceParser
+org.biojava.nbio.core.sequence.DNASequence <|-- org.biojava.nbio.core.sequence.ExonSequence
+org.biojava.nbio.core.sequence.io.template.FastaHeaderFormatInterface <|.. org.biojava.nbio.core.sequence.io.GenericFastaHeaderFormat
+org.biojava.nbio.core.exceptions.RuntimeException <|-- org.biojava.nbio.core.exceptions.TranslationException
+org.biojava.nbio.core.exceptions.Exception <|-- org.biojava.nbio.core.exceptions.CompoundNotFoundException
+org.biojava.nbio.core.sequence.location.LocationHelper +.. org.biojava.nbio.core.sequence.location.LocationHelper.LocationPredicate
+org.biojava.nbio.core.alignment.template.Profile <|-- org.biojava.nbio.core.alignment.template.ProfilePair
+org.biojava.nbio.core.sequence.io.template.SequenceCreatorInterface <|.. org.biojava.nbio.core.sequence.io.RNASequenceCreator
+org.biojava.nbio.core.sequence.template.CompoundSet <|.. org.biojava.nbio.core.sequence.template.AbstractCompoundSet
+org.biojava.nbio.core.sequence.template.CompoundTranslator <|.. org.biojava.nbio.core.sequence.template.AbstractCompoundTranslator
+org.biojava.nbio.core.sequence.reference.AbstractReference <|-- org.biojava.nbio.core.sequence.reference.GenbankReference
+org.biojava.nbio.core.sequence.location.template.Comparable <|-- org.biojava.nbio.core.sequence.location.template.Point
+org.biojava.nbio.core.sequence.location.template.Point +.. org.biojava.nbio.core.sequence.location.template.Point.Resolver
+org.biojava.nbio.core.sequence.template.Compound <|-- org.biojava.nbio.core.sequence.template.ComplementCompound
+org.biojava.nbio.core.sequence.DNASequence <|-- org.biojava.nbio.core.sequence.StopCodonSequence
+org.biojava.nbio.core.sequence.transcription.Table +.. org.biojava.nbio.core.sequence.transcription.Table.Codon
+org.biojava.nbio.core.sequence.transcription.Compound <|.. org.biojava.nbio.core.sequence.transcription.Table.Codon
+org.biojava.nbio.core.sequence.transcription.Table +.. org.biojava.nbio.core.sequence.transcription.Table.CaseInsensitiveTriplet
+org.biojava.nbio.core.sequence.template.LightweightProfile <|.. org.biojava.nbio.core.sequence.MultipleSequenceAlignment
+org.biojava.nbio.core.sequence.location.template.Iterable <|-- org.biojava.nbio.core.sequence.location.template.Location
+org.biojava.nbio.core.sequence.template.Accessioned <|-- org.biojava.nbio.core.sequence.location.template.Location
+org.biojava.nbio.core.sequence.location.template.Location +.. org.biojava.nbio.core.sequence.location.template.Location.Tools
+org.biojava.nbio.core.sequence.location.template.Location.Tools +.. org.biojava.nbio.core.sequence.location.template.Location.Tools.LocationPredicate
+org.biojava.nbio.core.sequence.DNASequence <|-- org.biojava.nbio.core.sequence.GeneSequence
+org.biojava.nbio.core.alignment.template.MutableProfile <|-- org.biojava.nbio.core.alignment.template.MutableSequencePair
+org.biojava.nbio.core.alignment.template.SequencePair <|-- org.biojava.nbio.core.alignment.template.MutableSequencePair
+org.biojava.nbio.core.sequence.features.FeatureInterface <|.. org.biojava.nbio.core.sequence.features.FeatureDbReferenceInfo
+org.biojava.nbio.core.sequence.features.DBReferenceInfo <|-- org.biojava.nbio.core.sequence.features.FeatureDbReferenceInfo
+org.biojava.nbio.core.sequence.edits.Edit +.. org.biojava.nbio.core.sequence.edits.Edit.AbstractEdit
+org.biojava.nbio.core.sequence.edits.Edit <|.. org.biojava.nbio.core.sequence.edits.Edit.AbstractEdit
+org.biojava.nbio.core.sequence.edits.Edit +.. org.biojava.nbio.core.sequence.edits.Edit.Delete
+org.biojava.nbio.core.sequence.edits.AbstractEdit <|-- org.biojava.nbio.core.sequence.edits.Edit.Delete
+org.biojava.nbio.core.sequence.edits.Edit +.. org.biojava.nbio.core.sequence.edits.Edit.Insert
+org.biojava.nbio.core.sequence.edits.AbstractEdit <|-- org.biojava.nbio.core.sequence.edits.Edit.Insert
+org.biojava.nbio.core.sequence.edits.Edit +.. org.biojava.nbio.core.sequence.edits.Edit.Substitute
+org.biojava.nbio.core.sequence.edits.AbstractEdit <|-- org.biojava.nbio.core.sequence.edits.Edit.Substitute
+org.biojava.nbio.core.sequence.template.AbstractSequence <|-- org.biojava.nbio.core.sequence.RNASequence
+org.biojava.nbio.core.sequence.storage.SequenceReader <|.. org.biojava.nbio.core.sequence.storage.ArrayListSequenceReader
+org.biojava.nbio.core.sequence.DNASequence <|-- org.biojava.nbio.core.sequence.CDSSequence
+org.biojava.nbio.core.exceptions.RuntimeException <|-- org.biojava.nbio.core.exceptions.ParserException
+org.biojava.nbio.core.sequence.io.template.SequenceParserInterface <|.. org.biojava.nbio.core.sequence.io.GenbankSequenceParser
+org.biojava.nbio.core.sequence.template.Sequence <|-- org.biojava.nbio.core.sequence.template.SequenceView
+org.biojava.nbio.core.search.io.ResultFactory <|.. org.biojava.nbio.core.search.io.blast.BlastXMLParser
+org.biojava.nbio.core.search.io.Hsp <|-- org.biojava.nbio.core.search.io.blast.BlastHsp
+org.biojava.nbio.core.search.io.Hit <|-- org.biojava.nbio.core.search.io.blast.BlastHit
+org.biojava.nbio.core.sequence.views.Iterable <|.. org.biojava.nbio.core.sequence.views.WindowedSequence
+org.biojava.nbio.core.sequence.views.WindowedSequence +.. org.biojava.nbio.core.sequence.views.WindowedSequence.WindowedSequenceIterator
+org.biojava.nbio.core.sequence.views.Iterator <|.. org.biojava.nbio.core.sequence.views.WindowedSequence.WindowedSequenceIterator
+org.biojava.nbio.core.alignment.template.Profile <|-- org.biojava.nbio.core.alignment.template.SequencePair
+org.biojava.nbio.core.sequence.loader.ProxySequenceReader <|.. org.biojava.nbio.core.sequence.loader.UniprotProxySequenceReader
+org.biojava.nbio.core.sequence.features.FeaturesKeyWordInterface <|.. org.biojava.nbio.core.sequence.loader.UniprotProxySequenceReader
+org.biojava.nbio.core.sequence.features.DatabaseReferenceInterface <|.. org.biojava.nbio.core.sequence.loader.UniprotProxySequenceReader
+org.biojava.nbio.core.util.SingleLinkageClusterer +.. org.biojava.nbio.core.util.SingleLinkageClusterer.LinkedPair
+org.biojava.nbio.core.alignment.template.ProfilePair <|.. org.biojava.nbio.core.alignment.SimpleProfilePair
+org.biojava.nbio.core.alignment.SimpleProfile <|-- org.biojava.nbio.core.alignment.SimpleProfilePair
+java.io.Serializable <|.. org.biojava.nbio.core.sequence.location.SimplePoint
+org.biojava.nbio.core.sequence.location.template.Point <|.. org.biojava.nbio.core.sequence.location.SimplePoint
+java.util.zip.Checksum <|.. org.biojava.nbio.core.util.CRC64Checksum
+org.biojava.nbio.core.sequence.template.AbstractNucleotideCompoundSet <|-- org.biojava.nbio.core.sequence.compound.ABITracerCompoundSet
+org.biojava.nbio.core.sequence.compound.ABITracerCompoundSet +.. org.biojava.nbio.core.sequence.compound.ABITracerCompoundSet.InitaliseOnDemand
+org.biojava.nbio.core.sequence.compound.DNACompoundSet <|-- org.biojava.nbio.core.sequence.compound.AmbiguityDNARNAHybridCompoundSet
+org.biojava.nbio.core.sequence.compound.AmbiguityDNARNAHybridCompoundSet +.. org.biojava.nbio.core.sequence.compound.AmbiguityDNARNAHybridCompoundSet.InitaliseOnDemand
+org.biojava.nbio.core.util.FilterInputStream <|-- org.biojava.nbio.core.util.UncompressInputStream
+org.biojava.nbio.core.sequence.features.FeatureInterface <|.. org.biojava.nbio.core.sequence.features.AbstractFeature
+org.biojava.nbio.core.sequence.features.AbstractFeature <|-- org.biojava.nbio.core.sequence.features.TextFeature
+org.biojava.nbio.core.sequence.template.AbstractNucleotideCompoundSet <|-- org.biojava.nbio.core.sequence.compound.DNACompoundSet
+org.biojava.nbio.core.sequence.compound.DNACompoundSet +.. org.biojava.nbio.core.sequence.compound.DNACompoundSet.InitaliseOnDemand
+org.biojava.nbio.core.sequence.features.AbstractFeature <|-- org.biojava.nbio.core.sequence.features.QualityFeature
+org.biojava.nbio.core.sequence.loader.ProxySequenceReader <|.. org.biojava.nbio.core.sequence.loader.StringProxySequenceReader
+org.biojava.nbio.core.sequence.template.Compound <|.. org.biojava.nbio.core.sequence.transcription.CaseInsensitiveCompound
+org.biojava.nbio.core.alignment.template.MutableProfile <|-- org.biojava.nbio.core.alignment.template.MutableProfilePair
+org.biojava.nbio.core.alignment.template.ProfilePair <|-- org.biojava.nbio.core.alignment.template.MutableProfilePair
+org.biojava.nbio.core.alignment.template.SubstitutionMatrix <|.. org.biojava.nbio.core.alignment.matrices.ScaledSubstitutionMatrix
+org.biojava.nbio.core.sequence.location.template.AbstractLocation <|-- org.biojava.nbio.core.sequence.location.SimpleLocation
+org.biojava.nbio.core.sequence.template.CompoundSet <|.. org.biojava.nbio.core.sequence.compound.AminoAcidCompoundSet
+java.io.Serializable <|.. org.biojava.nbio.core.sequence.compound.AminoAcidCompoundSet
+org.biojava.nbio.core.alignment.template.SubstitutionMatrix <|.. org.biojava.nbio.core.alignment.matrices.SimpleSubstitutionMatrix
+org.biojava.nbio.core.alignment.matrices.Serializable <|.. org.biojava.nbio.core.alignment.matrices.SimpleSubstitutionMatrix
+org.biojava.nbio.core.sequence.location.SimpleLocation <|-- org.biojava.nbio.core.sequence.location.SequenceLocation
+org.biojava.nbio.core.sequence.template.AbstractCompoundTranslator <|-- org.biojava.nbio.core.sequence.transcription.DNAToRNATranslator
+org.biojava.nbio.core.alignment.template.Profile <|-- org.biojava.nbio.core.alignment.template.ProfileView
+org.biojava.nbio.core.sequence.AbstractSequence <|-- org.biojava.nbio.core.sequence.BasicSequence
+org.biojava.nbio.core.sequence.io.template.SequenceCreatorInterface <|.. org.biojava.nbio.core.sequence.io.FileProxyProteinSequenceCreator
+org.biojava.nbio.core.alignment.template.Iterable <|-- org.biojava.nbio.core.alignment.template.Profile
+org.biojava.nbio.core.sequence.io.template.SequenceHeaderParserInterface <|.. org.biojava.nbio.core.sequence.io.PlainFastaHeaderParser
+org.biojava.nbio.core.search.io.Iterable <|.. org.biojava.nbio.core.search.io.Hit
+org.biojava.nbio.core.sequence.DNASequence <|-- org.biojava.nbio.core.sequence.IntronSequence
+@enduml

@@ -1,0 +1,212 @@
+@startuml
+class org.biojava.nbio.ws.hmmer.RemoteHmmerScan {
+- {static} Logger LOGGER
++ {static} String HMMER_SERVICE
++ SortedSet<HmmerResult> scan(ProteinSequence)
++ SortedSet<HmmerResult> scan(ProteinSequence,URL)
+- Integer getInteger(Object)
+}
+class org.biojava.nbio.ws.alignment.qblast.MapToStringTransformer {
+- String mappingSequence
+- String separatorSequence
+- String nullValue
++ String transform(Map<?,?>)
++ String getMappingSequence()
++ void setMappingSequence(String)
++ String getSeparatorSequence()
++ void setSeparatorSequence(String)
++ String getNullValue()
++ void setNullValue(String)
+}
+interface org.biojava.nbio.ws.alignment.RemotePairwiseAlignmentService {
++ String sendAlignmentRequest(Sequence<Compound>,RemotePairwiseAlignmentProperties)
++ String sendAlignmentRequest(String,RemotePairwiseAlignmentProperties)
++ boolean isReady(String,long)
++ InputStream getAlignmentResults(String,RemotePairwiseAlignmentOutputProperties)
+}
+interface org.biojava.nbio.ws.alignment.RemotePairwiseAlignmentProperties {
++ {static} long serialVersionUID
++ String getAlignmentOption(String)
++ void setAlignementOption(String,String)
++ Set<String> getAlignmentOptions()
+}
+class org.biojava.nbio.ws.hmmer.HmmerResult {
+- {static} long serialVersionUID
+~ String desc
+~ Float score
+~ Float evalue
+~ Double pvalue
+~ String acc
+~ Integer dcl
+~ String name
+~ Integer ndom
+~ Integer nreported
+~ SortedSet<HmmerDomain> domains
++ SortedSet<HmmerDomain> getDomains()
++ void setDomains(SortedSet<HmmerDomain>)
++ String getDesc()
++ void setDesc(String)
++ Float getScore()
++ void setScore(Float)
++ Float getEvalue()
++ void setEvalue(Float)
++ Double getPvalue()
++ void setPvalue(Double)
++ String getAcc()
++ void setAcc(String)
++ Integer getDcl()
++ void setDcl(Integer)
++ String getName()
++ void setName(String)
++ Integer getNdom()
++ void setNdom(Integer)
++ Integer getNreported()
++ void setNreported(Integer)
++ String toString()
++ int compareTo(HmmerResult)
+- boolean emptyDomains(HmmerResult)
++ int getOverlapLength(HmmerResult)
+- int getOverlap(HmmerDomain,HmmerDomain)
+}
+class org.biojava.nbio.ws.alignment.qblast.NCBIQBlastService {
++ {static} long WAIT_INCREMENT
+- {static} MapToStringTransformer MAP_TO_STRING_TRANSFORMER
+- {static} String SERVICE_URL
+- {static} String DEFAULT_EMAIL
+- {static} String DEFAULT_TOOL
+- URL serviceUrl
+- String email
+- String tool
+- Map<String,BlastJob> jobs
+- void init(String)
++ String getRemoteBlastInfo()
++ String sendAlignmentRequest(Sequence<Compound>,RemotePairwiseAlignmentProperties)
++ String sendAlignmentRequest(int,RemotePairwiseAlignmentProperties)
++ String sendAlignmentRequest(String,RemotePairwiseAlignmentProperties)
++ boolean isReady(String)
++ boolean isReady(String,long)
++ InputStream getAlignmentResults(String,RemotePairwiseAlignmentOutputProperties)
++ void sendDeleteRequest(String)
+- URLConnection setQBlastServiceProperties(URLConnection)
++ void setTool(String)
++ String getTool()
++ void setEmail(String)
++ String getEmail()
+}
+class org.biojava.nbio.ws.alignment.qblast.NCBIQBlastOutputProperties {
+- {static} long serialVersionUID
+- Map<BlastOutputParameterEnum,String> param
++ String getOutputOption(String)
++ void setOutputOption(String,String)
++ String getOutputOption(BlastOutputParameterEnum)
++ void setOutputOption(BlastOutputParameterEnum,String)
++ Set<String> getOutputOptions()
++ void removeOutputOption(BlastOutputParameterEnum)
++ String getOutputFormat()
++ void setOutputFormat(BlastOutputFormatEnum)
++ String getAlignmentOutputFormat()
++ void setAlignmentOutputFormat(BlastOutputAlignmentFormatEnum)
++ int getDescriptionNumber()
++ void setDescriptionNumber(int)
++ int getAlignmentNumber()
++ void setAlignmentNumber(int)
+}
+interface org.biojava.nbio.ws.hmmer.HmmerScan {
++ SortedSet<HmmerResult> scan(ProteinSequence)
+}
+class org.biojava.nbio.ws.alignment.qblast.NCBIQBlastAlignmentProperties {
+- {static} long serialVersionUID
+- Map<BlastAlignmentParameterEnum,String> param
++ String getAlignmentOption(String)
++ void setAlignementOption(String,String)
++ Set<String> getAlignmentOptions()
++ String getAlignmentOption(BlastAlignmentParameterEnum)
++ void setAlignmentOption(BlastAlignmentParameterEnum,String)
++ void removeAlignmentOption(BlastAlignmentParameterEnum)
++ BlastProgramEnum getBlastProgram()
++ void setBlastProgram(BlastProgramEnum)
++ String getBlastDatabase()
++ void setBlastDatabase(String)
++ double getBlastExpect()
++ void setBlastExpect(double)
++ int getBlastWordSize()
++ void setBlastWordSize(int)
++ int getBlastGapCreation()
++ int getBlastGapExtension()
++ String getBlastGapCosts()
++ void setBlastGapCosts(int,int)
++ String getBlastMatrix()
++ void setBlastMatrix(BlastMatrixEnum)
++ void setBlastFromToPosition(int,int)
++ int getBlastFromPosition()
++ int getBlastToPosition()
++ void setBlastAdvancedOptions(String)
++ String getBlastAdvancedOptions()
+}
+class org.biojava.nbio.ws.hmmer.HmmerDomain {
+- {static} long serialVersionUID
+~ Integer sqFrom
+~ Integer sqTo
+~ Integer aliLenth
+~ Integer simCount
+~ Integer hmmFrom
+~ Integer hmmTo
+~ String hmmName
+~ String hmmDesc
+~ String hmmAcc
+~ Float evalue
++ Float getEvalue()
++ void setEvalue(Float)
++ Integer getSqFrom()
++ void setSqFrom(Integer)
++ Integer getSqTo()
++ void setSqTo(Integer)
++ Integer getAliLenth()
++ void setAliLenth(Integer)
++ Integer getSimCount()
++ void setSimCount(Integer)
++ Integer getHmmFrom()
++ void setHmmFrom(Integer)
++ Integer getHmmTo()
++ void setHmmTo(Integer)
++ String getHmmName()
++ void setHmmName(String)
++ String getHmmDesc()
++ void setHmmDesc(String)
++ String getHmmAcc()
++ void setHmmAcc(String)
++ String toString()
++ int compareTo(HmmerDomain)
+- boolean emptyDomain(HmmerDomain)
+}
+class org.biojava.nbio.ws.alignment.qblast.BlastJob {
+- String id
+- long startTimestamp
+- long expectedExecutionTime
++ String getId()
++ void setId(String)
++ long getStartTimestamp()
++ void setStartTimestamp(long)
++ long getExpectedExecutionTime()
++ void setExpectedExecutionTime(long)
++ String toString()
+}
+interface org.biojava.nbio.ws.alignment.RemotePairwiseAlignmentOutputProperties {
++ {static} long serialVersionUID
++ String getOutputOption(String)
++ void setOutputOption(String,String)
++ Set<String> getOutputOptions()
+}
+
+
+org.biojava.nbio.ws.hmmer.HmmerScan <|.. org.biojava.nbio.ws.hmmer.RemoteHmmerScan
+java.io.Serializable <|-- org.biojava.nbio.ws.alignment.RemotePairwiseAlignmentProperties
+org.biojava.nbio.ws.hmmer.Comparable <|.. org.biojava.nbio.ws.hmmer.HmmerResult
+java.io.Serializable <|.. org.biojava.nbio.ws.hmmer.HmmerResult
+org.biojava.nbio.ws.alignment.RemotePairwiseAlignmentService <|.. org.biojava.nbio.ws.alignment.qblast.NCBIQBlastService
+org.biojava.nbio.ws.alignment.RemotePairwiseAlignmentOutputProperties <|.. org.biojava.nbio.ws.alignment.qblast.NCBIQBlastOutputProperties
+org.biojava.nbio.ws.alignment.RemotePairwiseAlignmentProperties <|.. org.biojava.nbio.ws.alignment.qblast.NCBIQBlastAlignmentProperties
+org.biojava.nbio.ws.hmmer.Comparable <|.. org.biojava.nbio.ws.hmmer.HmmerDomain
+java.io.Serializable <|.. org.biojava.nbio.ws.hmmer.HmmerDomain
+java.io.Serializable <|-- org.biojava.nbio.ws.alignment.RemotePairwiseAlignmentOutputProperties
+@enduml

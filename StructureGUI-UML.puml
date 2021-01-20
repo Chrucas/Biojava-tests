@@ -1,0 +1,1728 @@
+@startuml
+class org.biojava.nbio.structure.symmetry.gui.SymmetryListener {
+- MultipleAlignmentJmol jmol
+- CeSymmResult symm
+- {static} Logger logger
++ void actionPerformed(ActionEvent)
+}
+class org.biojava.nbio.structure.gui.util.PDBServerPanel {
+- {static} long serialVersionUID
+~ boolean debug
+~ JTextField pdbDir
+~ JTextField f1
+~ JTextField f2
+~ JTextField c1
+~ JTextField c2
+- {static} Logger logger
+- Structure fromPDB(JTextField,JTextField)
++ Structure getStructure1()
++ Structure getStructure2()
+- JPanel getPDBFilePanel(int,JTextField,JTextField)
+}
+class org.biojava.nbio.structure.symmetry.gui.SymmetryGui {
+- {static} long serialVersionUID
+- CESymmParameters params
+- JButton abortB
+- SelectPDBPanel tab1
+- PDBUploadPanel tab2
+- ScopSelectPanel tab3
+- Thread thread
+- AlignmentCalculationRunnable alicalc
+- JTabbedPane masterPane
+- JTabbedPane tabPane
+- JProgressBar progress
+~ {static} ResourceManager resourceManager
+- {static} String MAIN_TITLE
+- {static} SymmetryGui me
++ {static} void main(String[])
++ {static} SymmetryGui getInstance()
++ {static} SymmetryGui getInstanceNoVisibilityChange()
+- Box setupAlgorithm()
+- Box initButtons()
+# void configureParameters()
++ void cleanUp()
+- void calcAlignment()
++ void notifyCalcFinished()
+- void abortCalc()
++ CESymmParameters getParameters()
+}
+class org.biojava.nbio.structure.symmetry.gui.ProgressThreadDrawer {
+~ JProgressBar progress
+~ {static} int interval
++ void run()
+}
+interface org.biojava.nbio.structure.gui.util.color.ContinuousColorMapper {
++ Color getColor(double)
+}
+class org.biojava.nbio.structure.align.gui.AboutDialog {
+~ Box vBox
++ void showDialog()
+}
+class org.biojava.nbio.structure.gui.util.color.SqrtColorMapper {
++ double transform(double)
+}
+class org.biojava.nbio.structure.gui.ScaleableMatrixPanel {
+- {static} long serialVersionUID
+# JMatrixPanel mPanel
+# JSlider slider
+# JScrollPane scroll
+# JComboBox coloring
+# Map<String,ContinuousColorMapper> gradients
+# {static} int SLIDER_STEPS
++ {static} void main(String[])
+# {static} Map<String,ContinuousColorMapper> createGradients()
++ void stateChanged(ChangeEvent)
++ Matrix getMatrix()
++ void setMatrix(Matrix)
++ JMatrixPanel getMatrixPanel()
++ FragmentPair[] getFragmentPairs()
++ void setFragmentPairs(FragmentPair[])
++ AlternativeAlignment[] getAlternativeAligs()
++ void setAlternativeAligs(AlternativeAlignment[])
++ int getSelectedAlignmentPos()
++ void setSelectedAlignmentPos(int)
++ ContinuousColorMapper getCellColor()
++ void setCellColor(ContinuousColorMapper)
++ void actionPerformed(ActionEvent)
+}
+class org.biojava.nbio.structure.gui.ScaleableMatrixPanel.GradientRenderer {
+- {static} long serialVersionUID
+- int min
+~ JLabel title
+~ JPanel gradientContainer
++ Component getListCellRendererComponent(JList,Object,int,boolean,boolean)
+}
+class org.biojava.nbio.structure.gui.JmolViewerImpl {
+- {static} Logger logger
++ {static} String viewer
++ {static} String adapter
++ {static} String smartAdapter
+~ Structure structure
+~ JmolPanel jmolPanel
+~ JFrame frame
++ void setTitle(String)
++ void setStructure(Structure)
++ void clear()
++ Color getColor()
++ Selection getSelection()
++ void repaint()
++ void setColor(Color)
++ void setSelection(Selection)
++ void setStyle(RenderStyle)
++ void setZoom(int)
+}
+class org.biojava.nbio.structure.gui.JmolViewerImpl.JmolPanel {
+- {static} long serialVersionUID
+~ Class viewerC
+~ Class adapterC
+~ Class smartAdapterC
+~ Object viewerO
+~ Object adapterO
+~ Method evalString
+~ Method renderScreenImage
+~ Method openStringInline
+~ Dimension currentSize
+~ Rectangle rectClip
++ Class getViewer()
++ void evalString(String)
++ void openStringInline(String)
++ void executeCmd(String)
++ void paint(Graphics)
+}
+class org.biojava.nbio.structure.align.webstart.WebStartMain {
+- {static} UserConfiguration userConfig
++ {static} void main(String[])
+- {static} JProgressBar showProgressBar(JFrame,String,String)
++ {static} UserConfiguration getWebStartConfig()
++ {static} UserConfiguration getDefaultConfig()
++ {static} UserConfiguration requestUserConfig()
+- {static} void showStructureAlignment(StructureAlignment,Atom[],Atom[],String,String)
+}
+interface org.biojava.nbio.structure.gui.events.AlignmentPositionListener {
++ void mouseOverPosition(AlignedPosition)
++ void positionSelected(AlignedPosition)
++ void toggleSelection(AlignedPosition)
++ void rangeSelected(AlignedPosition,AlignedPosition)
++ void selectionLocked()
++ void selectionUnlocked()
+}
+class org.biojava.nbio.structure.align.gui.autosuggest.JAutoSuggest {
+- {static} long serialVersionUID
+- {static} String DEFAULT_TEXT
+~ String defaultText
+- JDialog dialog
+- Point location
+- JList list
+- Vector<String> suggestions
+- String lastWord
+~ AutoSuggestProvider autoSuggestProvider
+~ Font regular
+~ Font busy
+~ SuggestionFetcher matcher
+- void initSuggestionList()
+- void init()
++ String getDefaultText()
++ void setDefaultText(String)
++ AutoSuggestProvider getAutoSuggestProvider()
++ void setAutoSuggestProvider(AutoSuggestProvider)
++ void showSuggest()
++ void hideSuggest()
++ boolean isSuggestVisible()
+- void updateLocation()
+}
+class org.biojava.nbio.structure.align.gui.autosuggest.JAutoSuggest.SuggestionFetcher {
+- AtomicBoolean stop
+~ String previousWord
++ String doInBackground()
++ void setStop()
+}
+class org.biojava.nbio.structure.align.gui.ChooseDirAction {
+~ JTextField textField
+~ UserConfiguration config
++ {static} long serialVersionUID
++ void actionPerformed(ActionEvent)
+}
+class org.biojava.nbio.structure.align.gui.SelectPDBPanel {
+~ boolean debug
+~ JTextField f1
+~ JTextField f2
+~ JTextField c1
+~ JTextField c2
+~ JTextField r1
+~ JTextField r2
+~ UserConfiguration config
+~ JTabbedPane configPane
+- {static} long serialVersionUID
++ StructureIdentifier getName1()
++ StructureIdentifier getName2()
++ Structure getStructure1()
++ Structure getStructure2()
+- Structure getStructure(StructureIdentifier)
+- Box getPDBFilePanel(int,JTextField,JTextField,JTextField)
+}
+class org.biojava.nbio.structure.align.webstart.BrowserOpener {
+- {static} Logger logger
++ {static} boolean showDocument(URL)
++ {static} boolean showDocument(String)
+}
+class org.biojava.nbio.structure.align.gui.jmol.RasmolCommandListener {
+~ JTextField textfield
+~ JmolPanel jmolPanel
+~ List<String> history
+~ int historyPosition
++ void actionPerformed(ActionEvent)
++ void mouseClicked(MouseEvent)
++ void mouseExited(MouseEvent)
++ void mouseReleased(MouseEvent)
++ void mousePressed(MouseEvent)
++ void mouseEntered(MouseEvent)
++ void keyReleased(KeyEvent)
+}
+class org.biojava.nbio.structure.gui.util.JButtonTableCellRenderer {
+- TableCellRenderer __defaultRenderer
++ Component getTableCellRendererComponent(JTable,Object,boolean,boolean,int,int)
+}
+class org.biojava.nbio.structure.symmetry.jmolScript.ColorConverter {
++ {static} Color4f convertColor4f(Color)
++ {static} Color4f[] convertColor4f(Color[])
+}
+class org.biojava.nbio.structure.align.gui.MyDistMaxListener {
+~ AbstractAlignmentJmol parent
++ void actionPerformed(ActionEvent)
+- void showMatrix(Matrix,String)
+}
+interface org.biojava.nbio.structure.gui.Selection {
++ void clear()
++ List<AtomInfo> getSelection()
++ void setSelection(List<AtomInfo>)
+}
+interface org.biojava.nbio.structure.gui.util.color.ColorInterpolator {
++ Color interpolate(Color,Color,float)
+}
+class org.biojava.nbio.structure.align.gui.JPrintPanel {
+- {static} long serialVersionUID
++ int print(Graphics,PageFormat,int)
++ void actionPerformed(ActionEvent)
+}
+class org.biojava.nbio.structure.align.gui.jmol.AtomInfoParser {
+- {static} Logger logger
+~ {static} Pattern pattern
++ {static} void main(String[])
++ {static} AtomInfo parse(String)
+}
+class org.biojava.nbio.structure.gui.util.color.DefaultMatrixMapper {
+- double scalevalue
+- float saturation
++ Color getColor(double)
++ double getScalevalue()
++ void setScalevalue(double)
++ float getSaturation()
++ void setSaturation(float)
+}
+abstract class org.biojava.nbio.structure.symmetry.jmolScript.JmolSymmetryScriptGenerator {
++ {static} JmolSymmetryScriptGenerator getInstance(AxisAligner,String)
++ {abstract}int getZoom()
++ {abstract}String getDefaultOrientation()
++ {abstract}int getOrientationCount()
++ {abstract}String getOrientation(int)
++ String getInstantaneousOrientation(int)
++ {abstract}String getOrientationWithZoom(int)
++ {abstract}String getOrientationName(int)
++ {abstract}Matrix4d getTransformation()
++ {abstract}void setDefaultColoring(String)
++ {abstract}void setOnTheFly(boolean)
++ {abstract}String drawPolyhedron()
++ {abstract}String hidePolyhedron()
++ {abstract}String showPolyhedron()
++ {abstract}String drawAxes()
++ {abstract}String hideAxes()
++ {abstract}String showAxes()
++ {abstract}String playOrientations()
++ {abstract}String colorBySubunit()
++ {abstract}String colorBySequenceCluster()
++ {abstract}String colorBySymmetry()
+# {static} String getJmolColorScript(Map<Color4f,List<String>>)
+# {static} String getJmolColor(Color4f)
+# {static} String getJmolPoint(Tuple3d)
+# {static} String f1Dot2(float)
+# {static} String fDot2(double)
+# {static} float jMolFloat(double)
+# {static} String getJmolLigandScript()
+}
+abstract class org.biojava.nbio.structure.symmetry.jmolScript.JmolSymmetryScriptGeneratorPointGroup {
+- {static} String N_FOLD_AXIS_COLOR
+- {static} String TWO_FOLD_AXIS_COLOR
+- {static} String THREE_FOLD_AXIS_COLOR
+- {static} double AXIS_SCALE_FACTOR
+- RotationAxisAligner rotationAxisAligner
+- RotationGroup rotationGroup
+- Polyhedron polyhedron
+- String name
+- String defaultColoring
+- boolean onTheFly
++ {abstract}int getZoom()
++ void setOnTheFly(boolean)
++ String getDefaultOrientation()
++ int getOrientationCount()
++ String getOrientation(int)
++ String getOrientationWithZoom(int)
++ String getOrientationName(int)
++ Matrix4d getTransformation()
++ void setDefaultColoring(String)
++ String drawPolyhedron()
++ String hidePolyhedron()
++ String showPolyhedron()
++ String drawAxes()
++ String hideAxes()
++ String showAxes()
++ String playOrientations()
++ String colorBySubunit()
++ String colorBySequenceCluster()
++ String colorBySymmetry()
+# double getMaxExtension()
+# double getMeanExtension()
+# RotationAxisAligner getAxisTransformation()
+# void setAxisTransformation(RotationAxisAligner)
+# RotationGroup getRotationGroup()
+# void setRotationGroup(RotationGroup)
+# Polyhedron getPolyhedron()
+# void setPolyhedron(Polyhedron)
+- String getChainSpecification(List<Integer>,List<String>,int)
+- Map<Color4f,List<String>> getCnColorMap()
+- Point3d[] getPolyhedronVertices()
+- Color4f getPolyhedronColor()
+- Color4f[] getSymmetryColors(int)
+- String drawInertiaAxes()
+- String drawSymmetryAxes()
+- Vector3d getAligmentVector(Point3d,Vector3d)
+- String getSymmetryAxis(int,int,String,int,Vector3d,double,float,String,Point3d,Vector3d)
+- {static} String getPolygonJmol(int,Point3d,Vector3d,Vector3d,int,String,double,String)
+- {static} Vector3d[] getPolygonVertices(Vector3d,Vector3d,Point3d,int,double)
+- {static} String getC2PolygonJmol(int,Point3d,Vector3d,Vector3d,String,double,String)
+- {static} Vector3d[] getC2PolygonVertices(Vector3d,Vector3d,Point3d,int,double)
+- List<Rotation> getUniqueAxes()
+- String drawHeader(String,String)
+- String deleteHeader()
+- String drawFooter(String,String)
+- String setCentroid()
+}
+class org.biojava.nbio.structure.symmetry.jmolScript.JmolSymmetryScriptGeneratorH {
+- {static} double AXIS_SCALE_FACTOR
+- {static} double SIDE_CHAIN_EXTENSION
+- HelixAxisAligner helixAxisAligner
+- String name
+- String defaultColoring
+- boolean onTheFly
++ void setOnTheFly(boolean)
++ int getZoom()
++ String getDefaultOrientation()
++ int getOrientationCount()
++ String getOrientation(int)
++ String getOrientationWithZoom(int)
++ String getOrientationName(int)
++ Matrix4d getTransformation()
++ void setDefaultColoring(String)
++ String drawPolyhedron()
++ String hidePolyhedron()
++ String showPolyhedron()
++ String drawAxes()
++ String hideAxes()
++ String showAxes()
++ String playOrientations()
++ String colorBySubunit()
++ String colorBySequenceCluster()
++ String colorBySymmetry()
+- String getChainSpecification(List<Integer>,List<String>,int)
+- List<List<Integer>> orientLayerLines(List<List<Integer>>)
+# double getMaxExtension()
+- List<Point3d> extendUnitCenters(List<Point3d>)
+- List<Point3d> interiorCenters(List<Point3d>)
+- String drawHeader(String,String)
+- String deleteHeader()
+- String drawFooter(String,String)
+- Color4f[] getSymmetryColors(int)
+- String setCentroid()
+}
+class org.biojava.nbio.structure.align.gui.MyExportListener {
+~ AbstractAlignmentJmol parent
++ void actionPerformed(ActionEvent)
+}
+class org.biojava.nbio.structure.align.gui.SystemInfo {
+~ Box vBox
+~ String msg
++ {static} String defaultProperties
++ {static} String hexPropertyNames
++ {static} String urlPropertyNames
+~ EtchedBorder border
+- void append(String)
++ {static} void quickSort(String[],int,int)
++ void addOneSystemProperty(String)
+# boolean isHexProperty(String)
+# boolean isURLProperty(String)
+- boolean isControlCharacter(char)
++ String getMessage()
++ void showDialog()
+}
+class org.biojava.nbio.structure.align.gui.MyAlignmentLoadListener {
++ void actionPerformed(ActionEvent)
+}
+class org.biojava.nbio.structure.gui.util.PDBUploadPanel {
+- {static} long serialVersionUID
+- {static} Logger logger
+- JComboBox fileType
+~ JTextField filePath1
+~ JTextField filePath2
+~ JTextField chain1
+~ JTextField chain2
++ {static} JComboBox getFileFormatSelect()
++ String getFilePath1()
++ String getChain1()
++ Structure getStructure1()
++ Structure getStructure2()
+- Structure getStructure(JTextField,JTextField)
+- JPanel getLocalFilePanel(int,JTextField,JTextField)
+}
+class org.biojava.nbio.structure.gui.util.ChooseAction {
+~ JTextField textField
++ {static} long serialVersionUID
++ void actionPerformed(ActionEvent)
+}
+class org.biojava.nbio.structure.gui.util.color.ColorUtils {
++ {static} Color orange
++ {static} Color cyan
++ {static} Color gold
+~ {static} Color c1
+~ {static} Color c2
+~ {static} Color c3
+~ {static} Color c4
+~ {static} Color c5
+~ {static} Color c6
++ {static} Color[] colorWheel
++ {static} void main(String[])
++ {static} String toHexColor(Color)
++ {static} Color rotateHue(Color,float)
++ {static} Color getIntermediate(Color,Color,int,int)
++ {static} Color darker(Color,double)
++ {static} Color lighter(Color,double)
+}
+class org.biojava.nbio.structure.gui.util.color.HSVColorSpace {
+- {static} long serialVersionUID
+- {static} HSVColorSpace hsvSpace
++ {static} int CS_HSV
++ {static} void main(String[])
++ float[] fromCIEXYZ(float[])
++ float[] fromRGB(float[])
++ float[] toCIEXYZ(float[])
++ float[] toRGB(float[])
++ {static} ColorSpace getInstance(int)
++ {static} ColorSpace getHSVColorSpace()
+}
+class org.biojava.nbio.structure.align.gui.MenuCreator {
++ {static} String PRINT
++ {static} String ALIGNMENT_PANEL
++ {static} String TEXT_ONLY
++ {static} String PAIRS_ONLY
++ {static} String SELECT_EQR
++ {static} String SIMILARITY_COLOR
++ {static} String EQR_COLOR
++ {static} String FATCAT_BLOCK
++ {static} String LOAD_DB_RESULTS
++ {static} String SAVE_ALIGNMENT_XML
++ {static} String LOAD_ALIGNMENT_XML
++ {static} String FATCAT_TEXT
++ {static} String FASTA_FORMAT
++ {static} String DIST_MATRICES
++ {static} String DOT_PLOT
++ {static} String PAIRWISE_ALIGN
++ {static} String MULTIPLE_ALIGN
++ {static} String PHYLOGENETIC_TREE
+# {static} int keyMask
++ {static} JMenuBar initJmolMenu(JFrame,AbstractAlignmentJmol,AFPChain,MultipleAlignment)
++ {static} JMenuItem getShowPDBMenuItem()
++ {static} JMenuItem getOpenPDBMenuItem()
++ {static} JMenuItem getLoadMenuItem()
++ {static} JMenuBar getAlignmentPanelMenu(JFrame,ActionListener,AFPChain,MultipleAlignment)
++ {static} JMenuBar getAlignmentTextMenu(JFrame,ActionListener,AFPChain,MultipleAlignment)
+# {static} JMenuItem getIcon(ActionListener,String)
++ {static} JMenuItem getPrintMenuItem()
++ {static} JMenuItem getExportPDBMenuItem(AbstractAlignmentJmol)
++ {static} JMenuItem getSaveAlignmentMenuItem(AFPChain,MultipleAlignment)
++ {static} JMenuItem getAboutMenuItem()
+- {static} JMenuItem getSystemInfoItem()
++ {static} JMenuItem getExitMenuItem()
++ {static} JMenuItem getHelpMenuItem()
++ {static} JMenuItem getCloseMenuItem(JFrame)
+- {static} void showPairDialog()
+- {static} void showMultipleDialog()
++ {static} void showAboutDialog()
++ {static} void showSystemInfo()
++ {static} ImageIcon createImageIcon(String)
+# {static} JMenuItem getPairwiseAlignmentMenuItem()
+# {static} JMenuItem getMultipleAlignmentMenuItem()
++ {static} JMenuBar initAlignmentGUIMenu(JFrame)
+- {static} JMenuItem getMemoryMonitorItem()
+# {static} void showMemoryMonitor()
+- {static} JMenuItem getConfigMenuItem()
+}
+class org.biojava.nbio.structure.align.gui.MyCloseListener {
+~ JFrame f
++ void actionPerformed(ActionEvent)
+}
+class org.biojava.nbio.structure.align.gui.MenuCreator.DotPlotListener {
+- AFPChain afpChain
++ void actionPerformed(ActionEvent)
+}
+class org.biojava.nbio.structure.gui.util.AlignedPosition {
+~ int pos1
+~ int pos2
+~ int equivalent
++ {static} int EQUIVALENT
++ {static} int NOT_ALIGNED
++ int getPos(int)
++ void setPos(int,int)
++ String toString()
++ int getPos1()
++ void setPos1(int)
++ int getPos2()
++ void setPos2(int)
++ int getEquivalent()
++ void setEquivalent(int)
+}
+class org.biojava.nbio.structure.align.webstart.JNLPProxy {
+- {static} Object basicServiceObject
+- {static} Class basicServiceClass
++ {static} void main(String[])
++ {static} boolean showDocument(URL)
+- {static} Object getBasicServiceObject()
+- {static} Class getBasicServiceClass()
+}
+class org.biojava.nbio.structure.gui.util.CoordManager {
+~ float scale
+~ int chainLength
++ void setLength(int)
++ void setScale(float)
+# int getSeqPos(int)
+# int getPanelPos(int)
+}
+class org.biojava.nbio.structure.align.gui.DisplayAFP {
+- {static} Logger logger
++ {static} List<Integer> getEQRAlignmentPos(AFPChain)
+- {static} boolean isAlignedPosition(int,char,char,boolean,char[])
++ {static} List<String> getPDBresnum(int,AFPChain,Atom[])
++ {static} Atom getAtomForAligPos(AFPChain,int,int,Atom[],boolean)
+- {static} int getNextFatCatPos(AFPChain,int,int,boolean)
+- {static} int getUngappedFatCatPos(AFPChain,int,int)
++ {static} Atom[] getAtomArray(Atom[],List<Group>)
++ {static} StructureAlignmentJmol display(AFPChain,Group[],Atom[],Atom[],List<Group>,List<Group>)
++ {static} void showAlignmentPanel(AFPChain,Atom[],Atom[],AbstractAlignmentJmol)
++ {static} void showAlignmentImage(AFPChain,String)
++ {static} Structure createArtificalStructure(AFPChain,Atom[],Atom[])
+}
+class org.biojava.nbio.structure.gui.util.JTableDataButtonModel {
++ {static} long serialVersionUID
+~ Object[][] __rows
+~ String[] __columns
++ String getColumnName(int)
++ int getRowCount()
++ int getColumnCount()
++ Object getValueAt(int,int)
++ boolean isCellEditable(int,int)
++ Class getColumnClass(int)
+}
+class org.biojava.nbio.structure.align.gui.MyTableRowSorter {
++ Comparator<?> getComparator(int)
+}
+class org.biojava.nbio.structure.align.gui.MyComparator {
+- {static} long serialVersionUID
+~ int column
++ int compare(String,String)
++ int compare(Float,Float)
++ int compare(Integer,Integer)
+}
+class org.biojava.nbio.structure.align.gui.ShowPDBIDListener {
++ void actionPerformed(ActionEvent)
+}
+class org.biojava.nbio.structure.align.gui.DotPlotPanel {
+- {static} long serialVersionUID
+- {static} JFrame showDotPlotJFrame(AFPChain)
++ {static} void main(String[])
+}
+class org.biojava.nbio.structure.align.gui.ParameterGUI {
+- {static} long serialVersionUID
+- ConfigStrucAligParams params
+- List<Component> textFields
+# void setDefault()
+- void destroy()
+# void storeParameters()
+- void setValue(String,Class,String)
+- Object getValue(String)
+}
+class org.biojava.nbio.structure.align.gui.MyOpenPdbFileListener {
++ void actionPerformed(ActionEvent)
+}
+interface org.biojava.nbio.structure.gui.StructureViewer {
++ void setStructure(Structure)
++ void repaint()
++ void setSelection(Selection)
++ Selection getSelection()
++ void setColor(Color)
++ Color getColor()
++ void setStyle(RenderStyle)
++ void clear()
++ void setZoom(int)
+}
+class org.biojava.nbio.structure.align.gui.autosuggest.SCOPAutoSuggestProvider {
+~ boolean DEBUG
+~ int maxResults
+~ AtomicBoolean stop
++ Vector<String> getSuggestion(String)
+- List<ScopDomain> getPossibleScopDomains(String)
++ void setMaxNrSuggestions(int)
++ int getMaxNrSuggestions()
++ void clear()
++ void stop()
+}
+class org.biojava.nbio.structure.align.gui.aligpanel.MultipleAligPanelMouseMotionListener {
+- MultipleAligPanel parent
+- List<AlignmentPositionListener> aligPosListeners
+- int prevPos
+- boolean isDragging
+- AlignedPosition selectionStart
+- AlignedPosition selectionEnd
+- boolean selectionLocked
++ void addAligPosListener(AlignmentPositionListener)
++ void mouseDragged(MouseEvent)
+- boolean keyPressed(MouseEvent)
+- void triggerRangeSelected(AlignedPosition,AlignedPosition)
++ void triggerSelectionLocked(boolean)
++ void mouseMoved(MouseEvent)
+- void triggerMouseOverPosition(AlignedPosition)
+- AlignedPosition getCurrentAlignedPosition(MouseEvent)
++ void destroy()
++ void mouseClicked(MouseEvent)
+- void triggerToggleSelection(AlignedPosition)
++ void mouseEntered(MouseEvent)
++ void mouseExited(MouseEvent)
++ void mousePressed(MouseEvent)
+- void setSelectionLock(boolean)
++ void mouseReleased(MouseEvent)
+}
+class org.biojava.nbio.structure.align.gui.ConfigPDBInstallPanel {
+- {static} long serialVersionUID
+~ JCheckBox fromFtp
+~ JComboBox fileType
+~ JTextField pdbDir
+- {static} ConfigPDBInstallPanel instance
+~ {static} JDialog dialog
++ {static} void showDialog()
+# void applyValues()
++ JCheckBox getFromFtp()
++ void setFromFtp(JCheckBox)
++ JTextField getPDBDirField()
++ void setPDBDirField(JTextField)
+}
+class org.biojava.nbio.structure.align.gui.MyAction {
+~ JDialog dialog
++ void actionPerformed(ActionEvent)
+}
+class org.biojava.nbio.structure.gui.SelectionImpl {
++ void clear()
++ List<AtomInfo> getSelection()
++ void setSelection(List<AtomInfo>)
+}
+class org.biojava.nbio.structure.symmetry.jmolScript.JmolSymmetryScriptGeneratorT {
++ int getZoom()
+}
+class org.biojava.nbio.structure.gui.events.JmolAlignedPositionListener {
+~ BiojavaJmol parent
+~ Atom[] ca1
+~ Atom[] ca2
+~ StructurePairAligner structurePairAligner
++ void setStructure1(Structure)
++ void setStructure2(Structure)
++ void mouseOverPosition(AlignedPosition)
++ void positionSelected(AlignedPosition)
++ void rangeSelected(AlignedPosition,AlignedPosition)
++ void selectionLocked()
++ void selectionUnlocked()
++ void toggleSelection(AlignedPosition)
+}
+class org.biojava.nbio.structure.align.gui.jmol.JmolTools {
+- {static} Pattern inscodePatter
++ {static} String getPdbInfo(Atom)
++ {static} void main(String[])
++ {static} String getPdbInfo(Atom,boolean)
+}
+class org.biojava.nbio.structure.align.gui.jmol.JmolPanel {
+- {static} Logger logger
+- {static} long serialVersionUID
+- JmolViewer viewer
+- JmolAdapter adapter
+~ JmolStatusListener statusListener
+~ Dimension currentSize
+~ Rectangle rectClip
+~ Structure structure
++ void paint(Graphics)
++ void evalString(String)
++ void openStringInline(String)
++ JmolViewer getViewer()
++ JmolAdapter getAdapter()
++ JmolStatusListener getStatusListener()
++ void executeCmd(String)
++ void setStructure(Structure,boolean)
++ void setStructure(Structure)
++ void jmolColorByChain()
++ void actionPerformed(ActionEvent)
+- void colorBySCOP()
+- void colorByPDP()
++ void rotateJmol(Matrix)
++ void destroy()
+}
+class org.biojava.nbio.structure.align.gui.jmol.JmolPanel.JmolLoggerAdapter {
+- Logger slf
++ int getLogLevel()
++ void debug(String)
++ void info(String)
++ void warn(String)
++ void warnEx(String,Throwable)
++ void error(String)
++ void errorEx(String,Throwable)
++ void fatal(String)
++ void fatalEx(String,Throwable)
+}
+class org.biojava.nbio.structure.symmetry.jmolScript.JmolSymmetryScriptGeneratorC1 {
++ int getZoom()
++ int getOrientationCount()
+}
+class org.biojava.nbio.structure.align.gui.jmol.MyJmolStatusListener {
+- {static} Logger logger
+~ JTextField status
++ void setTextField(JTextField)
++ String createImage(String,String,Object,int)
++ String eval(String)
++ float[][] functionXY(String,int,int)
++ float[][][] functionXYZ(String,int,int,int)
++ Map<String,Object> getRegistryInfo()
++ void showUrl(String)
++ void notifyCallback(int,Object[])
++ boolean notifyEnabled(int)
++ void setCallbackFunction(String,String)
++ String dialogAsk(String,String)
++ void handlePopupMenu(int,int)
++ void showConsole(boolean)
++ void notifyCallback(CBK,Object[])
++ boolean notifyEnabled(CBK)
++ Map<String,Object> getJSpecViewProperty(String)
++ int[] resizeInnerPanel(String)
+}
+class org.biojava.nbio.structure.gui.util.color.GradientPanel {
+- {static} long serialVersionUID
+- ContinuousColorMapper mapper
+- double min
++ void paintComponent(Graphics)
+}
+class org.biojava.nbio.structure.gui.WrapLayout {
+- Dimension preferredLayoutSize
++ Dimension preferredLayoutSize(Container)
++ Dimension minimumLayoutSize(Container)
+- Dimension layoutSize(Container,boolean)
+- void addRow(Dimension,int,int)
+}
+class org.biojava.nbio.structure.align.gui.jmol.StructureAlignmentJmol {
+- Atom[] ca1
+- Atom[] ca2
+- AFPChain afpChain
+- {static} String LIGAND_DISPLAY_SCRIPT
++ {static} void main(String[])
+# void initCoords()
++ void destroy()
++ void actionPerformed(ActionEvent)
++ {static} String getJmolString(AFPChain,Atom[],Atom[])
++ {static} String getJmolScript4Block(AFPChain,Atom[],Atom[],int)
+- {static} String getMultiBlockJmolScript(AFPChain,Atom[],Atom[])
+- {static} void printJmolScript4Block(Atom[],Atom[],int,int[],int[][][],StringWriter,int)
++ void resetDisplay()
++ List<Matrix> getDistanceMatrices()
++ void stateChanged(ChangeEvent)
+}
+class org.biojava.nbio.structure.align.gui.StructureAlignmentDisplay {
++ {static} StructureAlignmentJmol display(AFPChain,Atom[],Atom[])
+}
+class org.biojava.nbio.structure.gui.util.color.GradientMapper {
++ {static} int BLACK_WHITE_GRADIENT
++ {static} int WHITE_BLACK_GRADIENT
++ {static} int RED_BLUE_GRADIENT
++ {static} int RAINBOW_GRADIENT
++ {static} int RAINBOW_INTENSITY_GRADIENT
+- NavigableMap<Double,Color> mapping
+- ColorInterpolator interpolator
++ {static} GradientMapper getGradientMapper(int,double,double)
++ Color getColor(double)
++ void clear()
++ boolean containsKey(Object)
++ boolean containsValue(Object)
++ Set<java.util.Map.Entry<Double,Color>> entrySet()
++ Color get(Object)
++ boolean isEmpty()
++ Set<Double> keySet()
++ Color put(Double,Color)
++ void putAll(Map<? extends Double,? extends Color>)
++ Color remove(Object)
++ int size()
++ Collection<Color> values()
++ ColorInterpolator getInterpolator()
++ void setInterpolator(ColorInterpolator)
++ {static} void main(String[])
+}
+class org.biojava.nbio.structure.gui.util.color.LinearColorInterpolator {
+- ColorSpace colorSpace
+- InterpolationDirection[] interpolationDirection
++ Color interpolate(Color,Color,float)
++ void setColorSpace(ColorSpace,InterpolationDirection[])
++ void setColorSpace(ColorSpace)
++ void setInterpolationDirection(int,InterpolationDirection)
+}
+class org.biojava.nbio.structure.gui.util.MenuCreator {
++ {static} JMenuBar initMenu()
+- {static} void showPairDialog()
+- {static} void showAboutDialog()
+}
+interface org.biojava.nbio.structure.align.gui.autosuggest.AutoSuggestProvider {
++ Vector<String> getSuggestion(String)
++ void setMaxNrSuggestions(int)
++ int getMaxNrSuggestions()
++ void clear()
++ void stop()
+}
+class org.biojava.nbio.structure.align.webstart.AligUIManager {
++ {static} void setLookAndFeel()
+}
+class org.biojava.nbio.structure.align.gui.MultipleAlignmentCalc {
+- {static} Logger logger
+- List<StructureIdentifier> names
+- List<Structure> structures
+- MultipleAlignmentGUI parent
++ void run()
++ void interrupt()
++ void cleanup()
++ void setNrCPUs(int)
+}
+class org.biojava.nbio.structure.align.gui.autosuggest.DefaultAutoSuggestProvider {
++ Vector<String> getSuggestion(String)
++ void setMaxNrSuggestions(int)
++ int getMaxNrSuggestions()
++ void clear()
++ void stop()
+}
+interface org.biojava.nbio.structure.gui.util.StructurePairSelector {
++ Structure getStructure1()
++ Structure getStructure2()
+}
+class org.biojava.nbio.structure.align.gui.StructureLoaderThread {
+~ String name
+~ boolean showBiolAssembly
+~ UserConfiguration config
+~ {static} JFrame progressFrame
+# String doInBackground()
++ {static} void showProgressBar()
+- void hideProgressBar()
+}
+class org.biojava.nbio.structure.align.gui.AlignmentTextPanel {
+- {static} long serialVersionUID
+~ JEditorPane tp
++ void setText(String)
+}
+class org.biojava.nbio.structure.align.gui.aligpanel.AligPanelMouseMotionListener {
+~ AligPanel parent
+~ List<AlignmentPositionListener> aligPosListeners
+~ int prevPos
+~ boolean isDragging
+~ AlignedPosition selectionStart
+~ AlignedPosition selectionEnd
+~ boolean selectionLocked
++ void addAligPosListener(AlignmentPositionListener)
++ void mouseDragged(MouseEvent)
+- boolean keyPressed(MouseEvent)
+- void triggerRangeSelected(AlignedPosition,AlignedPosition)
++ void triggerSelectionLocked(boolean)
++ void mouseMoved(MouseEvent)
+- void triggerMouseOverPosition(AlignedPosition)
+- AlignedPosition getCurrentAlignedPosition(MouseEvent)
++ void destroy()
++ void mouseClicked(MouseEvent)
+- void triggerToggleSelection(AlignedPosition)
++ void mouseEntered(MouseEvent)
++ void mouseExited(MouseEvent)
++ void mousePressed(MouseEvent)
+- void setSelectionLock(boolean)
++ void mouseReleased(MouseEvent)
+}
+class org.biojava.nbio.structure.align.gui.MySaveFileListener {
+- AFPChain afpChain
+- MultipleAlignment msa
+- boolean printText
++ void actionPerformed(ActionEvent)
++ void setTextOutput(boolean)
+}
+class org.biojava.nbio.structure.align.gui.AlignmentGui {
+- {static} long serialVersionUID
+~ StructureAlignment algorithm
+~ JButton abortB
+~ SelectPDBPanel tab1
+~ PDBUploadPanel tab2
+~ ScopSelectPanel tab3
+~ Thread thread
+~ AlignmentCalculationRunnable alicalc
+~ JTabbedPane masterPane
+~ JTabbedPane tabPane
+~ JProgressBar progress
+~ {static} ResourceManager resourceManager
+- {static} String MAIN_TITLE
+- {static} AlignmentGui me
++ {static} void main(String[])
++ {static} AlignmentGui getInstance()
++ {static} AlignmentGui getInstanceNoVisibilityChange()
+- Box setupAlgorithm()
+- Box initButtons()
+# void configureParameters()
++ void cleanUp()
+- void calcAlignment()
++ void notifyCalcFinished()
+- void abortCalc()
++ StructureAlignment getStructureAlignment()
+- void updateAlgorithm(String)
+}
+class org.biojava.nbio.structure.align.gui.ProgressThreadDrawer {
+~ JProgressBar progress
+~ {static} int interval
++ void run()
+}
+class org.biojava.nbio.structure.align.gui.AlignmentCalc {
+- {static} Logger logger
+~ boolean interrupted
+~ String pdb1
+~ String pdb2
+~ String name1
+~ String name2
+~ Structure structure1
+~ Structure structure2
+~ AlignmentGui parent
++ void run()
++ void interrupt()
++ void cleanup()
++ void setNrCPUs(int)
+}
+abstract class org.biojava.nbio.structure.gui.util.color.ContinuousColorMapperTransform {
+# ContinuousColorMapper mapper
++ Color getColor(double)
++ {abstract}double transform(double)
+}
+class org.biojava.nbio.structure.align.gui.aligpanel.AligPanel {
+- {static} long serialVersionUID
+- AFPChain afpChain
+- AFPChainCoordManager coordManager
+- Font seqFont
+- Font eqFont
+- AbstractAlignmentJmol jmol
+- AligPanelMouseMotionListener mouseMoLi
+- BitSet selection
+- boolean selectionLocked
+- Atom[] ca1
+- Atom[] ca2
+- boolean colorBySimilarity
+- boolean colorByAlignmentBlock
+- {static} Color COLOR_EQUAL
+- {static} Color COLOR_SIMILAR
++ {static} void main(String[])
++ AFPChainCoordManager getCoordManager()
++ void addAlignmentPositionListener(AlignmentPositionListener)
++ void destroy()
++ AFPChain getAFPChain()
++ void setAFPChain(AFPChain)
++ void paintComponent(Graphics)
+- boolean isSelected(int)
++ void mouseOverPosition(AlignedPosition)
+- void updateJmolDisplay()
++ void positionSelected(AlignedPosition)
++ void rangeSelected(AlignedPosition,AlignedPosition)
++ void selectionLocked()
++ void selectionUnlocked()
++ void toggleSelection(AlignedPosition)
++ void setAlignmentJmol(AbstractAlignmentJmol)
++ void windowActivated(WindowEvent)
++ void windowClosed(WindowEvent)
++ void windowClosing(WindowEvent)
++ void windowDeactivated(WindowEvent)
++ void windowDeiconified(WindowEvent)
++ void windowIconified(WindowEvent)
++ void windowOpened(WindowEvent)
++ void actionPerformed(ActionEvent)
+- void colorByAlignmentBlock()
+- void colorBySimilarity(boolean)
+- void selectEQR()
++ Atom[] getCa1()
++ void setCa1(Atom[])
++ Atom[] getCa2()
++ void setCa2(Atom[])
+}
+interface org.biojava.nbio.structure.align.gui.AlignmentCalculationRunnable {
++ void interrupt()
++ void cleanup()
++ void setNrCPUs(int)
+}
+class org.biojava.nbio.structure.align.gui.aligpanel.MultipleAligPanel {
+- {static} long serialVersionUID
+- MultipleAlignment multAln
+- List<String> alnSeq
+- List<Integer> mapSeqToStruct
+~ int size
+~ int length
+- Font seqFont
+- Font eqFont
+- AbstractAlignmentJmol jmol
+- MultipleAligPanelMouseMotionListener mouseMoLi
+- MultipleAlignmentCoordManager coordManager
+- BitSet selection
+- boolean selectionLocked
+- boolean colorBySimilarity
+- boolean colorByAlignmentBlock
+- {static} Color COLOR_EQUAL
+- {static} Color COLOR_SIMILAR
++ MultipleAlignmentCoordManager getCoordManager()
++ void addAlignmentPositionListener(AlignmentPositionListener)
++ void destroy()
++ void paintComponent(Graphics)
+- boolean isSelected(int)
++ void mouseOverPosition(AlignedPosition)
+- void updateJmolDisplay()
++ void positionSelected(AlignedPosition)
++ void rangeSelected(AlignedPosition,AlignedPosition)
++ void selectionLocked()
++ void selectionUnlocked()
++ void toggleSelection(AlignedPosition)
++ void setStructureAlignmentJmol(AbstractAlignmentJmol)
++ void windowActivated(WindowEvent)
++ void windowClosed(WindowEvent)
++ void windowClosing(WindowEvent)
++ void windowDeactivated(WindowEvent)
++ void windowDeiconified(WindowEvent)
++ void windowIconified(WindowEvent)
++ void windowOpened(WindowEvent)
++ void actionPerformed(ActionEvent)
+- void selectEQR()
+- void colorByAlignmentBlock()
+- void colorBySimilarity(boolean)
++ List<Atom[]> getAtomArrays()
++ MultipleAlignment getMultipleAlignment()
++ List<String> getAlnSequences()
++ List<Integer> getMapSeqToStruct()
+}
+class org.biojava.nbio.structure.gui.SequenceDisplay {
+- {static} long serialVersionUID
+~ Structure structure1
+~ Structure structure2
+~ AlternativeAlignment alig
+~ StructurePairAligner structurePairAligner
+~ SequenceScalePanel panel1
+~ SequenceScalePanel panel2
+~ JSlider residueSizeSlider
+~ JLabel percentageDisplay
+~ int[] idx1
+~ int[] idx2
++ {static} int MAX_SCALE
+~ List<AlignedPosition> apos
+~ float scale
+~ SequenceMouseListener mouseListener1
+~ SequenceMouseListener mouseListener2
+~ JLabel label1
+~ JLabel label2
++ {static} void main(String[])
++ void clearListeners()
++ void addAlignmentPositionListener(AlignmentPositionListener)
++ StructurePairAligner getStructurePairAligner()
++ void setStructurePairAligner(StructurePairAligner)
++ int[] getIdx1()
+- void setIdx1(int[])
++ int[] getIdx2()
+- void setIdx2(int[])
+- void buildAligMap()
+- void setAtoms(Structure,SequenceScalePanel)
++ void setStructure1(Structure)
++ void setStructure2(Structure)
++ void setAlternativeAlignment(AlternativeAlignment)
++ List<AlignedPosition> getAligMap()
++ void stateChanged(ChangeEvent)
++ void updateDisplay()
+- void updatePercentageDisplay()
+- int getMaxSequenceLength()
+- float getScaleForZoom(int)
++ void calcScale(int)
++ float getScale()
+}
+abstract class org.biojava.nbio.structure.align.gui.jmol.AbstractAlignmentJmol {
+- {static} Logger logger
+# Structure structure
+# ColorBrewer colorPalette
+# JmolPanel jmolPanel
+# JFrame frame
+# JTextField text
+# JTextField status
+# {static} String COMMAND_LINE_HELP
+# {static} int DEFAULT_HEIGHT
+# {static} int DEFAULT_WIDTH
+# {static} String DEFAULT_SCRIPT
+# {static} int nrOpenWindows
+# {abstract}void initCoords()
++ void destroy()
++ {abstract}void resetDisplay()
++ void setAtoms(Atom[])
++ ColorBrewer getColorPalette()
++ JmolPanel getJmolPanel()
++ void setJmolPanel(JmolPanel)
++ void evalString(String)
++ void setStructure(Structure)
++ Structure getStructure()
++ {abstract}List<Matrix> getDistanceMatrices()
++ void setTitle(String)
++ String getTitle()
++ void mouseDragged(MouseEvent)
++ void mouseMoved(MouseEvent)
++ void mouseClicked(MouseEvent)
++ void mouseEntered(MouseEvent)
++ void mouseExited(MouseEvent)
++ void mousePressed(MouseEvent)
++ void mouseReleased(MouseEvent)
++ void windowActivated(WindowEvent)
++ void windowClosed(WindowEvent)
++ void windowClosing(WindowEvent)
++ void windowDeactivated(WindowEvent)
++ void windowDeiconified(WindowEvent)
++ void windowIconified(WindowEvent)
++ void windowOpened(WindowEvent)
++ {abstract}void actionPerformed(ActionEvent)
+}
+class org.biojava.nbio.structure.align.gui.jmol.AtomInfo {
+~ String chainId
+~ String atomName
+~ String residueName
+~ String residueNumber
+~ int modelNumber
+- {static} Pattern inscodePatter
++ {static} AtomInfo fromString(String)
++ int getModelNumber()
++ void setModelNumber(int)
++ String getResidueName()
++ void setResidueName(String)
++ String getResidueNumber()
++ void setResidueNumber(String)
++ String getChainId()
++ void setChainId(String)
++ String getAtomName()
++ void setAtomName(String)
++ String toString()
+}
+class org.biojava.nbio.structure.gui.util.color.LogColorMapper {
+- int base
++ double transform(double)
+}
+class org.biojava.nbio.structure.gui.BiojavaJmol {
++ {static} String viewer
++ {static} String adapter
++ {static} String smartAdapter
+~ Structure structure
+~ JmolPanel jmolPanel
+~ JFrame frame
++ {static} void main(String[])
++ {static} boolean jmolInClassPath()
++ void evalString(String)
++ void setStructure(Structure)
++ void setTitle(String)
++ JFrame getFrame()
+}
+class org.biojava.nbio.structure.symmetry.gui.SymmetryDisplay {
+- {static} Logger logger
++ {static} MultipleAlignmentJmol displayRepeats(CeSymmResult)
++ {static} MultipleAlignmentJmol displayFull(CeSymmResult)
++ {static} AbstractAlignmentJmol display(CeSymmResult)
+- {static} void addSymmetryMenu(MultipleAlignmentJmol,CeSymmResult)
++ {static} String printSymmetryAxes(CeSymmResult)
++ {static} String printSymmetryAxes(CeSymmResult,boolean)
++ {static} String printSymmetryGroup(CeSymmResult)
++ {static} String getSymmTitle(CeSymmResult)
+}
+class org.biojava.nbio.structure.gui.util.PDBDirPanel {
+- {static} long serialVersionUID
+~ boolean debug
+~ JTextField pdbDir
+~ JTextField f1
+~ JTextField f2
+~ JTextField c1
+~ JTextField c2
+- {static} Logger logger
+- Structure fromPDB(JTextField,JTextField)
++ Structure getStructure1()
++ Structure getStructure2()
+- JPanel getPDBDirPanel(JTextField)
+- JPanel getPDBFilePanel(int,JTextField,JTextField)
+}
+class org.biojava.nbio.structure.gui.util.ChooseDirAction {
+~ JTextField textField
++ {static} long serialVersionUID
++ void actionPerformed(ActionEvent)
+}
+class org.biojava.nbio.structure.align.gui.jmol.MultipleAlignmentJmol {
+- MultipleAlignment multAln
+- List<Atom[]> transformedAtoms
+- JCheckBox colorByBlocks
+- List<JCheckBox> selectedStructures
+- {static} String LIGAND_DISPLAY_SCRIPT
+- {static} Logger logger
+# void initCoords()
++ void destroy()
++ void actionPerformed(ActionEvent)
++ {static} String getJmolString(MultipleAlignment,List<Atom[]>,ColorBrewer,boolean)
++ {static} String getMultiBlockJmolString(MultipleAlignment,List<Atom[]>,ColorBrewer,boolean)
+- {static} void printJmolScript4Block(Atom[],List<List<Integer>>,Color,StringWriter,int,int,int)
++ void resetDisplay()
++ List<Matrix> getDistanceMatrices()
++ void setColorByBlocks(boolean)
++ JFrame getFrame()
++ MultipleAlignment getMultipleAlignment()
+}
+class org.biojava.nbio.structure.symmetry.jmolScript.JmolSymmetryScriptGeneratorI {
++ int getZoom()
+}
+class org.biojava.nbio.structure.gui.util.SequenceScalePanel {
+~ {static} long serialVersionUID
++ {static} int DEFAULT_X_START
++ {static} int DEFAULT_X_RIGHT_BORDER
++ {static} int DEFAULT_Y_START
++ {static} int DEFAULT_Y_STEP
++ {static} int DEFAULT_Y_HEIGHT
++ {static} int DEFAULT_Y_BOTTOM
++ {static} int LINE_HEIGHT
++ {static} int MINIMUM_HEIGHT
++ {static} Color SEQUENCE_COLOR
++ {static} Color SCALE_COLOR
++ {static} Color TEXT_SCALE_COLOR
++ {static} Color IDX_COLOR
++ {static} Color GAP_COLOR
++ {static} Color BACKGROUND_COLOR
++ {static} Font seqFont
+- {static} int SEQUENCE_SHOW
++ {static} int SIZE
+~ Chain chain
+~ int chainLength
+~ float scale
+~ Character[] seqArr
+~ CoordManager coordManager
+~ int position
+~ List<AlignedPosition> apos
+- void setPrefSize()
++ void setAligMap(List<AlignedPosition>)
++ void setChain(Chain)
++ Chain getChain()
++ float getScale()
++ void setScale(float)
+# void setPaintDefaults(Graphics2D)
++ void paintComponent(Graphics)
+# int drawScale(Graphics2D,int)
+# void drawIdx(Graphics2D,int)
+# int drawSequence(Graphics2D,int)
+}
+class org.biojava.nbio.structure.align.gui.aligpanel.MultipleStatusDisplay {
+- {static} long serialVersionUID
+- MultipleAligPanel panel
++ void destroy()
++ void mouseOverPosition(AlignedPosition)
++ void positionSelected(AlignedPosition)
++ void toggleSelection(AlignedPosition)
++ void rangeSelected(AlignedPosition,AlignedPosition)
++ void windowClosing(WindowEvent)
++ void selectionLocked()
++ void selectionUnlocked()
++ void windowActivated(WindowEvent)
++ void windowClosed(WindowEvent)
++ void windowDeactivated(WindowEvent)
++ void windowDeiconified(WindowEvent)
++ void windowIconified(WindowEvent)
++ void windowOpened(WindowEvent)
+}
+class org.biojava.nbio.structure.align.gui.MemoryMonitor {
+~ {static} JCheckBox dateStampCB
++ Surface surf
+~ JPanel controls
+~ boolean doControls
+~ JTextField tf
++ {static} long serialVersionUID
++ {static} void main(String[])
+}
+class org.biojava.nbio.structure.align.gui.MemoryMonitor.Surface {
++ {static} long serialVersionUID
++ Thread thread
++ long sleepAmount
+- int w
+- BufferedImage bimg
+- Graphics2D big
+- Font font
+- Runtime r
+- int columnInc
+- int[] pts
+- int ptNum
+- int ascent
+- Rectangle graphOutlineRect
+- Rectangle2D mfRect
+- Rectangle2D muRect
+- Line2D graphLine
+- Color graphColor
+- Color mfColor
+- String usedStr
++ Dimension getMinimumSize()
++ Dimension getMaximumSize()
++ Dimension getPreferredSize()
++ void paint(Graphics)
++ void start()
++ void stop()
++ void run()
+}
+class org.biojava.nbio.structure.symmetry.jmolScript.JmolSymmetryScriptGeneratorDn {
++ int getZoom()
++ int getOrientationCount()
++ String getOrientationName(int)
+}
+class org.biojava.nbio.structure.symmetry.gui.SymmetryCalc {
+- {static} Logger logger
+~ boolean interrupted
+- Structure structure
+- SymmetryGui parent
++ void run()
++ void interrupt()
++ void cleanup()
++ void setNrCPUs(int)
+}
+class org.biojava.nbio.structure.symmetry.jmolScript.JmolSymmetryScriptGeneratorO {
++ int getZoom()
+}
+class org.biojava.nbio.structure.gui.util.JTableMouseButtonListener {
+- JTable __table
+- void __forwardEventToButton(MouseEvent)
++ void mouseClicked(MouseEvent)
++ void mouseEntered(MouseEvent)
++ void mouseExited(MouseEvent)
++ void mousePressed(MouseEvent)
++ void mouseReleased(MouseEvent)
+}
+class org.biojava.nbio.structure.gui.util.SelectMultiplePanel {
+- {static} long serialVersionUID
+~ JTextField input
+- Box getDomainPanel(JTextField)
++ List<Structure> getStructures()
++ List<StructureIdentifier> getNames()
+- Structure getStructure(StructureIdentifier)
+}
+class org.biojava.nbio.structure.gui.util.AlternativeAlignmentFrame {
+- {static} long serialVersionUID
+- {static} Logger logger
+- {static} String[] columnNames
+~ AlternativeAlignment[] aligs
+~ JPanel panel
+~ Structure structure1
+~ Structure structure2
+~ StructurePairAligner structurePairAligner
++ void setStructurePairAligner(StructurePairAligner)
++ void setAlternativeAlignments(AlternativeAlignment[])
+- Object[][] getDataFromAligs(AlternativeAlignment[])
++ void showDistanceMatrix(int)
++ void showAlternative(int)
+- String[] createRasmolScripts(AlternativeAlignment)
+}
+class org.biojava.nbio.structure.gui.util.MyButtonMouseListener {
+~ AlternativeAlignmentFrame parent
+~ int pos
++ void mouseClicked(MouseEvent)
++ void mousePressed(MouseEvent)
++ void mouseReleased(MouseEvent)
++ void mouseEntered(MouseEvent)
++ void mouseExited(MouseEvent)
+}
+class org.biojava.nbio.structure.gui.util.MatrixMouseListener {
+~ AlternativeAlignmentFrame parent
+~ int pos
++ void mouseClicked(MouseEvent)
++ void mousePressed(MouseEvent)
++ void mouseReleased(MouseEvent)
++ void mouseEntered(MouseEvent)
++ void mouseExited(MouseEvent)
+}
+class org.biojava.nbio.structure.gui.util.ScopSelectPanel {
+- {static} long serialVersionUID
+~ JAutoSuggest dom1
+~ JAutoSuggest dom2
+- Box getDomainPanel(int,JTextField)
++ Structure getStructure1()
++ Structure getStructure2()
+- Structure getStructure(String)
+}
+class org.biojava.nbio.structure.align.gui.MultipleAlignmentGUI {
+- {static} long serialVersionUID
+- {static} String version
+- MultipleStructureAligner multiple
+- StructureAlignment pairwise
+- SelectMultiplePanel tab
+- JTabbedPane tabPane
+- Thread thread
+- AlignmentCalculationRunnable alicalc
+- JProgressBar progress
+- JButton abortB
+- {static} String MAIN_TITLE
+- {static} MultipleAlignmentGUI me
++ {static} void main(String[])
++ {static} MultipleAlignmentGUI getInstance()
++ {static} MultipleAlignmentGUI getInstanceNoVisibilityChange()
+- Box setupPairwiseAlgorithm()
+- Box setupMultipleAlgorithm()
+- Box initButtons()
++ void cleanUp()
+- void calcAlignment()
++ void notifyCalcFinished()
+- void abortCalc()
++ MultipleStructureAligner getMultipleStructureAligner()
++ StructureAlignment getPairwiseStructureAligner()
+- void updatePairwiseAlgorithm(String)
+- void updateMultipleAlgorithm()
+}
+class org.biojava.nbio.structure.align.gui.MultipleAlignmentJmolDisplay {
++ {static} List<String> getPDBresnum(int,MultipleAlignment,Atom[])
++ {static} void showMultipleAligmentPanel(MultipleAlignment,AbstractAlignmentJmol)
++ {static} void showAlignmentImage(MultipleAlignment,String)
++ {static} MultipleAlignmentJmol display(MultipleAlignment)
+}
+class org.biojava.nbio.structure.align.gui.aligpanel.StatusDisplay {
+- {static} long serialVersionUID
+~ AFPChain afpChain
+~ Atom[] ca1
+~ Atom[] ca2
++ void destroy()
++ void mouseOverPosition(AlignedPosition)
++ void positionSelected(AlignedPosition)
++ void toggleSelection(AlignedPosition)
++ void rangeSelected(AlignedPosition,AlignedPosition)
++ void selectionLocked()
++ void selectionUnlocked()
++ AFPChain getAfpChain()
++ void setAfpChain(AFPChain)
++ Atom[] getCa1()
++ void setCa1(Atom[])
++ Atom[] getCa2()
++ void setCa2(Atom[])
++ void windowActivated(WindowEvent)
++ void windowClosed(WindowEvent)
++ void windowClosing(WindowEvent)
++ void windowDeactivated(WindowEvent)
++ void windowDeiconified(WindowEvent)
++ void windowIconified(WindowEvent)
++ void windowOpened(WindowEvent)
+}
+class org.biojava.nbio.structure.gui.JMatrixPanel {
+- {static} long serialVersionUID
+~ BufferedImage _bufImage
+~ Matrix matrix
+~ ContinuousColorMapper cellColor
+~ float scale
+~ FragmentPair[] fragmentPairs
+~ AlternativeAlignment[] aligs
+~ int selectedAlignmentPos
+~ {static} BasicStroke stroke
+~ StrucAligParameters params
++ int getSelectedAlignmentPos()
++ void setSelectedAlignmentPos(int)
++ AlternativeAlignment[] getAlternativeAligs()
++ void setAlternativeAligs(AlternativeAlignment[])
++ FragmentPair[] getFragmentPairs()
++ void setFragmentPairs(FragmentPair[])
++ float getScale()
++ void setPreferredSize()
++ void setScale(float)
++ Matrix getMatrix()
++ void setMatrix(Matrix)
++ void paintComponent(Graphics)
++ void drawPairs(Graphics)
++ void drawBoxes(Graphics)
++ void drawDistances(Graphics)
++ ContinuousColorMapper getCellColor()
++ void setCellColor(ContinuousColorMapper)
+}
+class org.biojava.nbio.structure.gui.util.ScopInstallationInstance {
+~ {static} ScopInstallationInstance me
+~ ScopDatabase install
++ {static} ScopInstallationInstance getInstance()
++ ScopDatabase getSCOP()
+}
+class org.biojava.nbio.structure.align.webstart.ConfigXMLHandler {
+~ UserConfiguration config
++ void startElement(String,String,String,Attributes)
++ UserConfiguration getConfig()
+}
+class org.biojava.nbio.structure.gui.util.AlignmentCalc {
+- {static} Logger logger
+~ boolean interrupted
+~ String pdb1
+~ String pdb2
+~ String chain1
+~ String chain2
+~ Structure structure1
+~ Structure structure2
+~ AlignmentGui parent
++ void run()
+- void showAlignment(StructurePairAligner,AlternativeAlignment[])
++ void interrupt()
++ void cleanup()
+}
+class org.biojava.nbio.structure.align.gui.HelpDialog {
+~ Box vBox
++ void showDialog()
+}
+class org.biojava.nbio.structure.gui.util.SequenceMouseListener {
+~ boolean selectionLocked
+~ boolean dragging
+~ int selectionStart
+~ int selectionEnd
+~ int draggingStart
+~ int oldSelectionStart
+~ int chainLength
+~ CoordManager coordManager
+~ SequenceDisplay parent
+~ List<AlignmentPositionListener> alignmentPositionListeners
++ void clearListeners()
++ void addAlignmentPositionListener(AlignmentPositionListener)
++ void mousePressed(MouseEvent)
+- int getSeqPos(MouseEvent)
++ void setChain(Chain)
+- void setSelectionStart(int)
+- void setSelectionEnd(int)
++ void mouseDragged(MouseEvent)
++ void mouseMoved(MouseEvent)
++ void mouseClicked(MouseEvent)
++ void mouseEntered(MouseEvent)
++ void mouseExited(MouseEvent)
++ void mouseReleased(MouseEvent)
+# void triggerMouseOverPosition(int,int)
+}
+class org.biojava.nbio.structure.align.gui.aligpanel.MultipleAlignmentCoordManager {
+- int alignmentLength
+- int alignmentSize
++ {static} int DEFAULT_RIGHT_SPACER
++ {static} int DEFAULT_LINE_LENGTH
++ int DEFAULT_Y_STEP
++ {static} int DEFAULT_CHAR_SIZE
++ {static} int DEFAULT_LINE_SEPARATION
++ {static} int DEFAULT_X_SPACE
++ {static} int DEFAULT_Y_SPACE
++ {static} int SUMMARY_POS
+- {static} int DEFAULT_LEGEND_SIZE
++ int getSummaryPos()
++ int getPreferredWidth()
++ int getPreferredHeight()
++ int getSeqPos(int,Point)
++ Point getPanelPos(int,int)
++ int getAligSeq(Point)
++ Point getLegendPosition(int,int)
++ Point getEndLegendPosition(int,int)
+}
+class org.biojava.nbio.structure.align.gui.aligpanel.AFPChainCoordManager {
+~ AFPChain afpChain
++ {static} int DEFAULT_RIGHT_SPACER
++ {static} int DEFAULT_LINE_LENGTH
++ {static} int DEFAULT_Y_STEP
++ {static} int DEFAULT_CHAR_SIZE
++ {static} int DEFAULT_LINE_SEPARATION
++ {static} int DEFAULT_X_SPACE
++ {static} int DEFAULT_Y_SPACE
++ {static} int SUMMARY_POS
+- {static} int DEFAULT_LEGEND_SIZE
++ int getSummaryPos()
++ int getPreferredWidth()
++ int getPreferredHeight()
++ int getSeqPos(int,Point)
++ Point getPanelPos(int,int)
++ void setAFPChain(AFPChain)
++ int getAligSeq(Point)
++ Point getLegendPosition(int,int)
++ Point getEndLegendPosition(int,int)
+}
+class org.biojava.nbio.structure.symmetry.jmolScript.JmolSymmetryScriptGeneratorCn {
++ int getZoom()
++ int getOrientationCount()
++ String getOrientationName(int)
+}
+
+
+java.awt.event.ActionListener <|.. org.biojava.nbio.structure.symmetry.gui.SymmetryListener
+org.biojava.nbio.structure.gui.util.StructurePairSelector <|.. org.biojava.nbio.structure.gui.util.PDBServerPanel
+org.biojava.nbio.structure.gui.util.JPanel <|-- org.biojava.nbio.structure.gui.util.PDBServerPanel
+javax.swing.JFrame <|-- org.biojava.nbio.structure.symmetry.gui.SymmetryGui
+org.biojava.nbio.structure.symmetry.gui.Thread <|-- org.biojava.nbio.structure.symmetry.gui.ProgressThreadDrawer
+org.biojava.nbio.structure.gui.util.color.ContinuousColorMapperTransform <|-- org.biojava.nbio.structure.gui.util.color.SqrtColorMapper
+javax.swing.event.ChangeListener <|.. org.biojava.nbio.structure.gui.ScaleableMatrixPanel
+java.awt.event.ActionListener <|.. org.biojava.nbio.structure.gui.ScaleableMatrixPanel
+org.biojava.nbio.structure.gui.JPanel <|-- org.biojava.nbio.structure.gui.ScaleableMatrixPanel
+org.biojava.nbio.structure.gui.ScaleableMatrixPanel +.. org.biojava.nbio.structure.gui.ScaleableMatrixPanel.GradientRenderer
+org.biojava.nbio.structure.gui.ListCellRenderer <|.. org.biojava.nbio.structure.gui.ScaleableMatrixPanel.GradientRenderer
+org.biojava.nbio.structure.gui.JPanel <|-- org.biojava.nbio.structure.gui.ScaleableMatrixPanel.GradientRenderer
+org.biojava.nbio.structure.gui.StructureViewer <|.. org.biojava.nbio.structure.gui.JmolViewerImpl
+org.biojava.nbio.structure.gui.JmolViewerImpl +.. org.biojava.nbio.structure.gui.JmolViewerImpl.JmolPanel
+org.biojava.nbio.structure.gui.JPanel <|-- org.biojava.nbio.structure.gui.JmolViewerImpl.JmolPanel
+org.biojava.nbio.structure.align.gui.autosuggest.JTextField <|-- org.biojava.nbio.structure.align.gui.autosuggest.JAutoSuggest
+org.biojava.nbio.structure.align.gui.autosuggest.JAutoSuggest +.. org.biojava.nbio.structure.align.gui.autosuggest.JAutoSuggest.SuggestionFetcher
+org.biojava.nbio.structure.align.gui.autosuggest.SwingWorker <|-- org.biojava.nbio.structure.align.gui.autosuggest.JAutoSuggest.SuggestionFetcher
+org.biojava.nbio.structure.align.gui.AbstractAction <|-- org.biojava.nbio.structure.align.gui.ChooseDirAction
+org.biojava.nbio.structure.gui.util.StructurePairSelector <|.. org.biojava.nbio.structure.align.gui.SelectPDBPanel
+javax.swing.JPanel <|-- org.biojava.nbio.structure.align.gui.SelectPDBPanel
+org.biojava.nbio.structure.align.gui.jmol.ActionListener <|.. org.biojava.nbio.structure.align.gui.jmol.RasmolCommandListener
+org.biojava.nbio.structure.align.gui.jmol.MouseListener <|.. org.biojava.nbio.structure.align.gui.jmol.RasmolCommandListener
+org.biojava.nbio.structure.align.gui.jmol.KeyAdapter <|-- org.biojava.nbio.structure.align.gui.jmol.RasmolCommandListener
+javax.swing.table.TableCellRenderer <|.. org.biojava.nbio.structure.gui.util.JButtonTableCellRenderer
+java.awt.event.ActionListener <|.. org.biojava.nbio.structure.align.gui.MyDistMaxListener
+java.awt.print.Printable <|.. org.biojava.nbio.structure.align.gui.JPrintPanel
+java.awt.event.ActionListener <|.. org.biojava.nbio.structure.align.gui.JPrintPanel
+org.biojava.nbio.structure.align.gui.JPanel <|-- org.biojava.nbio.structure.align.gui.JPrintPanel
+org.biojava.nbio.structure.gui.util.color.ContinuousColorMapper <|.. org.biojava.nbio.structure.gui.util.color.DefaultMatrixMapper
+org.biojava.nbio.structure.symmetry.jmolScript.JmolSymmetryScriptGenerator <|-- org.biojava.nbio.structure.symmetry.jmolScript.JmolSymmetryScriptGeneratorPointGroup
+org.biojava.nbio.structure.symmetry.jmolScript.JmolSymmetryScriptGenerator <|-- org.biojava.nbio.structure.symmetry.jmolScript.JmolSymmetryScriptGeneratorH
+java.awt.event.ActionListener <|.. org.biojava.nbio.structure.align.gui.MyExportListener
+java.awt.event.ActionListener <|.. org.biojava.nbio.structure.align.gui.MyAlignmentLoadListener
+org.biojava.nbio.structure.gui.util.StructurePairSelector <|.. org.biojava.nbio.structure.gui.util.PDBUploadPanel
+org.biojava.nbio.structure.gui.util.JPanel <|-- org.biojava.nbio.structure.gui.util.PDBUploadPanel
+org.biojava.nbio.structure.gui.util.AbstractAction <|-- org.biojava.nbio.structure.gui.util.ChooseAction
+java.awt.color.ColorSpace <|-- org.biojava.nbio.structure.gui.util.color.HSVColorSpace
+org.biojava.nbio.structure.align.gui.ActionListener <|.. org.biojava.nbio.structure.align.gui.MyCloseListener
+org.biojava.nbio.structure.align.gui.MenuCreator +.. org.biojava.nbio.structure.align.gui.MenuCreator.DotPlotListener
+org.biojava.nbio.structure.align.gui.ActionListener <|.. org.biojava.nbio.structure.align.gui.MenuCreator.DotPlotListener
+javax.swing.table.AbstractTableModel <|-- org.biojava.nbio.structure.gui.util.JTableDataButtonModel
+javax.swing.table.TableRowSorter <|-- org.biojava.nbio.structure.align.gui.MyTableRowSorter
+java.util.Comparator <|.. org.biojava.nbio.structure.align.gui.MyComparator
+java.io.Serializable <|.. org.biojava.nbio.structure.align.gui.MyComparator
+java.awt.event.ActionListener <|.. org.biojava.nbio.structure.align.gui.ShowPDBIDListener
+org.biojava.nbio.structure.gui.ScaleableMatrixPanel <|-- org.biojava.nbio.structure.align.gui.DotPlotPanel
+org.biojava.nbio.structure.align.gui.JFrame <|-- org.biojava.nbio.structure.align.gui.ParameterGUI
+java.awt.event.ActionListener <|.. org.biojava.nbio.structure.align.gui.MyOpenPdbFileListener
+org.biojava.nbio.structure.align.gui.autosuggest.AutoSuggestProvider <|.. org.biojava.nbio.structure.align.gui.autosuggest.SCOPAutoSuggestProvider
+java.awt.event.MouseMotionListener <|.. org.biojava.nbio.structure.align.gui.aligpanel.MultipleAligPanelMouseMotionListener
+java.awt.event.MouseListener <|.. org.biojava.nbio.structure.align.gui.aligpanel.MultipleAligPanelMouseMotionListener
+org.biojava.nbio.structure.align.gui.JPanel <|-- org.biojava.nbio.structure.align.gui.ConfigPDBInstallPanel
+java.awt.event.ActionListener <|.. org.biojava.nbio.structure.align.gui.MyAction
+org.biojava.nbio.structure.gui.Selection <|.. org.biojava.nbio.structure.gui.SelectionImpl
+org.biojava.nbio.structure.symmetry.jmolScript.JmolSymmetryScriptGeneratorPointGroup <|-- org.biojava.nbio.structure.symmetry.jmolScript.JmolSymmetryScriptGeneratorT
+org.biojava.nbio.structure.gui.events.AlignmentPositionListener <|.. org.biojava.nbio.structure.gui.events.JmolAlignedPositionListener
+java.awt.event.ActionListener <|.. org.biojava.nbio.structure.align.gui.jmol.JmolPanel
+org.biojava.nbio.structure.align.gui.JPrintPanel <|-- org.biojava.nbio.structure.align.gui.jmol.JmolPanel
+org.biojava.nbio.structure.align.gui.jmol.JmolPanel +.. org.biojava.nbio.structure.align.gui.jmol.JmolPanel.JmolLoggerAdapter
+org.biojava.nbio.structure.align.gui.jmol.LoggerInterface <|.. org.biojava.nbio.structure.align.gui.jmol.JmolPanel.JmolLoggerAdapter
+org.biojava.nbio.structure.symmetry.jmolScript.JmolSymmetryScriptGeneratorPointGroup <|-- org.biojava.nbio.structure.symmetry.jmolScript.JmolSymmetryScriptGeneratorC1
+org.jmol.api.JmolStatusListener <|.. org.biojava.nbio.structure.align.gui.jmol.MyJmolStatusListener
+org.biojava.nbio.structure.gui.util.color.JPanel <|-- org.biojava.nbio.structure.gui.util.color.GradientPanel
+org.biojava.nbio.structure.gui.FlowLayout <|-- org.biojava.nbio.structure.gui.WrapLayout
+javax.swing.event.ChangeListener <|.. org.biojava.nbio.structure.align.gui.jmol.StructureAlignmentJmol
+org.biojava.nbio.structure.align.gui.jmol.AbstractAlignmentJmol <|-- org.biojava.nbio.structure.align.gui.jmol.StructureAlignmentJmol
+org.biojava.nbio.structure.gui.util.color.ContinuousColorMapper <|.. org.biojava.nbio.structure.gui.util.color.GradientMapper
+org.biojava.nbio.structure.gui.util.color.Map <|.. org.biojava.nbio.structure.gui.util.color.GradientMapper
+org.biojava.nbio.structure.gui.util.color.ColorInterpolator <|.. org.biojava.nbio.structure.gui.util.color.LinearColorInterpolator
+org.biojava.nbio.structure.align.gui.AlignmentCalculationRunnable <|.. org.biojava.nbio.structure.align.gui.MultipleAlignmentCalc
+org.biojava.nbio.structure.align.gui.autosuggest.AutoSuggestProvider <|.. org.biojava.nbio.structure.align.gui.autosuggest.DefaultAutoSuggestProvider
+org.biojava.nbio.structure.align.gui.SwingWorker <|-- org.biojava.nbio.structure.align.gui.StructureLoaderThread
+org.biojava.nbio.structure.align.gui.JPrintPanel <|-- org.biojava.nbio.structure.align.gui.AlignmentTextPanel
+java.awt.event.MouseMotionListener <|.. org.biojava.nbio.structure.align.gui.aligpanel.AligPanelMouseMotionListener
+java.awt.event.MouseListener <|.. org.biojava.nbio.structure.align.gui.aligpanel.AligPanelMouseMotionListener
+java.awt.event.ActionListener <|.. org.biojava.nbio.structure.align.gui.MySaveFileListener
+javax.swing.JFrame <|-- org.biojava.nbio.structure.align.gui.AlignmentGui
+org.biojava.nbio.structure.align.gui.Thread <|-- org.biojava.nbio.structure.align.gui.ProgressThreadDrawer
+org.biojava.nbio.structure.align.gui.AlignmentCalculationRunnable <|.. org.biojava.nbio.structure.align.gui.AlignmentCalc
+org.biojava.nbio.structure.gui.util.color.ContinuousColorMapper <|.. org.biojava.nbio.structure.gui.util.color.ContinuousColorMapperTransform
+org.biojava.nbio.structure.gui.events.AlignmentPositionListener <|.. org.biojava.nbio.structure.align.gui.aligpanel.AligPanel
+java.awt.event.WindowListener <|.. org.biojava.nbio.structure.align.gui.aligpanel.AligPanel
+org.biojava.nbio.structure.align.gui.JPrintPanel <|-- org.biojava.nbio.structure.align.gui.aligpanel.AligPanel
+org.biojava.nbio.structure.align.gui.Runnable <|-- org.biojava.nbio.structure.align.gui.AlignmentCalculationRunnable
+org.biojava.nbio.structure.gui.events.AlignmentPositionListener <|.. org.biojava.nbio.structure.align.gui.aligpanel.MultipleAligPanel
+java.awt.event.WindowListener <|.. org.biojava.nbio.structure.align.gui.aligpanel.MultipleAligPanel
+org.biojava.nbio.structure.align.gui.JPrintPanel <|-- org.biojava.nbio.structure.align.gui.aligpanel.MultipleAligPanel
+javax.swing.event.ChangeListener <|.. org.biojava.nbio.structure.gui.SequenceDisplay
+org.biojava.nbio.structure.gui.JPanel <|-- org.biojava.nbio.structure.gui.SequenceDisplay
+java.awt.event.MouseMotionListener <|.. org.biojava.nbio.structure.align.gui.jmol.AbstractAlignmentJmol
+java.awt.event.MouseListener <|.. org.biojava.nbio.structure.align.gui.jmol.AbstractAlignmentJmol
+java.awt.event.WindowListener <|.. org.biojava.nbio.structure.align.gui.jmol.AbstractAlignmentJmol
+java.awt.event.ActionListener <|.. org.biojava.nbio.structure.align.gui.jmol.AbstractAlignmentJmol
+org.biojava.nbio.structure.gui.util.color.ContinuousColorMapperTransform <|-- org.biojava.nbio.structure.gui.util.color.LogColorMapper
+org.biojava.nbio.structure.gui.util.StructurePairSelector <|.. org.biojava.nbio.structure.gui.util.PDBDirPanel
+org.biojava.nbio.structure.gui.util.JPanel <|-- org.biojava.nbio.structure.gui.util.PDBDirPanel
+org.biojava.nbio.structure.gui.util.AbstractAction <|-- org.biojava.nbio.structure.gui.util.ChooseDirAction
+org.biojava.nbio.structure.align.gui.jmol.AbstractAlignmentJmol <|-- org.biojava.nbio.structure.align.gui.jmol.MultipleAlignmentJmol
+org.biojava.nbio.structure.symmetry.jmolScript.JmolSymmetryScriptGeneratorPointGroup <|-- org.biojava.nbio.structure.symmetry.jmolScript.JmolSymmetryScriptGeneratorI
+org.biojava.nbio.structure.gui.util.JPanel <|-- org.biojava.nbio.structure.gui.util.SequenceScalePanel
+org.biojava.nbio.structure.gui.events.AlignmentPositionListener <|.. org.biojava.nbio.structure.align.gui.aligpanel.MultipleStatusDisplay
+java.awt.event.WindowListener <|.. org.biojava.nbio.structure.align.gui.aligpanel.MultipleStatusDisplay
+javax.swing.JTextField <|-- org.biojava.nbio.structure.align.gui.aligpanel.MultipleStatusDisplay
+org.biojava.nbio.structure.align.gui.JPanel <|-- org.biojava.nbio.structure.align.gui.MemoryMonitor
+org.biojava.nbio.structure.align.gui.MemoryMonitor +.. org.biojava.nbio.structure.align.gui.MemoryMonitor.Surface
+org.biojava.nbio.structure.align.gui.Runnable <|.. org.biojava.nbio.structure.align.gui.MemoryMonitor.Surface
+org.biojava.nbio.structure.align.gui.JPanel <|-- org.biojava.nbio.structure.align.gui.MemoryMonitor.Surface
+org.biojava.nbio.structure.symmetry.jmolScript.JmolSymmetryScriptGeneratorPointGroup <|-- org.biojava.nbio.structure.symmetry.jmolScript.JmolSymmetryScriptGeneratorDn
+org.biojava.nbio.structure.align.gui.AlignmentCalculationRunnable <|.. org.biojava.nbio.structure.symmetry.gui.SymmetryCalc
+org.biojava.nbio.structure.symmetry.jmolScript.JmolSymmetryScriptGeneratorPointGroup <|-- org.biojava.nbio.structure.symmetry.jmolScript.JmolSymmetryScriptGeneratorO
+java.awt.event.MouseListener <|.. org.biojava.nbio.structure.gui.util.JTableMouseButtonListener
+javax.swing.JPanel <|-- org.biojava.nbio.structure.gui.util.SelectMultiplePanel
+org.biojava.nbio.structure.gui.util.JFrame <|-- org.biojava.nbio.structure.gui.util.AlternativeAlignmentFrame
+java.awt.event.MouseListener <|.. org.biojava.nbio.structure.gui.util.MyButtonMouseListener
+java.awt.event.MouseListener <|.. org.biojava.nbio.structure.gui.util.MatrixMouseListener
+org.biojava.nbio.structure.gui.util.StructurePairSelector <|.. org.biojava.nbio.structure.gui.util.ScopSelectPanel
+org.biojava.nbio.structure.gui.util.JPanel <|-- org.biojava.nbio.structure.gui.util.ScopSelectPanel
+javax.swing.JFrame <|-- org.biojava.nbio.structure.align.gui.MultipleAlignmentGUI
+org.biojava.nbio.structure.gui.events.AlignmentPositionListener <|.. org.biojava.nbio.structure.align.gui.aligpanel.StatusDisplay
+java.awt.event.WindowListener <|.. org.biojava.nbio.structure.align.gui.aligpanel.StatusDisplay
+org.biojava.nbio.structure.align.gui.aligpanel.JTextField <|-- org.biojava.nbio.structure.align.gui.aligpanel.StatusDisplay
+org.biojava.nbio.structure.gui.JPanel <|-- org.biojava.nbio.structure.gui.JMatrixPanel
+org.xml.sax.helpers.DefaultHandler <|-- org.biojava.nbio.structure.align.webstart.ConfigXMLHandler
+org.biojava.nbio.structure.gui.util.Runnable <|.. org.biojava.nbio.structure.gui.util.AlignmentCalc
+java.awt.event.MouseListener <|.. org.biojava.nbio.structure.gui.util.SequenceMouseListener
+java.awt.event.MouseMotionListener <|.. org.biojava.nbio.structure.gui.util.SequenceMouseListener
+org.biojava.nbio.structure.symmetry.jmolScript.JmolSymmetryScriptGeneratorPointGroup <|-- org.biojava.nbio.structure.symmetry.jmolScript.JmolSymmetryScriptGeneratorCn
+@enduml

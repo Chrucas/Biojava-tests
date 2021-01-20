@@ -1,0 +1,379 @@
+@startuml
+class org.biojava.nbio.aaproperties.profeat.convertor.Convert2SecondaryStructure {
+- {static} String[] subCategory
++ char convert(char)
++ String[] getGrouping()
++ String getAttribute()
+}
+class org.biojava.nbio.aaproperties.PeptidePropertiesImpl {
+- {static} Logger logger
+- double[][] cPk
+- double PH_MIN
+- double PH_MAX
+- double MAXLOOP
+- double EPSI
+- double getWaterMoleculeWeight()
+- char[] getSequence(String,boolean)
++ double getMolecularWeight(ProteinSequence)
++ double getMolecularWeight(ProteinSequence,File)
++ double getMolecularWeight(ProteinSequence,File,File)
++ double getMolecularWeightBasedOnXML(ProteinSequence,AminoAcidCompositionTable)
++ AminoAcidCompositionTable obtainAminoAcidCompositionTable(File)
++ AminoAcidCompositionTable obtainAminoAcidCompositionTable(File,File)
++ double getExtinctionCoefficient(ProteinSequence,boolean)
++ double getAbsorbance(ProteinSequence,boolean)
+- Map<AminoAcidCompound,Integer> getExtinctAACount(ProteinSequence)
++ double getInstabilityIndex(ProteinSequence)
++ double getApliphaticIndex(ProteinSequence)
++ double getAvgHydropathy(ProteinSequence)
++ double getIsoelectricPoint(ProteinSequence,boolean)
+- double getIsoelectricPointInnovagen(ProteinSequence)
+- double exp10(double)
+- double getIsoelectricPointExpasy(String)
++ double getIsoelectricPoint(ProteinSequence)
++ double getNetCharge(ProteinSequence)
++ double getNetCharge(ProteinSequence,boolean)
++ double getNetCharge(ProteinSequence,boolean,double)
+- double getNetChargeExpasy(String,double)
+- double getNetChargeExpasy(int[],int,int,double)
+- double getNetChargeInnovagen(ProteinSequence,double)
+- double getNetChargeInnovagen(Map<AminoAcidCompound,Integer>,double,char,char)
+- double getPosCharge(double,double)
+- double getNegCharge(double,double)
+- Map<AminoAcidCompound,Integer> getChargedAACount(ProteinSequence)
++ double getEnrichment(ProteinSequence,AminoAcidCompound)
++ Map<AminoAcidCompound,Double> getAAComposition(ProteinSequence)
+}
+class org.biojava.nbio.aaproperties.PeptideProperties {
+- {static} Logger logger
++ {static} Set<Character> standardAASet
++ {static} double getMolecularWeight(String)
++ {static} double getMolecularWeight(String,File,File)
++ {static} double getMolecularWeight(String,File)
++ {static} AminoAcidCompositionTable obtainAminoAcidCompositionTable(File)
++ {static} AminoAcidCompositionTable obtainAminoAcidCompositionTable(File,File)
++ {static} double getMolecularWeightBasedOnXML(String,AminoAcidCompositionTable)
++ {static} double getAbsorbance(String,boolean)
++ {static} double getExtinctionCoefficient(String,boolean)
++ {static} double getInstabilityIndex(String)
++ {static} double getApliphaticIndex(String)
++ {static} double getAvgHydropathy(String)
++ {static} double getIsoelectricPoint(String,boolean)
++ {static} double getIsoelectricPoint(String)
++ {static} double getNetCharge(String,boolean,double)
++ {static} double getNetCharge(String,boolean)
++ {static} double getNetCharge(String)
++ {static} double getEnrichment(String,SingleLetterAACode)
++ {static} double getEnrichment(String,char)
++ {static} double getEnrichment(String,String)
++ {static} Map<AminoAcidCompound,Double> getAAComposition(String)
++ {static} Map<String,Double> getAACompositionString(String)
++ {static} Map<Character,Double> getAACompositionChar(String)
++ {static} int[] getChargesOfAminoAcids(String)
++ {static} int[] getPolarityOfAminoAcids(String)
+}
+class org.biojava.nbio.aaproperties.xml.MyValidationEventHandler {
+- {static} Logger logger
++ boolean handleEvent(ValidationEvent)
+}
+class org.biojava.nbio.aaproperties.profeat.convertor.Convert2Hydrophobicity {
+- {static} String[] subCategory
++ char convert(char)
++ String[] getGrouping()
++ String getAttribute()
+}
+class org.biojava.nbio.aaproperties.xml.Name2Count {
+- String name
+- int count
++ String getName()
++ int getCount()
+}
+class org.biojava.nbio.aaproperties.xml.SchemaGenerator {
+- String fileName
++ Result createOutput(String,String)
+}
+class org.biojava.nbio.aaproperties.profeat.ProfeatPropertiesImpl {
++ double getComposition(ProteinSequence,ATTRIBUTE,GROUPING)
+- int getTotalCount(String,GROUPING)
++ double getTransition(ProteinSequence,ATTRIBUTE,TRANSITION)
++ double getDistributionPosition(ProteinSequence,ATTRIBUTE,GROUPING,DISTRIBUTION)
+- Convertor getConvertor(ATTRIBUTE)
++ Map<GROUPING,Double> getComposition(ProteinSequence,ATTRIBUTE)
++ Map<ATTRIBUTE,Map<GROUPING,Double>> getComposition(ProteinSequence)
++ Map<TRANSITION,Double> getTransition(ProteinSequence,ATTRIBUTE)
++ Map<ATTRIBUTE,Map<TRANSITION,Double>> getTransition(ProteinSequence)
++ Map<DISTRIBUTION,Double> getDistributionPosition(ProteinSequence,ATTRIBUTE,GROUPING)
++ Map<GROUPING,Map<DISTRIBUTION,Double>> getDistributionPosition(ProteinSequence,ATTRIBUTE)
++ Map<ATTRIBUTE,Map<GROUPING,Map<DISTRIBUTION,Double>>> getDistributionPosition(ProteinSequence)
+}
+interface org.biojava.nbio.aaproperties.profeat.IProfeatProperties {
++ double getComposition(ProteinSequence,ATTRIBUTE,GROUPING)
++ Map<GROUPING,Double> getComposition(ProteinSequence,ATTRIBUTE)
++ Map<ATTRIBUTE,Map<GROUPING,Double>> getComposition(ProteinSequence)
++ double getTransition(ProteinSequence,ATTRIBUTE,TRANSITION)
++ Map<TRANSITION,Double> getTransition(ProteinSequence,ATTRIBUTE)
++ Map<ATTRIBUTE,Map<TRANSITION,Double>> getTransition(ProteinSequence)
++ double getDistributionPosition(ProteinSequence,ATTRIBUTE,GROUPING,DISTRIBUTION)
++ Map<DISTRIBUTION,Double> getDistributionPosition(ProteinSequence,ATTRIBUTE,GROUPING)
++ Map<GROUPING,Map<DISTRIBUTION,Double>> getDistributionPosition(ProteinSequence,ATTRIBUTE)
++ Map<ATTRIBUTE,Map<GROUPING,Map<DISTRIBUTION,Double>>> getDistributionPosition(ProteinSequence)
+}
+class org.biojava.nbio.aaproperties.Utils {
+- {static} Logger logger
++ {static} double roundToDecimals(double,int)
++ {static} boolean doesSequenceContainInvalidChar(String,Set<Character>)
++ {static} int getNumberOfInvalidChar(String,Set<Character>,boolean)
++ {static} String cleanSequence(String,Set<Character>)
++ {static} String checkSequence(String)
++ {static} String checkSequence(String,Set<Character>)
+}
+abstract class org.biojava.nbio.aaproperties.profeat.convertor.Convertor {
++ {static} char group1
++ {static} char group2
++ {static} char group3
++ {static} char unknownGroup
++ {abstract}char convert(char)
++ {abstract}String[] getGrouping()
++ {abstract}String getAttribute()
++ String convert(ProteinSequence)
+}
+class org.biojava.nbio.aaproperties.xml.AminoAcidComposition {
+- String symbol
+- String shortName
+- String name
+~ String id
+- List<Name2Count> elementList
+- List<Name2Count> isotopeList
++ String toString()
++ String getSymbol()
++ void setSymbol(String)
++ void setShortName(String)
++ String getShorName()
++ void setName(String)
++ String getName()
++ List<Name2Count> getElementList()
++ List<Name2Count> getIsotopeList()
+}
+class org.biojava.nbio.aaproperties.xml.ElementTable {
+- List<Element> element
+- Map<String,Element> elementName2Element
+- Map<String,Isotope> isotopeName2Isotope
++ void setElement(List<Element>)
++ void populateMaps()
++ List<Element> getElement()
++ Element getElement(String)
++ Isotope getIsotope(String)
+}
+class org.biojava.nbio.aaproperties.xml.Isotope {
+- String name
+- int neutronsNum
+- double mass
++ String getName()
++ void setName(String)
++ int getNeutronsNum()
++ void setNeutronsNum(int)
++ double getMass()
++ void setMass(double)
+}
+class org.biojava.nbio.aaproperties.xml.ModifiedAminoAcidCompoundSet {
+- Map<String,AminoAcidCompound> aminoAcidCompoundCache
++ int getMaxSingleCompoundStringLength()
++ boolean isCompoundStringLengthEqual()
++ AminoAcidCompound getCompoundForString(String)
++ String getStringForCompound(AminoAcidCompound)
++ boolean compoundsEquivalent(AminoAcidCompound,AminoAcidCompound)
++ Set<AminoAcidCompound> getEquivalentCompounds(AminoAcidCompound)
++ boolean hasCompound(AminoAcidCompound)
++ List<AminoAcidCompound> getAllCompounds()
++ boolean isComplementable()
++ boolean isValidSequence(Sequence<AminoAcidCompound>)
+}
+class org.biojava.nbio.aaproperties.profeat.convertor.Convert2NormalizedVanDerWaalsVolume {
+- {static} String[] subCategory
++ char convert(char)
++ String[] getGrouping()
++ String getAttribute()
+}
+class org.biojava.nbio.aaproperties.profeat.convertor.Convert2SolventAccessibility {
+- {static} String[] subCategory
++ char convert(char)
++ String[] getGrouping()
++ String getAttribute()
+}
+class org.biojava.nbio.aaproperties.profeat.ProfeatProperties {
++ {static} double getComposition(ProteinSequence,ATTRIBUTE,GROUPING)
++ {static} Map<GROUPING,Double> getComposition(ProteinSequence,ATTRIBUTE)
++ {static} Map<ATTRIBUTE,Map<GROUPING,Double>> getComposition(ProteinSequence)
++ {static} double getComposition(String,ATTRIBUTE,GROUPING)
++ {static} Map<GROUPING,Double> getComposition(String,ATTRIBUTE)
++ {static} Map<ATTRIBUTE,Map<GROUPING,Double>> getComposition(String)
++ {static} double getTransition(ProteinSequence,ATTRIBUTE,TRANSITION)
++ {static} Map<TRANSITION,Double> getTransition(ProteinSequence,ATTRIBUTE)
++ {static} Map<ATTRIBUTE,Map<TRANSITION,Double>> getTransition(ProteinSequence)
++ {static} double getTransition(String,ATTRIBUTE,TRANSITION)
++ {static} Map<TRANSITION,Double> getTransition(String,ATTRIBUTE)
++ {static} Map<ATTRIBUTE,Map<TRANSITION,Double>> getTransition(String)
++ {static} double getDistributionPosition(ProteinSequence,ATTRIBUTE,GROUPING,DISTRIBUTION)
++ {static} Map<DISTRIBUTION,Double> getDistributionPosition(ProteinSequence,ATTRIBUTE,GROUPING)
++ {static} Map<GROUPING,Map<DISTRIBUTION,Double>> getDistributionPosition(ProteinSequence,ATTRIBUTE)
++ {static} Map<ATTRIBUTE,Map<GROUPING,Map<DISTRIBUTION,Double>>> getDistributionPosition(ProteinSequence)
++ {static} double getDistributionPosition(String,ATTRIBUTE,GROUPING,DISTRIBUTION)
++ {static} Map<DISTRIBUTION,Double> getDistributionPosition(String,ATTRIBUTE,GROUPING)
++ {static} Map<GROUPING,Map<DISTRIBUTION,Double>> getDistributionPosition(String,ATTRIBUTE)
++ {static} Map<ATTRIBUTE,Map<GROUPING,Map<DISTRIBUTION,Double>>> getDistributionPosition(String)
+}
+class org.biojava.nbio.aaproperties.profeat.convertor.Convert2Polarizability {
+- {static} String[] subCategory
++ char convert(char)
++ String[] getGrouping()
++ String getAttribute()
+}
+class org.biojava.nbio.aaproperties.profeat.convertor.Convert2Polarity {
+- {static} String[] subCategory
++ char convert(char)
++ String[] getGrouping()
++ String getAttribute()
+}
+class org.biojava.nbio.aaproperties.xml.AminoAcidCompositionTable {
+- List<AminoAcidComposition> aminoacid
+- ModifiedAminoAcidCompoundSet modifiedAminoAcidCompoundSet
+- Map<Character,Double> aaSymbol2MolecularWeight
++ ModifiedAminoAcidCompoundSet getAminoAcidCompoundSet()
++ List<AminoAcidComposition> getAminoacid()
++ void setAminoacid(List<AminoAcidComposition>)
++ Set<Character> getSymbolSet()
+- void generatesAminoAcidCompoundSet()
++ void computeMolecularWeight(ElementTable)
++ double getMolecularWeight(Character)
+}
+class org.biojava.nbio.aaproperties.xml.CaseFreeAminoAcidCompoundSet {
+- Map<String,AminoAcidCompound> aminoAcidCompoundCache
+- Map<AminoAcidCompound,Set<AminoAcidCompound>> equivalentsCache
+- {static} CaseFreeAminoAcidCompoundSet aminoAcidCompoundSet
++ String getStringForCompound(AminoAcidCompound)
++ AminoAcidCompound getCompoundForString(String)
++ int getMaxSingleCompoundStringLength()
++ boolean isCompoundStringLengthEqual()
++ {static} CaseFreeAminoAcidCompoundSet getAminoAcidCompoundSet()
++ boolean compoundsEquivalent(AminoAcidCompound,AminoAcidCompound)
++ Set<AminoAcidCompound> getEquivalentCompounds(AminoAcidCompound)
+- void addAmbiguousEquivalents(String,String,String)
++ boolean hasCompound(AminoAcidCompound)
++ List<AminoAcidCompound> getAllCompounds()
++ boolean isComplementable()
++ boolean isValidSequence(Sequence<AminoAcidCompound>)
+}
+class org.biojava.nbio.aaproperties.xml.Element {
+- String name
+- String symbol
+- int atomicNumber
+- double mass
+- List<Isotope> isotope
+- Map<String,Isotope> name2Isotope
++ String toString()
++ void setMass(double)
++ double getMass()
++ void setName(String)
++ String getName()
++ void setSymbol(String)
++ void setAtomicNumber(int)
++ List<Isotope> getIsotopes()
++ void setIsotopes(List<Isotope>)
+}
+class org.biojava.nbio.aaproperties.AminoAcidProperties {
+- {static} Set<String> negChargedAAs
+- {static} Set<String> posChargedAAs
+- {static} Set<String> polarAAs
++ {static} boolean isCharged(char)
++ {static} int getChargeOfAminoAcid(char)
++ {static} boolean isPolar(char)
++ {static} int getPolarityOfAminoAcid(char)
+}
+interface org.biojava.nbio.aaproperties.IPeptideProperties {
++ double getMolecularWeight(ProteinSequence)
++ double getMolecularWeight(ProteinSequence,File)
++ double getMolecularWeight(ProteinSequence,File,File)
++ double getMolecularWeightBasedOnXML(ProteinSequence,AminoAcidCompositionTable)
++ AminoAcidCompositionTable obtainAminoAcidCompositionTable(File)
++ AminoAcidCompositionTable obtainAminoAcidCompositionTable(File,File)
++ double getExtinctionCoefficient(ProteinSequence,boolean)
++ double getAbsorbance(ProteinSequence,boolean)
++ double getInstabilityIndex(ProteinSequence)
++ double getApliphaticIndex(ProteinSequence)
++ double getAvgHydropathy(ProteinSequence)
++ double getIsoelectricPoint(ProteinSequence,boolean)
++ double getIsoelectricPoint(ProteinSequence)
++ double getNetCharge(ProteinSequence,boolean,double)
++ double getNetCharge(ProteinSequence,boolean)
++ double getNetCharge(ProteinSequence)
++ double getEnrichment(ProteinSequence,AminoAcidCompound)
++ Map<AminoAcidCompound,Double> getAAComposition(ProteinSequence)
+}
+class org.biojava.nbio.aaproperties.Constraints {
+- {static} AminoAcidCompoundSet aaSet
++ {static} AminoAcidCompound A
++ {static} AminoAcidCompound R
++ {static} AminoAcidCompound N
++ {static} AminoAcidCompound D
++ {static} AminoAcidCompound C
++ {static} AminoAcidCompound E
++ {static} AminoAcidCompound Q
++ {static} AminoAcidCompound G
++ {static} AminoAcidCompound H
++ {static} AminoAcidCompound I
++ {static} AminoAcidCompound L
++ {static} AminoAcidCompound K
++ {static} AminoAcidCompound M
++ {static} AminoAcidCompound F
++ {static} AminoAcidCompound P
++ {static} AminoAcidCompound S
++ {static} AminoAcidCompound T
++ {static} AminoAcidCompound W
++ {static} AminoAcidCompound Y
++ {static} AminoAcidCompound V
++ {static} Map<AminoAcidCompound,Double> aa2ExtinctionCoefficient
++ {static} Map<AminoAcidCompound,Double> aa2MolecularWeight
++ {static} Map<AminoAcidCompound,Double> aa2Hydrophathicity
++ {static} Map<AminoAcidCompound,Double> aa2PKa
++ {static} Map<String,Double> diAA2Instability
++ {static} Map<AminoAcidCompound,Double> aa2NTerminalPka
++ {static} Map<AminoAcidCompound,Double> aa2CTerminalPka
++ {static} void initMolecularWeight()
+- {static} void initHydropathicity()
+- {static} void initPKaInnovagen()
+- {static} void initPKa()
+- {static} void initInstability()
++ {static} void initExtinctionCoefficient()
+}
+class org.biojava.nbio.aaproperties.profeat.convertor.Convert2Charge {
+- {static} String[] subCategory
++ char convert(char)
++ String[] getGrouping()
++ String getAttribute()
+}
+class org.biojava.nbio.aaproperties.CommandPrompt {
++ {static} void main(String[])
+- {static} AminoAcidCompositionTable checkForValidityAndObtainAATable(String,int,String,String)
+- {static} void readInputAndGenerateOutput(String,List<Character>,List<Character>,String,String,AminoAcidCompositionTable,int)
++ {static} void run(String[])
+- {static} LinkedHashMap<String,ProteinSequence> readInputFile(String,AminoAcidCompositionTable)
+- {static} void printHeader(PrintStream,List<Character>,List<Character>,String)
+- {static} void compute(PrintStream,String,String,String,AminoAcidCompositionTable,List<Character>,List<Character>,int)
+- {static} void showHelp()
+}
+
+
+org.biojava.nbio.aaproperties.profeat.convertor.Convertor <|-- org.biojava.nbio.aaproperties.profeat.convertor.Convert2SecondaryStructure
+org.biojava.nbio.aaproperties.IPeptideProperties <|.. org.biojava.nbio.aaproperties.PeptidePropertiesImpl
+javax.xml.bind.ValidationEventHandler <|.. org.biojava.nbio.aaproperties.xml.MyValidationEventHandler
+org.biojava.nbio.aaproperties.profeat.convertor.Convertor <|-- org.biojava.nbio.aaproperties.profeat.convertor.Convert2Hydrophobicity
+javax.xml.bind.SchemaOutputResolver <|-- org.biojava.nbio.aaproperties.xml.SchemaGenerator
+org.biojava.nbio.aaproperties.profeat.IProfeatProperties <|.. org.biojava.nbio.aaproperties.profeat.ProfeatPropertiesImpl
+org.biojava.nbio.core.sequence.template.CompoundSet <|.. org.biojava.nbio.aaproperties.xml.ModifiedAminoAcidCompoundSet
+org.biojava.nbio.aaproperties.profeat.convertor.Convertor <|-- org.biojava.nbio.aaproperties.profeat.convertor.Convert2NormalizedVanDerWaalsVolume
+org.biojava.nbio.aaproperties.profeat.convertor.Convertor <|-- org.biojava.nbio.aaproperties.profeat.convertor.Convert2SolventAccessibility
+org.biojava.nbio.aaproperties.profeat.convertor.Convertor <|-- org.biojava.nbio.aaproperties.profeat.convertor.Convert2Polarizability
+org.biojava.nbio.aaproperties.profeat.convertor.Convertor <|-- org.biojava.nbio.aaproperties.profeat.convertor.Convert2Polarity
+org.biojava.nbio.core.sequence.template.CompoundSet <|.. org.biojava.nbio.aaproperties.xml.CaseFreeAminoAcidCompoundSet
+org.biojava.nbio.aaproperties.profeat.convertor.Convertor <|-- org.biojava.nbio.aaproperties.profeat.convertor.Convert2Charge
+@enduml

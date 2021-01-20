@@ -1,0 +1,557 @@
+@startuml
+class org.biojava.nbio.ontology.OntoTools {
+- {static} Logger logger
+- {static} Ontology CORE_ONTOLOGY
+- {static} OntologyFactory DEFAULT_FACTORY
+- {static} IntegerOntology CORE_INTEGER
++ {static} Term RELATION
++ {static} Term ANY
++ {static} Term NONE
++ {static} Term IS_A
++ {static} Term PART_OF
++ {static} Term REFLEXIVE
++ {static} Term SYMMETRIC
++ {static} Term TRANSITIVE
++ {static} Term EQUIVALENCE
++ {static} Term PARTIAL_ORDER
++ {static} Ontology getCoreOntology()
++ {static} IntegerOntology getIntegerOntology()
++ {static} OntologyFactory getDefaultFactory()
+}
+class org.biojava.nbio.ontology.obo.OboFileHandler {
+- {static} Logger logger
+~ Ontology ontology
+~ List<Term> termStack
++ {static} String TERM
++ {static} String TYPEDEF
++ {static} String ONTOLOGY
++ {static} String ID_KEY
++ {static} String SYNONYM
++ {static} String EXACT_SYNONYM
++ {static} String BROAD_SYNONYM
++ {static} String NARROW_SYNONYM
++ {static} String REL_SYNONYM
++ {static} String NAME
++ {static} String DEF
++ {static} String XREF_ANALOG
++ {static} String COMMENT
++ {static} String IS_A
++ {static} String IS_OBSOLETE
++ {static} String RELATIONSHIP
++ {static} String DISJOINT_FROM
++ {static} String SUBSET
++ {static} String INTERSECTION_OF
++ {static} String NAMESPACE
++ {static} String REPLACED_BY
++ {static} String ALT_ID
+~ boolean isTerm
+- Term currentTerm
++ void documentEnd()
++ void documentStart()
++ void newOboFileHeader()
++ void newStanza(String)
++ void newKey(String,String)
++ void newSynonym(Synonym)
+}
+interface org.biojava.nbio.ontology.RemoteTerm {
++ Term getRemoteTerm()
+}
+class org.biojava.nbio.ontology.RemoteTerm.Impl {
+- {static} long serialVersionUID
+- Ontology ontology
+- Term remoteTerm
+- String name
+- Set synonyms
++ void addSynonym(Object)
++ void removeSynonym(Object)
++ Object[] getSynonyms()
++ String getName()
++ String getDescription()
++ Ontology getOntology()
++ Term getRemoteTerm()
++ String toString()
++ Annotation getAnnotation()
+}
+class org.biojava.nbio.ontology.io.GOParser {
++ Ontology parseGO(BufferedReader,String,String,OntologyFactory)
+- void safeAddTriple(Ontology,Term,Term,Term)
+- Term parseTerm(Ontology,String)
+}
+class org.biojava.nbio.ontology.io.OboParser {
++ Ontology parseOBO(BufferedReader,String,String)
+}
+interface org.biojava.nbio.ontology.OntologyOps {
++ Set getRemoteTerms()
+}
+class org.biojava.nbio.ontology.App {
+- {static} Logger logger
++ {static} void main(String[])
+}
+interface org.biojava.nbio.ontology.Ontology {
++ String getName()
++ void setName(String)
++ String getDescription()
++ void setDescription(String)
++ Set<Term> getTerms()
++ Term getTerm(String)
++ Set<Triple> getTriples(Term,Term,Term)
++ OntologyOps getOps()
++ Term createTerm(String)
++ Term createTerm(String,String)
++ Term createTerm(String,String,Object[])
++ Variable createVariable(String,String)
++ Term importTerm(Term,String)
++ Triple createTriple(Term,Term,Term,String,String)
++ boolean containsTriple(Term,Term,Term)
++ void deleteTerm(Term)
++ boolean containsTerm(String)
+}
+class org.biojava.nbio.ontology.Ontology.Impl {
+- {static} long serialVersionUID
+- Map<String,Term> terms
+- Set<Triple> triples
+- Map<Term,Set<Triple>> subjectTriples
+- Map<Term,Set<Triple>> objectTriples
+- Map<Term,Set<Triple>> relationTriples
+- Map<Term,RemoteTerm> remoteTerms
+- Set<Term> localRemoteTerms
+- String name
+- String description
+- OntologyOps ops
++ String getName()
++ String getDescription()
++ void setDescription(String)
++ Set<Term> getTerms()
++ Term getTerm(String)
++ Set<Triple> getTriples(Term,Term,Term)
+- Set<Triple> filterTriples(Set<Triple>,Term,Term,Term)
+- void addTerm(Term)
++ Term createTerm(String)
++ Term createTerm(String,String)
++ Term createTerm(String,String,Object[])
++ Variable createVariable(String,String)
++ OntologyTerm createOntologyTerm(Ontology)
++ Term importTerm(Term,String)
++ void deleteTerm(Term)
++ boolean containsTerm(String)
+- boolean containsTerm(Term)
++ boolean containsTriple(Term,Term,Term)
++ Triple createTriple(Term,Term,Term,String,String)
+- void addTriple(Triple)
+- void pushTriple(Map<Term,Set<Triple>>,Term,Triple)
+- void removeTriple(Triple)
+- void pullTriple(Map<Term,Set<Triple>>,Term,Triple)
++ OntologyOps getOps()
++ String toString()
++ void setName(String)
+}
+abstract class org.biojava.nbio.ontology.DefaultOps {
+- {static} long serialVersionUID
+}
+abstract class org.biojava.nbio.ontology.AbstractTerm {
+# String description
++ void setDescription(String)
+}
+abstract class org.biojava.nbio.ontology.utils.AbstractAnnotation {
+- {static} long serialVersionUID
+# {abstract}Map getProperties()
+# {abstract}boolean propertiesAllocated()
++ Object getProperty(Object)
++ void setProperty(Object,Object)
++ void removeProperty(Object)
++ boolean containsProperty(Object)
++ Set keys()
++ String toString()
++ Map asMap()
++ int hashCode()
++ boolean equals(Object)
+}
+interface org.biojava.nbio.ontology.OntologyTerm {
++ Ontology getOntology()
+}
+class org.biojava.nbio.ontology.OntologyTerm.Impl {
+- {static} long serialVersionUID
+- Ontology ontology
+- Ontology target
+- Set synonyms
++ void addSynonym(Object)
++ void removeSynonym(Object)
++ Object[] getSynonyms()
++ String getName()
++ String getDescription()
++ void setDescription(String)
++ Ontology getOntology()
++ Ontology getTargetOntology()
++ String toString()
++ Annotation getAnnotation()
+}
+interface org.biojava.nbio.ontology.Variable {
+}
+class org.biojava.nbio.ontology.Variable.Impl {
+- {static} long serialVersionUID
+}
+class org.biojava.nbio.ontology.InvalidTermException {
+- {static} long serialVersionUID
+}
+class org.biojava.nbio.ontology.obo.OboFileParser {
+- {static} Logger logger
+~ List<OboFileEventListener> listeners
+# String line
+# int linenum
+# int totalSize
+# int bytesRead
+# StringBuffer tempBuffer
+# SimpleDateFormat dateFormat
+# {static} Map<Character,Character> escapeChars
+# {static} Map<Character,Character> unescapeChars
++ void addOboFileEventListener(OboFileEventListener)
++ List<OboFileEventListener> getOboFileEventListener()
++ void parseOBO(BufferedReader)
+- boolean isSynonym(String)
+- Synonym parseSynonym(String,String)
+# Map<String,Object>[] getDbxrefList(String,int,int)
+# Map<String,Object> parseXref(String,int,int)
+- void triggerNewStanza(String)
+- void triggerNewKey(String,String)
+- void triggerNewSynonym(Synonym)
++ {static} String escape(String,boolean)
++ String unescape(String)
++ SOPair unescape(String,char,int,boolean)
++ SOPair unescape(String,char,int,int,boolean)
++ {static} int findUnescaped(String,char)
++ {static} int findUnescaped(String,char,int,int)
++ {static} int findUnescaped(String,char,int,int,boolean)
++ {static} boolean isEscapeStarter(char)
++ {static} boolean isQuote(char)
+# StringBuffer getTempBuffer()
+# SOPair readQuotedString(String,int,int,char,boolean,boolean)
+# int getNestedValue(NestedValue,String,int)
+}
+class org.biojava.nbio.ontology.obo.OboFileParser.SOPair {
++ String str
++ int index
++ int endIndex
+}
+class org.biojava.nbio.ontology.obo.NestedValue {
+# Properties propertyValues
+# String name
+# String suggestedComment
++ String toString()
++ String getName()
++ Properties getPropertyValues()
++ void addPropertyValue(Properties)
++ Object clone()
++ String getSuggestedComment()
++ void setSuggestedComment(String)
+}
+class org.biojava.nbio.ontology.utils.WeakValueHashMap {
+- Map keyToRefMap
+- ReferenceQueue queue
+- Set iteratorRefs
+- ReferenceQueue iteratorRefQueue
+- void diddleReferenceQueue()
++ Object put(Object,Object)
++ Object get(Object)
++ boolean containsKey(Object)
++ Set entrySet()
+}
+class org.biojava.nbio.ontology.utils.WeakValueHashMap.WVEntrySet {
+- Set keyRefEntrySet
++ int size()
++ Iterator iterator()
+}
+class org.biojava.nbio.ontology.utils.WeakValueHashMap.WVEntryIterator {
+- Object cache
+- Iterator keyRefIterator
++ boolean hasNext()
++ Object next()
++ void remove()
+- void primeCache()
+}
+class org.biojava.nbio.ontology.utils.WeakValueHashMap.WVMapEntry {
+- Object key
+- Object value
++ Object getKey()
++ Object getValue()
++ Object setValue(Object)
++ boolean equals(Object)
++ int hashCode()
+}
+class org.biojava.nbio.ontology.IntegerOntology {
+- Map termCache
++ String getName()
++ String getDescription()
++ void setDescription(String)
++ Set getTerms()
++ Term getTerm(String)
++ Set getTriples(Term,Term,Term)
++ OntologyOps getOps()
++ Term createTerm(String)
++ Term createTerm(String,String)
++ Term createTerm(String,String,Object[])
++ Variable createVariable(String,String)
++ Term importTerm(Term,String)
++ Triple createTriple(Term,Term,Term,String,String)
++ boolean containsTriple(Term,Term,Term)
++ void deleteTerm(Term)
++ boolean containsTerm(String)
++ IntTerm resolveInt(int)
++ void setName(String)
+}
+class org.biojava.nbio.ontology.IntegerOntology.IntTerm {
+- int val
+- Set synonyms
++ void addSynonym(Object)
++ void removeSynonym(Object)
++ Object[] getSynonyms()
++ int intValue()
++ String getName()
++ String getDescription()
++ void setDescription(String)
++ Ontology getOntology()
++ Annotation getAnnotation()
+}
+class org.biojava.nbio.ontology.utils.SmallMap {
+- Object[] mappings
+- int numMappings
++ Object get(Object)
++ Object put(Object,Object)
++ Set keySet()
++ Set entrySet()
++ int size()
++ boolean containsKey(Object)
+- void removeMapping(int)
+}
+class org.biojava.nbio.ontology.utils.SmallMap.KeySet {
++ Iterator iterator()
++ int size()
+}
+class org.biojava.nbio.ontology.utils.SmallMap.KeyIterator {
+~ int pos
++ boolean hasNext()
++ Object next()
++ void remove()
+}
+class org.biojava.nbio.ontology.utils.SmallMap.EntrySet {
++ Iterator iterator()
++ int size()
+}
+class org.biojava.nbio.ontology.utils.SmallMap.EntryIterator {
+~ int pos
++ boolean hasNext()
++ Object next()
++ void remove()
+}
+class org.biojava.nbio.ontology.utils.SmallMap.MapEntry {
+- int offset
++ Object getKey()
++ Object getValue()
++ Object setValue(Object)
++ boolean equals(Object)
++ int hashCode()
+}
+class org.biojava.nbio.ontology.Synonym {
++ {static} int UNKNOWN_SCOPE
++ {static} int RELATED_SYNONYM
++ {static} int EXACT_SYNONYM
++ {static} int NARROW_SYNONYM
++ {static} int BROAD_SYNONYM
+~ int scope
+~ String category
+~ String name
++ {static} Comparator<Synonym> COMPARATOR
++ String toString()
++ String getName()
++ void setName(String)
++ String getCategory()
++ void setCategory(String)
++ int getScope()
++ void setScope(int)
++ int compareTo(Synonym)
+}
+class org.biojava.nbio.ontology.utils.SmallAnnotation {
+- Map properties
+# Map getProperties()
+# boolean propertiesAllocated()
+}
+class org.biojava.nbio.ontology.utils.KeyedWeakReference {
+- Object key
++ Object getKey()
+}
+interface org.biojava.nbio.ontology.obo.OboFileEventListener {
++ void documentStart()
++ void documentEnd()
++ void newOboFileHeader()
++ void newStanza(String)
++ void newKey(String,String)
++ void newSynonym(Synonym)
+}
+class org.biojava.nbio.ontology.utils.StaticMemberPlaceHolder {
+- String className
+- String fieldName
++ Object readResolve()
+}
+interface org.biojava.nbio.ontology.utils.Annotatable {
+~ Annotation getAnnotation()
+}
+interface org.biojava.nbio.ontology.OntologyFactory {
++ Ontology createOntology(String,String)
+}
+class org.biojava.nbio.ontology.utils.AssertionFailure {
+}
+interface org.biojava.nbio.ontology.Term {
++ String getName()
++ String getDescription()
++ void setDescription(String)
++ Ontology getOntology()
++ Object[] getSynonyms()
++ void addSynonym(Object)
++ void removeSynonym(Object)
+}
+class org.biojava.nbio.ontology.Term.Impl {
+- {static} long serialVersionUID
+- String name
+- Ontology ontology
+- Annotation annotation
+- Set<Object> synonyms
++ void addSynonym(Object)
++ void removeSynonym(Object)
++ Object[] getSynonyms()
++ String getName()
++ void setAnnotation(Annotation)
++ void setSynonyms(Set<Object>)
++ String getDescription()
++ Ontology getOntology()
++ String toString()
++ Annotation getAnnotation()
++ int hashCode()
++ boolean equals(Object)
+}
+class org.biojava.nbio.ontology.OntologyException {
+- {static} long serialVersionUID
+}
+class org.biojava.nbio.ontology.io.TabDelimParser {
++ Ontology parse(BufferedReader,OntologyFactory)
+- Term resolveTerm(String,Ontology)
+- Triple resolveTriple(Term,Term,Term,Ontology)
+}
+class org.biojava.nbio.ontology.utils.EmptyAnnotation {
++ Object getProperty(Object)
++ void setProperty(Object,Object)
++ void removeProperty(Object)
++ boolean containsProperty(Object)
++ Set keys()
++ Map asMap()
+- Object writeReplace()
++ int hashCode()
++ boolean equals(Object)
+}
+class org.biojava.nbio.ontology.AlreadyExistsException {
+- {static} long serialVersionUID
+}
+interface org.biojava.nbio.ontology.utils.Annotation {
+~ {static} Annotation EMPTY_ANNOTATION
+~ Object getProperty(Object)
+~ void setProperty(Object,Object)
++ void removeProperty(Object)
+~ boolean containsProperty(Object)
+~ Set keys()
+~ Map asMap()
+}
+interface org.biojava.nbio.ontology.Triple {
++ Term getSubject()
++ Term getObject()
++ Term getPredicate()
++ int hashCode()
++ boolean equals(Object)
+}
+class org.biojava.nbio.ontology.Triple.Impl {
+- {static} long serialVersionUID
+- Term subject
+- Term object
+- Term predicate
+- String name
+- String description
+- Set<Object> synonyms
++ void addSynonym(Object)
++ void removeSynonym(Object)
++ Object[] getSynonyms()
++ String getName()
++ String getDescription()
++ void setDescription(String)
++ Ontology getOntology()
++ Term getSubject()
++ Term getObject()
++ Term getPredicate()
++ Annotation getAnnotation()
++ boolean equals(Object)
++ int hashCode()
++ String toString()
+}
+
+
+org.biojava.nbio.ontology.obo.OboFileEventListener <|.. org.biojava.nbio.ontology.obo.OboFileHandler
+org.biojava.nbio.ontology.Term <|-- org.biojava.nbio.ontology.RemoteTerm
+org.biojava.nbio.ontology.RemoteTerm +.. org.biojava.nbio.ontology.RemoteTerm.Impl
+org.biojava.nbio.ontology.RemoteTerm <|.. org.biojava.nbio.ontology.RemoteTerm.Impl
+org.biojava.nbio.ontology.Serializable <|.. org.biojava.nbio.ontology.RemoteTerm.Impl
+org.biojava.nbio.ontology.AbstractTerm <|-- org.biojava.nbio.ontology.RemoteTerm.Impl
+org.biojava.nbio.ontology.Ontology +.. org.biojava.nbio.ontology.Ontology.Impl
+org.biojava.nbio.ontology.Ontology <|.. org.biojava.nbio.ontology.Ontology.Impl
+org.biojava.nbio.ontology.Serializable <|.. org.biojava.nbio.ontology.Ontology.Impl
+org.biojava.nbio.ontology.OntologyOps <|.. org.biojava.nbio.ontology.DefaultOps
+org.biojava.nbio.ontology.Serializable <|.. org.biojava.nbio.ontology.DefaultOps
+org.biojava.nbio.ontology.Term <|.. org.biojava.nbio.ontology.AbstractTerm
+org.biojava.nbio.ontology.utils.Annotation <|.. org.biojava.nbio.ontology.utils.AbstractAnnotation
+java.io.Serializable <|.. org.biojava.nbio.ontology.utils.AbstractAnnotation
+org.biojava.nbio.ontology.Term <|-- org.biojava.nbio.ontology.OntologyTerm
+org.biojava.nbio.ontology.OntologyTerm +.. org.biojava.nbio.ontology.OntologyTerm.Impl
+org.biojava.nbio.ontology.OntologyTerm <|.. org.biojava.nbio.ontology.OntologyTerm.Impl
+org.biojava.nbio.ontology.Serializable <|.. org.biojava.nbio.ontology.OntologyTerm.Impl
+org.biojava.nbio.ontology.Term <|-- org.biojava.nbio.ontology.Variable
+org.biojava.nbio.ontology.Variable +.. org.biojava.nbio.ontology.Variable.Impl
+org.biojava.nbio.ontology.Variable <|.. org.biojava.nbio.ontology.Variable.Impl
+org.biojava.nbio.ontology.Impl <|-- org.biojava.nbio.ontology.Variable.Impl
+org.biojava.nbio.ontology.OntologyException <|-- org.biojava.nbio.ontology.InvalidTermException
+org.biojava.nbio.ontology.obo.OboFileParser +.. org.biojava.nbio.ontology.obo.OboFileParser.SOPair
+org.biojava.nbio.ontology.utils.AbstractMap <|-- org.biojava.nbio.ontology.utils.WeakValueHashMap
+org.biojava.nbio.ontology.utils.WeakValueHashMap +.. org.biojava.nbio.ontology.utils.WeakValueHashMap.WVEntrySet
+org.biojava.nbio.ontology.utils.AbstractSet <|-- org.biojava.nbio.ontology.utils.WeakValueHashMap.WVEntrySet
+org.biojava.nbio.ontology.utils.WeakValueHashMap +.. org.biojava.nbio.ontology.utils.WeakValueHashMap.WVEntryIterator
+org.biojava.nbio.ontology.utils.Iterator <|.. org.biojava.nbio.ontology.utils.WeakValueHashMap.WVEntryIterator
+org.biojava.nbio.ontology.utils.WeakValueHashMap +.. org.biojava.nbio.ontology.utils.WeakValueHashMap.WVMapEntry
+org.biojava.nbio.ontology.utils.Entry <|.. org.biojava.nbio.ontology.utils.WeakValueHashMap.WVMapEntry
+org.biojava.nbio.ontology.Ontology <|.. org.biojava.nbio.ontology.IntegerOntology
+org.biojava.nbio.ontology.IntegerOntology +.. org.biojava.nbio.ontology.IntegerOntology.IntTerm
+org.biojava.nbio.ontology.Term <|.. org.biojava.nbio.ontology.IntegerOntology.IntTerm
+java.io.Serializable <|.. org.biojava.nbio.ontology.utils.SmallMap
+org.biojava.nbio.ontology.utils.AbstractMap <|-- org.biojava.nbio.ontology.utils.SmallMap
+org.biojava.nbio.ontology.utils.SmallMap +.. org.biojava.nbio.ontology.utils.SmallMap.KeySet
+org.biojava.nbio.ontology.utils.AbstractSet <|-- org.biojava.nbio.ontology.utils.SmallMap.KeySet
+org.biojava.nbio.ontology.utils.SmallMap +.. org.biojava.nbio.ontology.utils.SmallMap.KeyIterator
+org.biojava.nbio.ontology.utils.Iterator <|.. org.biojava.nbio.ontology.utils.SmallMap.KeyIterator
+org.biojava.nbio.ontology.utils.SmallMap +.. org.biojava.nbio.ontology.utils.SmallMap.EntrySet
+org.biojava.nbio.ontology.utils.AbstractSet <|-- org.biojava.nbio.ontology.utils.SmallMap.EntrySet
+org.biojava.nbio.ontology.utils.SmallMap +.. org.biojava.nbio.ontology.utils.SmallMap.EntryIterator
+org.biojava.nbio.ontology.utils.Iterator <|.. org.biojava.nbio.ontology.utils.SmallMap.EntryIterator
+org.biojava.nbio.ontology.utils.SmallMap +.. org.biojava.nbio.ontology.utils.SmallMap.MapEntry
+org.biojava.nbio.ontology.utils.Entry <|.. org.biojava.nbio.ontology.utils.SmallMap.MapEntry
+org.biojava.nbio.ontology.Comparable <|.. org.biojava.nbio.ontology.Synonym
+org.biojava.nbio.ontology.utils.AbstractAnnotation <|-- org.biojava.nbio.ontology.utils.SmallAnnotation
+java.lang.ref.WeakReference <|-- org.biojava.nbio.ontology.utils.KeyedWeakReference
+java.io.Serializable <|.. org.biojava.nbio.ontology.utils.StaticMemberPlaceHolder
+org.biojava.nbio.ontology.utils.AssertionError <|-- org.biojava.nbio.ontology.utils.AssertionFailure
+org.biojava.nbio.ontology.utils.Annotatable <|-- org.biojava.nbio.ontology.Term
+org.biojava.nbio.ontology.Term +.. org.biojava.nbio.ontology.Term.Impl
+org.biojava.nbio.ontology.Term <|.. org.biojava.nbio.ontology.Term.Impl
+org.biojava.nbio.ontology.Serializable <|.. org.biojava.nbio.ontology.Term.Impl
+org.biojava.nbio.ontology.AbstractTerm <|-- org.biojava.nbio.ontology.Term.Impl
+org.biojava.nbio.ontology.Exception <|-- org.biojava.nbio.ontology.OntologyException
+org.biojava.nbio.ontology.utils.Annotation <|.. org.biojava.nbio.ontology.utils.EmptyAnnotation
+java.io.Serializable <|.. org.biojava.nbio.ontology.utils.EmptyAnnotation
+org.biojava.nbio.ontology.OntologyException <|-- org.biojava.nbio.ontology.AlreadyExistsException
+org.biojava.nbio.ontology.Term <|-- org.biojava.nbio.ontology.Triple
+org.biojava.nbio.ontology.Triple +.. org.biojava.nbio.ontology.Triple.Impl
+org.biojava.nbio.ontology.Triple <|.. org.biojava.nbio.ontology.Triple.Impl
+org.biojava.nbio.ontology.Serializable <|.. org.biojava.nbio.ontology.Triple.Impl
+@enduml

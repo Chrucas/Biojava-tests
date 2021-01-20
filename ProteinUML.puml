@@ -1,0 +1,193 @@
+@startuml
+class org.biojava.nbio.data.sequence.SequenceUtil {
+- {static} Logger logger
++ {static} Pattern WHITE_SPACE
++ {static} Pattern DIGIT
++ {static} Pattern NONWORD
++ {static} Pattern AA
++ {static} Pattern NON_AA
++ {static} Pattern AMBIGUOUS_AA
++ {static} Pattern NUCLEOTIDE
++ {static} Pattern AMBIGUOUS_NUCLEOTIDE
++ {static} Pattern NON_NUCLEOTIDE
++ {static} boolean isNucleotideSequence(FastaSequence)
++ {static} boolean isNonAmbNucleotideSequence(String)
++ {static} String cleanSequence(String)
++ {static} String deepCleanSequence(String)
++ {static} boolean isProteinSequence(String)
++ {static} boolean isAmbiguosProtein(String)
++ {static} void writeFasta(OutputStream,List<FastaSequence>,int)
++ {static} List<FastaSequence> readFasta(InputStream)
++ {static} void writeFasta(OutputStream,List<FastaSequence>)
+}
+class org.biojava.nbio.ronn.Timer {
+- long checkPoint
+- long startTime
+- TimeUnit reportTimeUnit
++ void checkPoint()
+~ long getStepTime(TimeUnit)
+~ long getStepTime()
+~ long getTotalTime()
+~ long getTotalTime(TimeUnit)
+}
+class org.biojava.nbio.ronn.NullOutputStream {
++ void write(int)
+}
+class org.biojava.nbio.ronn.InputParameters {
+~ {static} String inputKey
+~ {static} String outputKey
+~ {static} String statKey
+~ {static} String disorderKey
+~ {static} String formatKey
+~ {static} String threadKey
+- File input
+- File output
+- File statistics
+- ResultLayout format
+- float disorder
+- int threadNum
+- PrintWriter outWriter
+- PrintWriter statWriter
+~ File setFilePrm(String,String)
+~ PrintWriter getOutputWriter()
+~ ResultLayout parseFormat(String)
+~ int parseThreadNum(String)
++ String toString()
+~ ResultLayout getFormat()
+~ float getDisorder()
+~ void setDisorder(String)
+~ void setFormat(String)
+~ void setThreadNum(String)
+- void initStatWriter()
++ PrintWriter getStatWriter()
+~ File getInput()
+~ int getThreadNum()
+}
+class org.biojava.nbio.ronn.ORonnModel {
+- {static} Logger logger
+- float disorder_weight
+- {static} int AA_ALPHABET
+- {static} int maxR
+- short[] seqAA
+- char[] query
+- Model model
+- float[] scores
+~ float[] detect()
++ void getScores(File)
+- float[] align(int,int)
+}
+class org.biojava.nbio.ronn.ORonn {
+- {static} Logger logger
+- {static} DateFormat DATE_FORMAT
+- {static} NumberFormat nformat
+~ {static} byte NUMBER_OF_MODELS
+- FastaSequence sequence
+- ModelLoader mloader
+- PrintWriter out
+- ResultLayout layout
+- PrintWriter stat
+- Timer timer
+- float disorder
+- float[] cummulativeScore
+~ void writeResults(float[],char[])
+~ {static} boolean isValidSequence(FastaSequence)
++ ORonn call()
+- void addScore(float[])
+~ float[] getMeanScores()
+~ {static} void printUsage()
+~ {static} boolean isValidSequenceForRonn(FastaSequence,PrintWriter)
+~ {static} void validateSequenceForRonn(FastaSequence)
+- {static} InputParameters parseArguments(String[])
++ {static} void main(String[])
+~ {static} void predictSerial(List<FastaSequence>,InputParameters,ModelLoader)
+~ {static} void predictParallel(List<FastaSequence>,InputParameters,ModelLoader)
+}
+class org.biojava.nbio.ronn.RonnConstraint {
++ {static} float DEFAULT_DISORDER
++ {static} float DEFAULT_ORDER
++ {static} float DEFAULT_RANGE_PROBABILITY_THRESHOLD
++ {static} short[] INDEX
++ {static} short[][] Blosum62
+~ {static} float[] THRESHOLD0
+~ {static} float[] THRESHOLD1
+~ {static} float[] THRESHOLD2
+~ {static} float[] THRESHOLD3
+~ {static} float[] THRESHOLD4
+~ {static} float[] THRESHOLD5
+~ {static} float[] THRESHOLD6
+~ {static} float[] THRESHOLD7
+~ {static} float[] THRESHOLD8
+~ {static} float[] THRESHOLD9
+~ {static} byte MIN_SEQUENCE_LENGTH
+~ {static} String HELP_MESSAGE
+~ {static} int maxD
+}
+class org.biojava.nbio.ronn.ModelLoader {
+- {static} Logger logger
+- {static} Map<Integer,Model> models
++ Model getModel(int)
+~ void loadModels()
++ {static} void main(String[])
+}
+class org.biojava.nbio.ronn.ModelLoader.Threshold {
+~ float mu0
+~ float mu1
+~ float sigma0
+~ float sigma1
+}
+class org.biojava.nbio.ronn.ModelLoader.Model {
+~ short[][] dbAA
+~ short[] Length
+~ float[] W
+~ int numOfDBAAseq
+~ int modelNum
++ int hashCode()
++ boolean equals(Object)
++ String toString()
+}
+class org.biojava.nbio.ronn.Jronn {
+- {static} long serialVersionUID
+- {static} ModelLoader loader
++ {static} float[] getDisorderScores(FastaSequence)
++ {static} float[] getDisorderScores(ProteinSequence)
++ {static} FastaSequence convertProteinSequencetoFasta(ProteinSequence)
+- {static} float[] predictSerial(FastaSequence)
++ {static} Range[] getDisorder(FastaSequence)
++ {static} Range[] scoresToRanges(float[],float)
++ {static} Map<FastaSequence,float[]> getDisorderScores(List<FastaSequence>)
++ {static} Map<FastaSequence,Range[]> getDisorder(List<FastaSequence>)
++ {static} Map<FastaSequence,Range[]> getDisorder(String)
+}
+class org.biojava.nbio.ronn.Jronn.Range {
++ int from
++ int to
++ float score
++ String toString()
++ int hashCode()
++ boolean equals(Object)
+}
+class org.biojava.nbio.data.sequence.FastaSequence {
+- String id
+- String sequence
++ String getId()
++ String getSequence()
++ {static} int countMatchesInSequence(String,String)
++ String getFormattedFasta()
++ String getOnelineFasta()
++ String getFormatedSequence(int)
++ int getLength()
++ String toString()
++ int hashCode()
++ boolean equals(Object)
++ int compareTo(FastaSequence)
+}
+
+
+java.io.OutputStream <|-- org.biojava.nbio.ronn.NullOutputStream
+org.biojava.nbio.ronn.Callable <|.. org.biojava.nbio.ronn.ORonn
+org.biojava.nbio.ronn.ModelLoader +.. org.biojava.nbio.ronn.ModelLoader.Threshold
+org.biojava.nbio.ronn.ModelLoader +.. org.biojava.nbio.ronn.ModelLoader.Model
+java.io.Serializable <|.. org.biojava.nbio.ronn.Jronn
+org.biojava.nbio.ronn.Jronn +.. org.biojava.nbio.ronn.Jronn.Range
+org.biojava.nbio.data.sequence.Comparable <|.. org.biojava.nbio.data.sequence.FastaSequence
+@enduml

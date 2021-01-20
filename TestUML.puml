@@ -1,0 +1,253 @@
+@startuml
+class org.biojava.nbio.core.util.FileDownloadUtils {
+- {static} Logger logger
++ {static} void copy(File,File)
++ {static} String getFileExtension(File)
++ {static} String getFilePrefix(File)
++ {static} void downloadFile(URL,File)
++ {static} String toUnixPath(String)
++ {static} String expandUserHome(String)
++ {static} boolean ping(String,int)
++ {static} URLConnection prepareURLConnection(String,int)
++ {static} void deleteDirectory(Path)
++ {static} void deleteDirectory(String)
++ {static} void main(String[])
+}
+class org.biojava.nbio.core.util.SequenceTools {
+# {static} String NUCLEOTIDE_LETTERS
++ {static} String permuteCyclic(String,int)
++ {static} void permuteCyclic(T[],T[],int)
++ {static} int percentNucleotideSequence(String)
++ {static} boolean isNucleotideSequence(String)
++ Sequence<?> getSequenceFromString(String)
++ {static} boolean equalLengthSequences(ProteinSequence[])
+}
+class org.biojava.nbio.core.util.InputStreamProvider {
++ {static} int GZIP_MAGIC
++ {static} String CACHE_PROPERTY
+- boolean cacheRawFiles
++ InputStream getInputStream(String)
+- int getMagicNumber(InputStream)
++ InputStream getInputStream(URL)
++ InputStream getInputStream(File)
+- InputStream getInputStreamFromFile(File)
+- InputStream openCompressedFile(File)
+- InputStream openCompressedURL(URL)
+- InputStream openGZIPFile(File)
+- InputStream openGZIPURL(URL)
+}
+class org.biojava.nbio.core.util.StringManipulationHelper {
+- {static} Logger logger
+- {static} String UNIX_NEWLINE
++ {static} String convertStreamToString(InputStream)
++ {static} boolean equalsToIgnoreEndline(String,String)
++ {static} boolean equalsToXml(String,String)
++ {static} String padLeft(String,int)
++ {static} String padRight(String,int)
++ {static} String join(AbstractCollection<String>,String)
+}
+class org.biojava.nbio.core.util.PrettyXMLWriter {
+- int indentUnit
+- PrintWriter writer
+- boolean isOpeningTag
+- boolean afterNewline
+- int indent
+- Map<String,String> namespacePrefixes
+- int namespaceSeed
+- LinkedList<List<String>> namespaceBindings
+- List<String> namespacesDeclared
++ void declareNamespace(String,String)
+- void handleDeclaredNamespaces()
+# void writeIndent()
+- void _openTag()
+- String allocPrefix(String)
++ void openTag(String,String)
++ void openTag(String)
++ void attribute(String,String,String)
++ void attribute(String,String)
+- void _closeTag()
++ void closeTag(String,String)
++ void closeTag(String)
++ void println(String)
++ void print(String)
++ void printRaw(String)
+# void printChars(String)
+# void printAttributeValue(String)
+# void numericalEntity(char)
++ void close()
+}
+class org.biojava.nbio.core.util.FlatFileCache {
+- {static} Logger logger
+- {static} SoftHashMap<String,byte[]> cache
++ {static} void addToCache(String,File)
++ {static} InputStream getInputStream(String)
++ {static} int size()
++ {static} void clear()
+}
+class org.biojava.nbio.core.util.Hashcoder {
++ {static} int SEED
++ {static} int PRIME
++ {static} int hash(int,boolean)
++ {static} int hash(int,char)
++ {static} int hash(int,int)
++ {static} int hash(int,long)
++ {static} int hash(int,float)
++ {static} int hash(int,double)
++ {static} int hash(int,Object)
+}
+class org.biojava.nbio.core.util.Equals {
++ {static} boolean equal(int,int)
++ {static} boolean equal(long,long)
++ {static} boolean equal(boolean,boolean)
++ {static} boolean equal(Object,Object)
++ {static} boolean classEqual(Object,Object)
+}
+interface org.biojava.nbio.core.util.XMLWriter {
++ void printRaw(String)
++ void openTag(String,String)
++ void openTag(String)
++ void attribute(String,String,String)
++ void attribute(String,String)
++ void print(String)
++ void println(String)
++ void closeTag(String,String)
++ void closeTag(String)
++ void declareNamespace(String,String)
++ void close()
+}
+class org.biojava.nbio.core.util.SingleLinkageClusterer {
+- {static} Logger logger
+- double[][] matrix
+- boolean isScoreMatrix
+- int numItems
+- LinkedPair[] dendrogram
+- ArrayList<Integer> indicesToCheck
++ LinkedPair[] getDendrogram()
+- void clusterIt()
+- void merge(LinkedPair)
+- double link(double,double)
+- double getDistance(int,int)
+- void updateIndicesToCheck(int)
+- LinkedPair getClosestPair()
++ Map<Integer,Set<Integer>> getClusters(double)
+- boolean isWithinCutoff(int,double)
+- String clustersToString(Map<Integer,Set<Integer>>)
+- String matrixToString()
+}
+class org.biojava.nbio.core.util.SingleLinkageClusterer.LinkedPair {
+- int first
+- int second
+- double closestDistance
++ int getFirst()
++ int getSecond()
++ double getClosestDistance()
++ String toString()
+}
+class org.biojava.nbio.core.util.ConcurrencyTools {
+- {static} Logger logger
+- {static} ThreadPoolExecutor pool
+- {static} int tasks
++ {static} ThreadPoolExecutor getThreadPool()
++ {static} void setThreadPoolCPUsAvailable(int)
++ {static} void setThreadPoolCPUsFraction(float)
++ {static} void setThreadPoolDefault()
++ {static} void setThreadPoolSingle()
++ {static} void setThreadPoolSize(int)
++ {static} void setThreadPool(ThreadPoolExecutor)
++ {static} void shutdown()
++ {static} void shutdownAndAwaitTermination()
++ {static} Future<T> submit(Callable<T>,String)
++ {static} Future<T> submit(Callable<T>)
+}
+class org.biojava.nbio.core.util.XMLHelper {
++ {static} Element addChildElement(Element,String)
++ {static} Document getNewDocument()
++ {static} Document loadXML(String)
++ {static} Document inputStreamToDocument(InputStream)
++ {static} void outputToStream(Document,OutputStream)
++ {static} void outputToStream(Element,OutputStream)
++ {static} Element selectParentElement(Element,String)
++ {static} Element selectSingleElement(Element,String)
++ {static} ArrayList<Element> selectElements(Element,String)
+}
+class org.biojava.nbio.core.util.CRC64Checksum {
+- {static} long POLY64
+- {static} long[] crcTable
+- long crc
++ void update(int)
++ void update(byte[],int,int)
++ void update(String)
++ long getValue()
++ String toString()
++ void reset()
+}
+class org.biojava.nbio.core.util.SoftHashMap {
+- {static} Logger logger
++ {static} int DEFAULT_LIMIT
+- Map<K,SoftReference<V>> map
+- int max_limit
+- LinkedList<V> hardCache
+- ReferenceQueue<V> queue
++ V get(Object)
+- void clearGCCollected()
++ V put(K,V)
++ V remove(Object)
++ void clear()
++ int size()
++ Set<Map.Entry<K,V>> entrySet()
+}
+class org.biojava.nbio.core.util.SoftHashMap.SoftValue {
+- Object key
+}
+class org.biojava.nbio.core.util.UncompressInputStream {
+- {static} Logger logger
+- {static} int TBL_CLEAR
+- {static} int TBL_FIRST
+- int[] tab_prefix
+- byte[] tab_suffix
+- int[] zeros
+- byte[] stack
+- boolean block_mode
+- int n_bits
+- int maxbits
+- int maxmaxcode
+- int maxcode
+- int bitmask
+- int oldcode
+- byte finchar
+- int stackp
+- int free_ent
+- byte[] data
+- int bit_pos
+- boolean eof
+- {static} int EXTRA
+~ {static} int LZW_MAGIC
+- {static} int MAX_BITS
+- {static} int INIT_BITS
+- {static} int HDR_MAXBITS
+- {static} int HDR_EXTENDED
+- {static} int HDR_FREE
+- {static} int HDR_BLOCK_MODE
+- {static} boolean debugTiming
++ int read()
++ int read(byte[],int,int)
+- int resetbuf(int)
+- void fill()
++ long skip(long)
++ int available()
+- void parse_header()
++ boolean markSupported()
++ {static} long uncompress(String,FileOutputStream)
++ {static} long uncompress(InputStream,OutputStream)
++ {static} void main(String[])
+}
+
+
+org.biojava.nbio.core.util.XMLWriter <|.. org.biojava.nbio.core.util.PrettyXMLWriter
+org.biojava.nbio.core.util.SingleLinkageClusterer +.. org.biojava.nbio.core.util.SingleLinkageClusterer.LinkedPair
+java.util.zip.Checksum <|.. org.biojava.nbio.core.util.CRC64Checksum
+org.biojava.nbio.core.util.AbstractMap <|-- org.biojava.nbio.core.util.SoftHashMap
+org.biojava.nbio.core.util.SoftHashMap +.. org.biojava.nbio.core.util.SoftHashMap.SoftValue
+org.biojava.nbio.core.util.SoftReference <|-- org.biojava.nbio.core.util.SoftHashMap.SoftValue
+org.biojava.nbio.core.util.FilterInputStream <|-- org.biojava.nbio.core.util.UncompressInputStream
+@enduml

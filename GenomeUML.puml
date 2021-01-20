@@ -1,0 +1,597 @@
+@startuml
+class org.biojava.nbio.genome.parsers.gff.Location {
+- int mStart
+- int mEnd
++ int getBegin()
++ int getEnd()
++ {static} Location fromBio(int,int,char)
++ {static} Location fromBioExt(int,int,char,int)
++ char bioStrand()
++ int bioStart()
++ int bioEnd()
++ Location plus()
++ Location minus()
++ Location union(Location)
++ Location intersection(Location)
+- Location intersect(int,int,int,int)
++ int start()
++ int end()
++ int length()
++ Iterable<Location> window(int,int)
++ LocIterator iterator()
++ LocIterator iterator(int,int)
++ Location prefix(int)
++ Location suffix(int)
++ Location prefix(Location)
++ Location suffix(Location)
++ Location upstream(int)
++ Location downstream(int)
++ int distance(Location)
++ double percentOverlap(Location)
++ boolean overlaps(Location)
++ boolean contains(Location)
++ boolean startsAfter(Location)
++ boolean startsBefore(Location)
++ boolean endsAfter(Location)
++ boolean endsBefore(Location)
++ boolean isAfter(Location)
++ boolean isBefore(Location)
++ boolean isNegative()
++ Location opposite()
++ boolean isSameStrand(Location)
++ String toString()
++ int hashCode()
++ boolean equals(Object)
+- boolean isHealthy()
+}
+class org.biojava.nbio.genome.query.OutputHitsGFF {
+- {static} Logger logger
++ void process(File,File,File,double,double,boolean,boolean)
++ {static} void main(String[])
+}
+class org.biojava.nbio.genome.util.ChromosomeMappingTools {
+- {static} Logger logger
+- {static} String newline
++ {static} String CHROMOSOME
++ {static} String CDS
+- {static} int base
++ {static} void setCoordinateSystem(int)
++ {static} String formatExonStructure(GeneChromosomePosition)
+- {static} String formatExonStructureForward(GeneChromosomePosition)
+- {static} String formatExonStructureReverse(GeneChromosomePosition)
++ {static} int getCDSLength(GeneChromosomePosition)
++ {static} ChromPos getChromosomePosForCDScoordinate(int,GeneChromosomePosition)
+- {static} String format(int)
++ {static} ChromPos getChromPosReverse(int,List<Integer>,List<Integer>,int,int)
++ {static} ChromPos getChromPosForward(int,List<Integer>,List<Integer>,int,int)
++ {static} int getCDSLengthReverse(List<Integer>,List<Integer>,int,int)
++ {static} int getCDSLengthForward(List<Integer>,List<Integer>,int,int)
++ {static} List<Range<Integer>> getCDSExonRanges(GeneChromosomePosition)
++ {static} List<Range<Integer>> getChromosomalRangesForCDS(GeneChromosomePosition)
+- {static} List<Range<Integer>> getCDSExonRangesReverse(GeneChromosomePosition,String)
+- {static} List<Range<Integer>> getCDSExonRangesForward(GeneChromosomePosition,String)
++ {static} int getCDSPosForChromosomeCoordinate(int,GeneChromosomePosition)
++ {static} int getCDSPosForward(int,List<Integer>,List<Integer>,int,int)
++ {static} int getCDSPosReverse(int,List<Integer>,List<Integer>,int,int)
++ {static} List<Range<Integer>> getCDSRegions(List<Integer>,List<Integer>,int,int)
++ {static} DNASequence getTranscriptDNASequence(TwoBitFacade,GeneChromosomePosition)
++ {static} DNASequence getTranscriptDNASequence(TwoBitFacade,String,List<Integer>,List<Integer>,int,int,Character)
+}
+class org.biojava.nbio.genome.util.SplitFasta {
+- {static} Logger logger
++ void processNucleotides(File,String,File)
++ {static} void main(String[])
+}
+class org.biojava.nbio.genome.query.BlastXMLQuery {
+- {static} Logger logger
+~ Document blastDoc
++ LinkedHashMap<String,ArrayList<String>> getHitsQueryDef(double)
++ {static} void main(String[])
+}
+class org.biojava.nbio.genome.parsers.twobit.TwoBitParser {
+- {static} Logger logger
++ int DEFAULT_BUFFER_SIZE
+- RandomAccessFile raf
+- File f
+- boolean reverse
+- String[] seq_names
+- HashMap<String,Long> seq2pos
+- String cur_seq_name
+- long[][] cur_nn_blocks
+- long[][] cur_mask_blocks
+- long cur_seq_pos
+- long cur_dna_size
+- int cur_nn_block_num
+- int cur_mask_block_num
+- int[] cur_bits
+- byte[] buffer
+- long buffer_size
+- long buffer_pos
+- long start_file_pos
+- long file_pos
+- {static} char[] bit_chars
+- long readFourBytes()
++ String[] getSequenceNames()
++ void setCurrentSequence(String)
++ void reset()
++ long getCurrentSequencePosition()
++ void setCurrentSequencePosition(long)
+- void loadBits()
++ int read()
++ long skip(long)
++ void close()
++ int available()
++ void closeParser()
++ File getFile()
++ String loadFragment(long,int)
++ void printFastaSequence()
++ void printFastaSequence(long)
++ {static} void main(String[])
+}
+class org.biojava.nbio.genome.parsers.genename.GeneChromosomePositionParser {
+- {static} Logger logger
++ {static} String DEFAULT_MAPPING_URL
++ {static} void main(String[])
++ {static} List<GeneChromosomePosition> getChromosomeMappings()
++ {static} List<GeneChromosomePosition> getChromosomeMappings(InputStream)
+- {static} GeneChromosomePosition getGeneChromosomePosition(String)
+- {static} List<Integer> getIntegerList(String)
+}
+class org.biojava.nbio.genome.parsers.gff.GCStats {
++ {static} double getGCStats(Collection<DNASequence>)
++ {static} double getGCStatsString(Collection<String>)
+}
+class org.biojava.nbio.genome.App {
+- {static} Logger logger
++ {static} void main(String[])
+}
+class org.biojava.nbio.genome.io.fastq.SangerFastqReader {
+# FastqVariant getVariant()
+}
+class org.biojava.nbio.genome.io.fastq.Fastq {
+- String description
+- String sequence
+- String quality
+- FastqVariant variant
++ String getDescription()
++ String getSequence()
++ String getQuality()
++ FastqVariant getVariant()
++ Fastq convertTo(FastqVariant)
++ {static} FastqBuilder builder()
+}
+class org.biojava.nbio.genome.parsers.genename.GeneChromosomePosition {
+- {static} long serialVersionUID
+- String geneName
+- String genebankId
+- String chromosome
+- Character orientation
+- Integer transcriptionStart
+- Integer transcriptionEnd
+- Integer cdsStart
+- Integer cdsEnd
+~ int exonCount
+- List<Integer> exonStarts
+- List<Integer> exonEnds
++ String getGeneName()
++ void setGeneName(String)
++ String getGenebankId()
++ void setGenebankId(String)
++ String getChromosome()
++ void setChromosome(String)
++ Character getOrientation()
++ void setOrientation(Character)
++ Integer getTranscriptionStart()
++ void setTranscriptionStart(Integer)
++ Integer getTranscriptionEnd()
++ void setTranscriptionEnd(Integer)
++ Integer getCdsStart()
++ void setCdsStart(Integer)
++ Integer getCdsEnd()
++ void setCdsEnd(Integer)
++ int getExonCount()
++ void setExonCount(int)
++ List<Integer> getExonStarts()
++ void setExonStarts(List<Integer>)
++ List<Integer> getExonEnds()
++ void setExonEnds(List<Integer>)
++ int compareTo(GeneChromosomePosition)
++ String toString()
+}
+abstract class org.biojava.nbio.genome.io.fastq.AbstractFastqWriter {
+# {abstract}Fastq convert(Fastq)
++ T append(T,Fastq)
++ T append(T,Iterable<Fastq>)
++ void write(File,Fastq)
++ void write(File,Iterable<Fastq>)
++ void write(OutputStream,Fastq)
++ void write(OutputStream,Iterable<Fastq>)
+}
+interface org.biojava.nbio.genome.io.fastq.ParseListener {
+~ void description(String)
+~ void sequence(String)
+~ void appendSequence(String)
+~ void repeatDescription(String)
+~ void quality(String)
+~ void appendQuality(String)
+~ void complete()
+}
+class org.biojava.nbio.genome.util.ProteinMappingTools {
++ {static} ProteinSequence convertDNAtoProteinSequence(String)
++ {static} ProteinSequence convertDNAtoProteinSequence(DNASequence)
+}
+class org.biojava.nbio.genome.homology.GFF3FromUniprotBlastHits {
+- {static} Logger logger
++ void process(File,double,LinkedHashMap<String,GeneSequence>,OutputStream)
++ void process(LinkedHashMap<String,ArrayList<String>>,LinkedHashMap<String,GeneSequence>,OutputStream)
++ {static} void main(String[])
+}
+class org.biojava.nbio.genome.io.fastq.SolexaFastqWriter {
+# Fastq convert(Fastq)
+}
+interface org.biojava.nbio.genome.io.fastq.StreamListener {
+~ void fastq(Fastq)
+}
+class org.biojava.nbio.genome.parsers.twobit.SimpleTwoBitFileProvider {
+- {static} Logger logger
++ {static} void downloadIfNoTwoBitFileExists(File,String)
++ {static} URL getTwoBitURL(String)
++ {static} void main(String[])
+}
+interface org.biojava.nbio.genome.parsers.gff.FeatureI {
++ Location location()
++ String group()
++ String type()
++ String seqname()
++ String getAttribute(String)
++ boolean hasAttribute(String)
++ boolean hasAttribute(String,String)
++ String toString()
++ HashMap<String,String> userData()
++ HashMap<String,String> getAttributes()
+}
+class org.biojava.nbio.genome.GeneFeatureHelper {
+- {static} Logger logger
++ {static} LinkedHashMap<String,ChromosomeSequence> loadFastaAddGeneFeaturesFromUpperCaseExonFastaFile(File,File,boolean)
++ {static} void outputFastaSequenceLengthGFF3(File,File)
++ {static} LinkedHashMap<String,ChromosomeSequence> loadFastaAddGeneFeaturesFromGeneIDGFF2(File,File)
++ {static} void addGeneIDGFF2GeneFeatures(LinkedHashMap<String,ChromosomeSequence>,FeatureList)
++ {static} LinkedHashMap<String,ChromosomeSequence> getChromosomeSequenceFromDNASequence(LinkedHashMap<String,DNASequence>)
++ {static} LinkedHashMap<String,ChromosomeSequence> loadFastaAddGeneFeaturesFromGmodGFF3(File,File,boolean)
++ {static} void addGmodGFF3GeneFeatures(LinkedHashMap<String,ChromosomeSequence>,FeatureList)
++ {static} LinkedHashMap<String,ChromosomeSequence> loadFastaAddGeneFeaturesFromGlimmerGFF3(File,File)
++ {static} void addGlimmerGFF3GeneFeatures(LinkedHashMap<String,ChromosomeSequence>,FeatureList)
++ {static} LinkedHashMap<String,ChromosomeSequence> loadFastaAddGeneFeaturesFromGeneMarkGTF(File,File)
++ {static} void addGeneMarkGTFGeneFeatures(LinkedHashMap<String,ChromosomeSequence>,FeatureList)
++ {static} LinkedHashMap<String,ProteinSequence> getProteinSequences(Collection<ChromosomeSequence>)
++ {static} LinkedHashMap<String,GeneSequence> getGeneSequences(Collection<ChromosomeSequence>)
++ {static} void main(String[])
+}
+class org.biojava.nbio.genome.parsers.gff.GFF3Reader {
+- {static} Logger logger
+- {static} Pattern p
++ {static} FeatureList read(String,List<String>)
++ {static} FeatureList read(Path,List<String>)
++ {static} FeatureList read(String)
++ {static} FeatureList read(Path)
+- {static} Feature parseLine(String)
++ {static} void main(String[])
+}
+interface org.biojava.nbio.genome.io.fastq.FastqReader {
+~ void parse(Readable,ParseListener)
+~ void stream(Readable,StreamListener)
+~ Iterable<Fastq> read(File)
+~ Iterable<Fastq> read(URL)
+~ Iterable<Fastq> read(InputStream)
+}
+class org.biojava.nbio.genome.parsers.genename.ChromPos {
+- int pos
+- int phase
++ int getPhase()
++ void setPhase(int)
++ int getPos()
++ void setPos(int)
+}
+class org.biojava.nbio.genome.parsers.gff.FeatureHelper {
++ {static} LinkedHashMap<String,FeatureList> buildFeatureAtrributeIndex(String,FeatureList)
+}
+class org.biojava.nbio.genome.parsers.geneid.GeneIDXMLReader {
+- {static} Logger logger
+~ Document geneidDoc
++ LinkedHashMap<String,ProteinSequence> getProteinSequences()
++ LinkedHashMap<String,DNASequence> getDNACodingSequences()
++ {static} void main(String[])
+}
+class org.biojava.nbio.genome.homology.BlastHomologyHits {
++ {static} LinkedHashMap<String,ArrayList<String>> getMatches(File,double)
+}
+class org.biojava.nbio.genome.parsers.gff.Feature {
+- Location mLocation
+- String mSeqname
+- String mSource
+- String mType
+- double mScore
+- int mFrame
+- String mAttributes
+- HashMap<String,String> mUserMap
+~ HashMap<String,String> attributeHashMap
++ String seqname()
++ String source()
++ String type()
++ Location location()
++ double score()
++ int frame()
++ String attributes()
++ HashMap<String,String> userData()
+- void initAttributeHashMap()
++ String getAttribute(String)
++ String getAttributeOld(String)
++ boolean hasAttribute(String)
++ boolean hasAttribute(String,String)
++ String group()
++ String toString()
++ HashMap<String,String> getAttributes()
+}
+class org.biojava.nbio.genome.parsers.cytoband.CytobandParser {
+- {static} Logger logger
++ {static} String DEFAULT_LOCATION
++ {static} void main(String[])
++ SortedSet<Cytoband> getAllCytobands(URL)
++ SortedSet<Cytoband> getAllCytobands(InputStream)
+}
+class org.biojava.nbio.genome.io.fastq.StreamingFastqParser {
+~ {static} void stream(Readable,FastqVariant,StreamListener)
+}
+class org.biojava.nbio.genome.io.fastq.IlluminaFastqReader {
+# FastqVariant getVariant()
+}
+class org.biojava.nbio.genome.io.fastq.FastqParser {
+~ {static} void parse(Readable,ParseListener)
+}
+class org.biojava.nbio.genome.io.fastq.FastqParser.FastqParserLineProcessor {
+- State state
+- int sequenceLength
+- int qualityLength
+- ParseListener listener
+- State getState()
+- void setState(State)
++ Object getResult()
++ boolean processLine(String)
+}
+class org.biojava.nbio.genome.io.fastq.SangerFastqWriter {
+# Fastq convert(Fastq)
+}
+class org.biojava.nbio.genome.parsers.gff.GeneIDGFF2Reader {
+- {static} Logger logger
++ {static} FeatureList read(String)
+- {static} Feature parseLine(String)
++ {static} void write(FeatureList,String)
+- {static} void writeLine(Feature,BufferedWriter)
++ {static} void main(String[])
+}
+class org.biojava.nbio.genome.parsers.gff.LocIterator {
+- {static} Logger logger
+~ Location mBounds
+~ int mPosition
+~ int mWindowSize
+~ int mIncrement
++ boolean hasNext(int,int)
++ boolean hasNext()
++ Location remainder()
++ Location next()
++ Location next(int,int)
++ String toString()
++ void remove()
++ {static} void main(String[])
+}
+class org.biojava.nbio.genome.io.fastq.FastqBuilder {
+- String description
+- StringBuilder sequence
+- StringBuilder quality
+- FastqVariant variant
++ {static} FastqVariant DEFAULT_VARIANT
++ String getDescription()
++ FastqBuilder withDescription(String)
++ FastqBuilder withSequence(String)
++ FastqBuilder appendSequence(String)
++ FastqBuilder withQuality(String)
++ FastqBuilder appendQuality(String)
++ boolean sequenceAndQualityLengthsMatch()
++ FastqBuilder withVariant(FastqVariant)
++ Fastq build()
+}
+class org.biojava.nbio.genome.parsers.genename.GeneName {
+- {static} long serialVersionUID
+- String hgncId
+- String approvedSymbol
+- String approvedName
+- String status
+- String previousSymbols
+- String previousNames
+- String synonyms
+- String chromosome
+- String accessionNr
+- String refseqIds
+- String uniprot
+- String omimId
+- String ensemblGeneId
++ String getHgncId()
++ void setHgncId(String)
++ String getApprovedSymbol()
++ void setApprovedSymbol(String)
++ String getApprovedName()
++ void setApprovedName(String)
++ String getStatus()
++ void setStatus(String)
++ String getPreviousSymbols()
++ void setPreviousSymbols(String)
++ String getPreviousNames()
++ void setPreviousNames(String)
++ String getSynonyms()
++ void setSynonyms(String)
++ String getChromosome()
++ void setChromosome(String)
++ String getAccessionNr()
++ void setAccessionNr(String)
++ String getRefseqIds()
++ void setRefseqIds(String)
++ String getUniprot()
++ void setUniprot(String)
++ String getEnsemblGeneId()
++ void setEnsemblGeneId(String)
++ String getOmimId()
++ void setOmimId(String)
++ int compareTo(GeneName)
++ boolean equals(GeneName)
++ String toString()
+}
+class org.biojava.nbio.genome.parsers.gff.GeneMarkGTFReader {
+- {static} Logger logger
++ {static} FeatureList read(String)
+- {static} Feature parseLine(String)
++ {static} void main(String[])
+}
+class org.biojava.nbio.genome.uniprot.UniprotToFasta {
+- {static} Logger logger
++ {static} void main(String[])
++ void process(String,String)
+}
+abstract class org.biojava.nbio.genome.io.fastq.AbstractFastqReader {
+# {abstract}FastqVariant getVariant()
++ void parse(Readable,ParseListener)
++ void stream(Readable,StreamListener)
++ Iterable<Fastq> read(File)
++ Iterable<Fastq> read(URL)
++ Iterable<Fastq> read(InputStream)
+}
+class org.biojava.nbio.genome.io.fastq.AbstractFastqReader.Collect {
+- List<Fastq> result
++ void fastq(Fastq)
++ Iterable<Fastq> getResult()
+}
+class org.biojava.nbio.genome.parsers.gff.GFF3Writer {
++ void write(OutputStream,LinkedHashMap<String,ChromosomeSequence>)
+- String getGFF3Note(ArrayList<String>)
++ {static} void main(String[])
+}
+interface org.biojava.nbio.genome.io.fastq.FastqWriter {
+~ T append(T,Fastq)
+~ T append(T,Iterable<Fastq>)
+~ void write(File,Fastq)
+~ void write(File,Iterable<Fastq>)
+~ void write(OutputStream,Fastq)
+~ void write(OutputStream,Iterable<Fastq>)
+}
+class org.biojava.nbio.genome.io.fastq.IlluminaFastqWriter {
+# Fastq convert(Fastq)
+}
+class org.biojava.nbio.genome.parsers.cytoband.Cytoband {
+- {static} long serialVersionUID
+~ String chromosome
+~ Integer start
+~ Integer end
+~ String locus
+~ StainType type
++ String getChromosome()
++ void setChromosome(String)
++ Integer getStart()
++ void setStart(Integer)
++ Integer getEnd()
++ void setEnd(Integer)
++ StainType getType()
++ void setType(StainType)
++ int compareTo(Cytoband)
++ String getLocus()
++ void setLocus(String)
++ String toString()
+}
+class org.biojava.nbio.genome.io.fastq.SolexaFastqReader {
+# FastqVariant getVariant()
+}
+class org.biojava.nbio.genome.parsers.twobit.TwoBitFacade {
+- TwoBitParser twoBitParser
++ void close()
++ void setChromosome(String)
++ String getSequence(String,int,int)
+}
+class org.biojava.nbio.genome.io.fastq.FastqTools {
++ {static} DNASequence createDNASequence(Fastq)
++ {static} DNASequence createDNASequenceWithQualityScores(Fastq)
++ {static} DNASequence createDNASequenceWithErrorProbabilities(Fastq)
++ {static} DNASequence createDNASequenceWithQualityScoresAndErrorProbabilities(Fastq)
++ {static} QualityFeature<AbstractSequence<NucleotideCompound>,NucleotideCompound> createQualityScores(Fastq)
++ {static} QuantityFeature<AbstractSequence<NucleotideCompound>,NucleotideCompound> createErrorProbabilities(Fastq)
++ {static} Iterable<Number> qualityScores(Fastq)
++ {static} int[] qualityScores(Fastq,int[])
++ {static} Iterable<Number> errorProbabilities(Fastq)
++ {static} double[] errorProbabilities(Fastq,double[])
++ {static} Fastq convert(Fastq,FastqVariant)
+~ {static} String convertQualities(Fastq,FastqVariant)
+~ {static} List<T> toList(Iterable<? extends T>)
+}
+class org.biojava.nbio.genome.parsers.gff.FeatureList {
+~ Map<String,Map<String,List<FeatureI>>> featindex
+~ Location mLocation
++ boolean add(FeatureI)
++ void add(Collection<FeatureI>)
++ Location bounds()
++ boolean hasGaps(int)
++ String splice(DNASequence)
++ Collection<String> groupValues()
++ Collection<String> attributeValues(String)
++ FeatureList selectByGroup(String)
++ FeatureList selectByType(String)
++ FeatureList selectByAttribute(String,String)
++ FeatureList selectByAttribute(String)
++ FeatureList selectByUserData(String,Object)
++ FeatureList selectByUserData(String)
++ FeatureList selectOverlapping(String,Location,boolean)
++ FeatureList omitOverlapping(String,Location,boolean)
++ boolean hasAttribute(String)
++ boolean hasAttribute(String,String)
++ String toString()
++ FeatureList sortByStart()
++ void addIndexes(List<String>)
++ void addIndex(String)
+}
+class org.biojava.nbio.genome.parsers.gff.FeatureList.FeatureComparator {
+- {static} long serialVersionUID
++ int compare(FeatureI,FeatureI)
+}
+class org.biojava.nbio.genome.parsers.genename.GeneNamesParser {
+- {static} Logger logger
++ {static} String DEFAULT_GENENAMES_URL
++ {static} void main(String[])
++ {static} List<GeneName> getGeneNames()
++ {static} List<GeneName> getGeneNames(InputStream)
+- {static} GeneName getGeneName(String)
+}
+
+
+org.biojava.nbio.genome.parsers.gff.Iterable <|.. org.biojava.nbio.genome.parsers.gff.Location
+java.io.InputStream <|-- org.biojava.nbio.genome.parsers.twobit.TwoBitParser
+org.biojava.nbio.genome.io.fastq.AbstractFastqReader <|-- org.biojava.nbio.genome.io.fastq.SangerFastqReader
+org.biojava.nbio.genome.parsers.genename.Comparable <|.. org.biojava.nbio.genome.parsers.genename.GeneChromosomePosition
+java.io.Serializable <|.. org.biojava.nbio.genome.parsers.genename.GeneChromosomePosition
+org.biojava.nbio.genome.io.fastq.FastqWriter <|.. org.biojava.nbio.genome.io.fastq.AbstractFastqWriter
+org.biojava.nbio.genome.io.fastq.AbstractFastqWriter <|-- org.biojava.nbio.genome.io.fastq.SolexaFastqWriter
+org.biojava.nbio.genome.parsers.gff.FeatureI <|.. org.biojava.nbio.genome.parsers.gff.Feature
+org.biojava.nbio.genome.io.fastq.AbstractFastqReader <|-- org.biojava.nbio.genome.io.fastq.IlluminaFastqReader
+org.biojava.nbio.genome.io.fastq.FastqParser +.. org.biojava.nbio.genome.io.fastq.FastqParser.FastqParserLineProcessor
+org.biojava.nbio.genome.io.fastq.LineProcessor <|.. org.biojava.nbio.genome.io.fastq.FastqParser.FastqParserLineProcessor
+org.biojava.nbio.genome.io.fastq.AbstractFastqWriter <|-- org.biojava.nbio.genome.io.fastq.SangerFastqWriter
+java.util.Iterator <|.. org.biojava.nbio.genome.parsers.gff.LocIterator
+java.io.Serializable <|.. org.biojava.nbio.genome.parsers.genename.GeneName
+org.biojava.nbio.genome.parsers.genename.Comparable <|.. org.biojava.nbio.genome.parsers.genename.GeneName
+org.biojava.nbio.genome.io.fastq.FastqReader <|.. org.biojava.nbio.genome.io.fastq.AbstractFastqReader
+org.biojava.nbio.genome.io.fastq.AbstractFastqReader +.. org.biojava.nbio.genome.io.fastq.AbstractFastqReader.Collect
+org.biojava.nbio.genome.io.fastq.StreamListener <|.. org.biojava.nbio.genome.io.fastq.AbstractFastqReader.Collect
+org.biojava.nbio.genome.io.fastq.AbstractFastqWriter <|-- org.biojava.nbio.genome.io.fastq.IlluminaFastqWriter
+java.io.Serializable <|.. org.biojava.nbio.genome.parsers.cytoband.Cytoband
+org.biojava.nbio.genome.parsers.cytoband.Comparable <|.. org.biojava.nbio.genome.parsers.cytoband.Cytoband
+org.biojava.nbio.genome.io.fastq.AbstractFastqReader <|-- org.biojava.nbio.genome.io.fastq.SolexaFastqReader
+org.biojava.nbio.genome.parsers.gff.ArrayList <|-- org.biojava.nbio.genome.parsers.gff.FeatureList
+org.biojava.nbio.genome.parsers.gff.FeatureList +.. org.biojava.nbio.genome.parsers.gff.FeatureList.FeatureComparator
+org.biojava.nbio.genome.parsers.gff.Comparator <|.. org.biojava.nbio.genome.parsers.gff.FeatureList.FeatureComparator
+org.biojava.nbio.genome.parsers.gff.Serializable <|.. org.biojava.nbio.genome.parsers.gff.FeatureList.FeatureComparator
+@enduml

@@ -1,0 +1,705 @@
+@startuml
+class org.biojava.nbio.survival.cox.comparators.SurvivalInfoValueComparator {
+- {static} long serialVersionUID
+~ String variable
++ int compare(SurvivalInfo,SurvivalInfo)
+}
+interface org.biojava.nbio.survival.kaplanmeier.figure.CensorStatusSelect {
++ CensorStatus select(WorkSheet,String)
+}
+class org.biojava.nbio.survival.cox.comparators.CoxVariablesVariableComparator {
+~ String variables
+~ String variable
+~ String description
++ int compare(CoxVariables,CoxVariables)
++ String getDescription()
++ void setDescription(String)
++ String getModelVariables()
++ String getSortVariable()
+}
+class org.biojava.nbio.survival.kaplanmeier.figure.ExpressionFigure {
+- {static} long serialVersionUID
+~ ArrayList<String> title
++ int top
++ int bottom
++ int left
++ int right
+~ int titleHeight
+~ int xAxisLabelHeight
+~ int labelWidth
+~ Double maxTime
+~ Double minX
+~ Double maxX
+~ Double minY
+~ Double maxY
+~ Double mean
+~ FontMetrics fm
+~ KMFigureInfo kmfi
+~ ArrayList<String> lineInfoList
+~ ArrayList<SurvivalInfo> siList
+~ String variable
+- String fileName
+~ DecimalFormat df
++ ArrayList<SurvivalInfo> getSurvivalInfoList()
++ void setKMFigureInfo(KMFigureInfo)
++ void setFigureLineInfo(ArrayList<String>)
++ void setSurvivalInfo(ArrayList<String>,ArrayList<SurvivalInfo>,String)
+- void setRenderingHints(Graphics2D)
++ void paintComponent(Graphics)
+- void drawFigureLineInfo(Graphics)
+- void drawExpressionLevels(Graphics)
+- int getX(double)
+- int getY(double)
++ String getFileName()
+- void drawLegend(Graphics)
+- void setFigureDimensions()
++ void savePNG(String)
++ {static} void main(String[])
+}
+class org.biojava.nbio.survival.kaplanmeier.figure.SurvFitKM {
++ SurvFitInfo process(LinkedHashMap<String,ArrayList<CensorStatus>>,boolean)
++ SurvFitInfo process(String,String,String,String,String,boolean)
++ SurvFitInfo process(String,ArrayList<SurvivalInfo>,boolean)
++ LinkedHashMap<String,StrataInfo> processStrataInfo(String,ArrayList<SurvivalInfo>,SurvFitKM.Method,SurvFitKM.Error,boolean,double,ConfType,ConfLower,Double,Double,boolean)
++ SurvFitInfo process(String,ArrayList<SurvivalInfo>,SurvFitKM.Method,SurvFitKM.Error,boolean,double,ConfType,ConfLower,Double,Double,boolean)
++ {static} void main(String[])
+}
+class org.biojava.nbio.survival.cox.stats.ChiSq {
++ {static} double norm(double)
++ {static} double chiSq(double,int)
++ {static} void main(String[])
+}
+class org.biojava.nbio.survival.cox.SurvivalInfo {
+- String id
+- double time
+- int status
+- int order
+- double offset
+- double weight
+- int strata
+- double score
+- double linearPredictor
+- double residual
+- String clusterValue
+~ LinkedHashMap<String,Double> residualVariableMap
+~ LinkedHashMap<String,Double> data
+~ LinkedHashMap<String,String> unknownDataType
+~ LinkedHashMap<String,String> originalMetaData
++ void setResidualVariable(String,Double)
++ Double getResidualVariable(String)
++ String getUnknownDataTypeVariable(String)
++ String getOriginalMetaData(String)
++ void addUnknownDataTypeVariable(String,String)
++ void updateContinousVariable(String,Double)
++ void addContinuousVariable(String,Double)
++ Double getContinuousVariable(String)
++ ArrayList<String> getGroupCategories(String)
++ ArrayList<String> getDataVariables()
++ int getNumberVariables()
++ Double getVariable(String)
++ String toString()
++ int compareTo(SurvivalInfo)
++ double getOffset()
++ void setOffset(double)
++ double getWeight()
++ void setWeight(double)
++ int getStrata()
++ void setStrata(int)
++ double getScore()
++ void setScore(double)
++ double getLinearPredictor()
++ void setLinearPredictor(double)
++ double getResidual()
++ void setResidual(double)
++ String getClusterValue()
++ void setClusterValue(String)
++ String getId()
++ void setId(String)
++ int getOrder()
++ void setOrder(int)
++ double getTime()
++ void setTime(double)
++ int getStatus()
++ void setStatus(int)
+}
+class org.biojava.nbio.survival.cox.SurvivalInfoIndex {
+- double time
+- int event
+- int index
+- double[] data
++ String toString()
++ int compareTo(SurvivalInfoIndex)
+}
+interface org.biojava.nbio.survival.cox.comparators.CoxComparatorInterface {
++ String getDescription()
++ void setDescription(String)
++ String getModelVariables()
++ String getSortVariable()
+}
+class org.biojava.nbio.survival.cox.comparators.MeanModelComparator {
+- {static} long serialVersionUID
+~ String variable
++ int compare(CoxVariables,CoxVariables)
+}
+class org.biojava.nbio.survival.cox.SurvFitInfo {
+- LinkedHashMap<String,StrataInfo> strataInfoHashMap
+- LinkedHashMap<String,StrataInfo> unweightedStrataInfoHashMap
+- boolean weighted
++ LinkedHashMap<String,StrataInfo> getUnweightedStrataInfoHashMap()
++ void setUnweightedStrataInfoHashMap(LinkedHashMap<String,StrataInfo>)
++ LinkedHashMap<String,StrataInfo> getStrataInfoHashMap()
++ void setStrataInfoHashMap(LinkedHashMap<String,StrataInfo>)
++ void addStrataInfoHashMap(LinkedHashMap<String,StrataInfo>,String)
++ String toString()
++ boolean isWeighted()
++ void setWeighted(boolean)
+}
+class org.biojava.nbio.survival.kaplanmeier.figure.GroupResults {
++ ArrayList<CensorStatus> group1
++ ArrayList<CensorStatus> group2
++ boolean group1WorseOutcome
++ String signatureName
+}
+class org.biojava.nbio.survival.cox.CoxScore {
++ {static} double[][] process(CoxMethod,ArrayList<SurvivalInfo>,CoxInfo,boolean)
++ {static} void main(String[])
+}
+class org.biojava.nbio.survival.kaplanmeier.metadata.ClinicalMetaDataOutcome {
++ {static} void process(WorkSheet,String,LinkedHashMap<String,String>,String,Double,ArrayList<MetaDataInfo>)
++ {static} void main(String[])
+}
+class org.biojava.nbio.survival.cox.CoxInfo {
+- WaldTestInfo waldTestInfo
+~ String message
+~ Integer maxIterations
+~ Double eps
+~ Double toler
+~ CoxMethod method
+- double[][] imat
+- double[][] naive_imat
+~ double[] u
+~ int iterations
+~ int flag
+~ double logTest
+~ double logTestpval
+~ double loglikInit
+~ double loglikFinal
+~ Double scoreLogrankTest
+- Double rscore
+- Double rscoreLogrankTestpvalue
+- double degreeFreedom
+- Double scoreLogrankTestpvalue
+~ int numSamples
+~ int numEvents
+- LinkedHashMap<String,String> metaDataFilter
+- LinkedHashMap<String,CoxCoefficient> coefficientsList
+~ LinkedHashMap<Double,Double> baselineSurvivorFunction
+~ ArrayList<SurvivalInfo> survivalInfoList
++ KaplanMeierFigure kmf
++ ExpressionFigure ef
++ ArrayList<SurvivalInfo> getSurvivalInfoList()
++ void setVariance(double[][])
++ double[][] getVariance()
++ void setNaiveVariance(double[][])
++ double[][] getNaiveVariance()
++ void setSurvivalInfoList(ArrayList<SurvivalInfo>)
++ double[] getWeighted()
++ double[][] getVariableResiduals()
++ void setVariableResiduals(double[][])
++ int getNumberCoefficients()
++ CoxCoefficient getCoefficient(String)
++ void setCoefficient(String,CoxCoefficient)
++ String getCoefficientText(boolean,String,String,String,String)
++ {static} String fmt(Double,int,int)
+- void calcSummaryValues()
++ void dump()
++ String fmtpr(String,int)
++ String fmtpl(String,int)
++ String toString()
++ String toString(String,String,String)
++ double getChiSquare()
++ double getDegreeFreedom()
++ double getOverallModelFitPvalue()
++ Double getRscore()
++ void setRscore(Double)
++ Double getRscoreLogrankTestpvalue()
++ void setRscoreLogrankTestpvalue(Double)
++ Double getScoreLogrankTest()
++ void setScoreLogrankTest(Double)
++ Double getScoreLogrankTestpvalue()
++ void setScoreLogrankTestpvalue(Double)
++ LinkedHashMap<String,String> getMetaDataFilter()
++ void setMetaDataFilter(LinkedHashMap<String,String>)
++ LinkedHashMap<String,CoxCoefficient> getCoefficientsList()
++ WaldTestInfo getWaldTestInfo()
++ double[][] getImat()
++ double[][] getNaive_imat()
++ void setDegreeFreedom(double)
++ void setWaldTestInfo(WaldTestInfo)
+}
+class org.biojava.nbio.survival.kaplanmeier.figure.NumbersAtRiskPanel {
+- {static} long serialVersionUID
+~ KaplanMeierFigure kmf
+~ Double timePercentage
++ void setKaplanMeierFigure(KaplanMeierFigure)
+- void paintTable(Graphics)
+# void paintComponent(Graphics)
++ {static} void main(String[])
+}
+interface org.biojava.nbio.survival.data.ChangeValue {
++ String change(String)
+}
+class org.biojava.nbio.survival.cox.CoxCoefficient {
+~ String name
+~ double coeff
+~ double stdError
+~ double robustStdError
+~ double z
+~ double hazardRatio
+~ double hazardRatioLoCI
+~ double hazardRatioHiCI
+~ double pvalue
+~ double mean
+~ double standardDeviation
++ String toString()
++ String getHRText()
++ String getName()
++ double getCoeff()
++ double getStdError()
++ double getRobustStdError()
++ double getZ()
++ double getHazardRatio()
++ double getHazardRatioLoCI()
++ double getHazardRatioHiCI()
++ double getPvalue()
++ double getMean()
++ double getStandardDeviation()
++ void setName(String)
++ void setCoeff(double)
++ void setStdError(double)
++ void setRobustStdError(double)
++ void setZ(double)
++ void setHazardRatio(double)
++ void setHazardRatioLoCI(double)
++ void setHazardRatioHiCI(double)
++ void setPvalue(double)
++ void setMean(double)
++ void setStandardDeviation(double)
++ {static} String fmt(Double,int,int)
+}
+class org.biojava.nbio.survival.cox.SurvivalInfoHelper {
++ {static} void dump(ArrayList<SurvivalInfo>,PrintStream,String)
+- {static} boolean isCategorical(LinkedHashMap<String,Double>)
++ {static} void categorizeData(ArrayList<SurvivalInfo>)
++ {static} ArrayList<String> addInteraction(String,String,ArrayList<SurvivalInfo>)
++ {static} void groupByRange(double[],String,String,ArrayList<SurvivalInfo>)
++ {static} ArrayList<String> getGroupCategories(String,ArrayList<SurvivalInfo>)
+- {static} int getRangeIndex(double[],double)
+}
+class org.biojava.nbio.survival.cox.RiskInfo {
+~ double weight
+~ double time
+~ double nevent
+~ double ncens
+~ double nenter
+~ int ndead
+}
+class org.biojava.nbio.survival.kaplanmeier.figure.KaplanMeierFigure {
+- {static} long serialVersionUID
+~ ArrayList<String> title
+- int top
+- int bottom
+- int left
+- int yaxisLabel
+- int right
+~ int titleHeight
+~ int xAxisLabelHeight
+~ int labelWidth
+~ double minTime
+~ double maxTime
+~ double minPercentage
+~ double maxPercentage
+~ FontMetrics fm
+~ KMFigureInfo kmfi
+~ LinkedHashMap<String,ArrayList<CensorStatus>> survivalData
+~ ArrayList<String> lineInfoList
+~ SurvFitInfo sfi
+- String fileName
+- ArrayList<Double> xAxisTimeValues
+- ArrayList<Integer> xAxisTimeCoordinates
+~ DecimalFormat df
+~ Double adjustedPercentIncrement
++ ArrayList<String> getGroups()
++ Double getSurvivalTimePercentile(String,double)
++ void setKMFigureInfo(KMFigureInfo)
++ KMFigureInfo getKMFigureInfo()
++ void setFigureLineInfo(ArrayList<String>)
++ void setCoxInfo(ArrayList<String>,CoxInfo,String,LinkedHashMap<String,String>,Boolean)
++ {static} String fmt(Double,int,int)
++ SurvFitInfo getSurvivalFitInfo()
++ void setSurvivalData(ArrayList<String>,SurvFitInfo,Double)
++ void setSurvivalData(ArrayList<String>,LinkedHashMap<String,ArrayList<CensorStatus>>,Boolean)
++ void setSurvivalData(ArrayList<String>,LinkedHashMap<String,ArrayList<CensorStatus>>,Double,Boolean)
++ void saveSurvivalData(String)
++ void paintComponent(Graphics)
+- void drawFigureLineInfo(Graphics)
+- void drawSurvivalCurves(Graphics)
+- int getTimeX(double)
+- int getPercentageY(double)
++ String getFileName()
++ int getTop()
++ int getBottom()
++ int getLeft()
++ int getRight()
++ ArrayList<Double> getxAxisTimeValues()
++ ArrayList<Integer> getxAxisTimeCoordinates()
+- void setRenderingHints(Graphics2D)
+- void drawLegend(Graphics)
++ Double getTimeAxisIncrementPercentage()
+- void setFigureDimensions()
++ void savePNGKMNumRisk(String)
++ void savePNG(String)
++ {static} void main(String[])
+}
+class org.biojava.nbio.survival.kaplanmeier.figure.KaplanMeierFigure.PlotInfo {
+~ double time
+~ double atRisk
+~ double censored
+~ double events
+~ double percentage
++ String toString()
+}
+class org.biojava.nbio.survival.data.HeaderInfo {
+- Integer index
+- boolean hide
++ String toString()
++ Integer getIndex()
++ void setIndex(Integer)
++ boolean isHide()
++ void setHide(boolean)
+}
+class org.biojava.nbio.survival.cox.WaldTestInfo {
+- int df
+~ double[][] solve
+~ double[] bsum
++ double getTest()
++ String toString()
++ double getPvalue()
++ int getDf()
++ void setDf(int)
+}
+class org.biojava.nbio.survival.cox.stats.Chsolve2 {
++ {static} void process(double[][],int,double[][],int)
+}
+class org.biojava.nbio.survival.cox.matrix.Matrix {
++ {static} double[][] sqrt(double[][])
++ {static} double[] sqrt(double[])
++ {static} double[][] oneDivide(double[][])
++ {static} double[] oneDivide(double[])
++ {static} double[] diag(double[][])
++ {static} double[][] diag(double[])
++ {static} double[][] abs(double[][])
++ {static} double[] abs(double[])
++ {static} double[][] random(int,int)
++ {static} double[][] identity(int)
++ {static} double dot(double[],double[])
++ {static} double[][] transpose(double[][])
++ {static} double[][] add(double[][],double[][])
++ {static} double[][] subtract(double[][],double[][])
++ {static} double[][] multiply(double[][],double[][])
++ {static} double[] multiply(double[][],double[])
++ {static} double[][] scale(double[][],double[])
++ {static} double[][] scale(double[][],double)
++ {static} double[] multiply(double[],double[][])
++ {static} void main(String[])
+}
+interface org.biojava.nbio.survival.kaplanmeier.metadata.DiscreteQuantizerInterface {
++ void process(WorkSheet,String)
+}
+class org.biojava.nbio.survival.cox.matrix.StdArrayIO {
++ {static} void print(double[])
++ {static} void print(double[][])
++ {static} void print(int[])
++ {static} void print(int[][])
++ {static} void print(boolean[])
++ {static} void print(boolean[][])
++ {static} void main(String[])
+}
+class org.biojava.nbio.survival.cox.comparators.CoxVariablesOverallModelFitComparator {
+- {static} long serialVersionUID
+~ String variables
++ int compare(CoxVariables,CoxVariables)
+}
+class org.biojava.nbio.survival.data.CompactCharSequence {
+~ {static} long serialVersionUID
+- {static} String ENCODING
+- int offset
+- int end
+- byte[] data
+- boolean nullstring
++ char charAt(int)
++ int length()
++ CharSequence subSequence(int,int)
++ String toString()
+}
+class org.biojava.nbio.survival.cox.CoxMart {
++ {static} double[] process(CoxMethod,ArrayList<SurvivalInfo>,boolean)
++ {static} void main(String[])
+}
+class org.biojava.nbio.survival.kaplanmeier.figure.CensorStatus {
++ String row
++ Double time
++ String censored
++ String group
++ Double value
++ Double zscore
++ Double weight
+- Double percentage
++ Double nevents
++ Double ncens
++ Double nrisk
++ CensorStatus getCopy()
++ String toString()
++ int compareTo(CensorStatus)
++ Double getPercentage()
++ void setPercentage(Double)
+}
+class org.biojava.nbio.survival.cox.WaldTest {
++ {static} WaldTestInfo process(double[][],double[],double)
++ {static} WaldTestInfo process(double[][],double[][],double)
+}
+class org.biojava.nbio.survival.cox.ResidualsCoxph {
++ {static} double[][] process(CoxInfo,Type,boolean,ArrayList<String>)
+- {static} double[][] rowsum(double[][],ArrayList<String>)
++ {static} void main(String[])
+}
+class org.biojava.nbio.survival.cox.stats.AgScore {
++ {static} double[][] process(CoxMethod,ArrayList<SurvivalInfo>,CoxInfo,boolean)
++ {static} void main(String[])
+}
+class org.biojava.nbio.survival.cox.comparators.SurvivalInfoComparator {
+- {static} long serialVersionUID
++ int compare(SurvivalInfo,SurvivalInfo)
+}
+class org.biojava.nbio.survival.cox.CoxVariables {
+- String cohortName
+- String geneSet
+- String genes
+- LinkedHashMap<String,CoxInfo> coxInfoHashMap
++ int getUniqueID()
++ void putCoxInfo(String,CoxInfo)
++ CoxInfo getCoxInfo(String)
++ String encodeFileURL(String)
++ {static} String fmt(Double,int,int)
++ String toString()
++ String getCohortName()
++ String getGeneSet()
++ String getGenes()
++ LinkedHashMap<String,CoxInfo> getCoxInfoHashMap()
+}
+class org.biojava.nbio.survival.kaplanmeier.metadata.MetaDataInfo {
++ String column
++ boolean numeric
++ DiscreteQuantizerInterface discreteQuantizer
+~ ArrayList<String> discreteValues
++ void setDiscreteValues(WorkSheet)
++ ArrayList<String> getDiscreteValues()
++ int getNumberDiscreteValues()
+}
+class org.biojava.nbio.survival.data.WorkSheet {
+- LinkedHashMap<String,HeaderInfo> columnLookup
+- LinkedHashMap<String,HeaderInfo> rowLookup
+- CompactCharSequence[][] data
+~ HashMap<String,String> dataGrid
+- String indexColumnName
+- LinkedHashMap<String,String> metaDataColumnsHashMap
+- LinkedHashMap<String,String> metaDataRowsHashMap
+~ HashMap<String,Double> doubleValues
+~ boolean cacheDoubleValues
+- String rowHeader
++ void clear()
++ String toString()
++ void randomlyDivideSave(double,String,String)
++ {static} WorkSheet getCopyWorkSheetSelectedRows(WorkSheet,ArrayList<String>)
++ {static} WorkSheet getCopyWorkSheet(WorkSheet)
++ ArrayList<String> getMetaDataColumns()
++ ArrayList<String> getMetaDataRows()
++ ArrayList<String> getDataColumns()
++ void shuffleColumnsAndThenRows(ArrayList<String>,ArrayList<String>)
++ void shuffleColumnValues(ArrayList<String>)
++ void shuffleRowValues(ArrayList<String>)
++ void hideMetaDataColumns(boolean)
++ void hideMetaDataRows(boolean)
++ void setMetaDataRowsAfterRow()
++ void setMetaDataColumnsAfterColumn()
++ void setMetaDataRowsAfterRow(String)
++ void setMetaDataColumnsAfterColumn(String)
++ void setMetaDataColumns(ArrayList<String>)
++ void markMetaDataColumns(ArrayList<String>)
++ void markMetaDataColumn(String)
++ boolean isMetaDataColumn(String)
++ boolean isMetaDataRow(String)
++ void markMetaDataRow(String)
++ void setMetaDataRows(ArrayList<String>)
++ void hideEmptyRows()
++ void hideEmptyColumns()
++ void hideRow(String,boolean)
++ void hideColumn(String,boolean)
++ void replaceColumnValues(String,HashMap<String,String>)
++ void applyColumnFilter(String,ChangeValue)
++ void addColumn(String,String)
++ void addColumns(ArrayList<String>,String)
++ void addRow(String,String)
++ void addRows(ArrayList<String>,String)
+- {static} Object resizeArray(Object,int)
++ void addCell(String,String,String)
++ boolean isValidRow(String)
++ boolean isValidColumn(String)
++ void setCacheDoubleValues(boolean)
++ Double getCellDouble(String,String)
++ String getCell(String,String)
++ void changeRowHeader(ChangeValue)
++ void changeColumnHeader(ChangeValue)
++ void changeRowHeader(String,String)
++ void changeColumnsHeaders(LinkedHashMap<String,String>)
++ void changeColumnHeader(String,String)
++ Integer getColumnIndex(String)
++ Integer getRowIndex(String)
++ ArrayList<String> getRandomDataColumns(int)
++ ArrayList<String> getRandomDataColumns(int,ArrayList<String>)
++ ArrayList<String> getAllColumns()
++ ArrayList<String> getColumns()
++ ArrayList<String> getDiscreteColumnValues(String)
++ ArrayList<String> getDiscreteRowValues(String)
++ ArrayList<String> getAllRows()
++ ArrayList<String> getRows()
++ ArrayList<String> getDataRows()
++ WorkSheet getLogScale(double)
++ WorkSheet getLogScale(double,double)
++ WorkSheet swapRowAndColumns()
+~ {static} CompactCharSequence[][] getAllValuesCompactCharSequence(File,char)
+~ {static} CompactCharSequence[][] getAllValuesCompactCharSequence(InputStream,char)
+~ {static} String[][] getAllValues(String,char)
++ {static} WorkSheet unionWorkSheetsRowJoin(String,String,char,boolean)
++ {static} WorkSheet unionWorkSheetsRowJoin(WorkSheet,WorkSheet,boolean)
++ {static} WorkSheet readCSV(String,char)
++ {static} WorkSheet readCSV(File,char)
++ {static} WorkSheet readCSV(InputStream,char)
++ void saveCSV(String)
++ void saveTXT(String)
++ void setRowHeader(String)
++ void appendWorkSheetColumns(WorkSheet)
++ void appendWorkSheetRows(WorkSheet)
++ void save(OutputStream,char,boolean)
++ String getIndexColumnName()
++ void setIndexColumnName(String)
++ LinkedHashMap<String,HeaderInfo> getColumnLookup()
++ LinkedHashMap<String,HeaderInfo> getRowLookup()
++ LinkedHashMap<String,String> getMetaDataColumnsHashMap()
++ LinkedHashMap<String,String> getMetaDataRowsHashMap()
++ String getRowHeader()
+}
+class org.biojava.nbio.survival.kaplanmeier.figure.KMFigureInfo {
++ int titleHeight
++ int padding
++ Integer width
++ Integer height
++ double timeScale
++ double yaxisPercentIncrement
++ double xaxisPercentIncrement
++ double legendUpperPercentX
++ double legendUpperPercentY
++ double figureLineInfoLowerPercentX
++ double figureLineInfoLowerPercentY
++ BasicStroke axisStroke
++ BasicStroke kmStroke
++ Color[] legendColor
++ ArrayList<Double> xAxisLabels
++ String xAxisLegend
++ String yAxisLegend
++ Color getColor(int)
++ void init(String)
+}
+class org.biojava.nbio.survival.cox.CoxHelper {
++ {static} CoxInfo process(String,String,String,String,String,String,ArrayList<String>,boolean,boolean)
++ {static} CoxInfo process(WorkSheet,String,String,String,String,String,ArrayList<String>,boolean,boolean)
++ {static} void main(String[])
+}
+class org.biojava.nbio.survival.cox.CoxCC {
++ {static} void process(CoxInfo)
++ {static} void main(String[])
+}
+class org.biojava.nbio.survival.cox.StrataInfo {
+- ArrayList<Double> time
+- ArrayList<Integer> status
+- ArrayList<Double> nevent
+- ArrayList<Double> ncens
+- ArrayList<Double> nrisk
+- ArrayList<Double> weight
+- ArrayList<Double> surv
+- ArrayList<Double> varhaz
+- ArrayList<Double> stderr
+- ArrayList<Double> stdlow
+- ArrayList<Double> upper
+- ArrayList<Double> lower
+- LinkedHashMap<Double,Integer> ndead
+~ DecimalFormat df
+~ DecimalFormat dfe
++ Double getNearestTime(double)
++ Double getNearestAtRisk(double)
++ String f(Double)
++ String toString()
++ ArrayList<Double> getTime()
++ ArrayList<Double> getSurv()
++ ArrayList<Double> getStderr()
++ ArrayList<Double> getUpper()
++ ArrayList<Double> getLower()
++ ArrayList<Integer> getStatus()
++ ArrayList<Double> getNevent()
++ ArrayList<Double> getNcens()
++ ArrayList<Double> getNrisk()
++ ArrayList<Double> getWeight()
++ LinkedHashMap<Double,Integer> getNdead()
++ ArrayList<Double> getVarhaz()
++ ArrayList<Double> getStdlow()
++ void setStdlow(ArrayList<Double>)
+}
+class org.biojava.nbio.survival.kaplanmeier.metadata.MeanQuantizer {
++ void process(WorkSheet,String)
+}
+class org.biojava.nbio.survival.cox.CoxR {
++ CoxInfo process(ArrayList<String>,ArrayList<SurvivalInfo>,boolean,boolean,boolean,boolean)
++ CoxInfo process(ArrayList<String>,ArrayList<SurvivalInfo>,int,CoxMethod,double,double,double[],int,boolean,boolean,boolean,boolean)
++ void coxphfitSCleanup(CoxInfo,boolean,boolean,ArrayList<String>)
++ {static} void calculateWaldTestInfo(CoxInfo)
++ {static} void main(String[])
+~ void chinv2(double[][],int)
+~ void chsolve2(double[][],int,double[])
++ double coxsafe(double)
+}
+class org.biojava.nbio.survival.cox.stats.Cholesky2 {
++ {static} int process(double[][],int,double)
+}
+
+
+java.util.Comparator <|.. org.biojava.nbio.survival.cox.comparators.SurvivalInfoValueComparator
+java.io.Serializable <|.. org.biojava.nbio.survival.cox.comparators.SurvivalInfoValueComparator
+org.biojava.nbio.survival.cox.comparators.CoxComparatorInterface <|.. org.biojava.nbio.survival.cox.comparators.CoxVariablesVariableComparator
+org.biojava.nbio.survival.kaplanmeier.figure.JPanel <|-- org.biojava.nbio.survival.kaplanmeier.figure.ExpressionFigure
+org.biojava.nbio.survival.cox.Comparable <|.. org.biojava.nbio.survival.cox.SurvivalInfo
+org.biojava.nbio.survival.cox.Comparable <|.. org.biojava.nbio.survival.cox.SurvivalInfoIndex
+java.util.Comparator <|-- org.biojava.nbio.survival.cox.comparators.CoxComparatorInterface
+java.util.Comparator <|.. org.biojava.nbio.survival.cox.comparators.MeanModelComparator
+java.io.Serializable <|.. org.biojava.nbio.survival.cox.comparators.MeanModelComparator
+org.biojava.nbio.survival.kaplanmeier.figure.JPanel <|-- org.biojava.nbio.survival.kaplanmeier.figure.NumbersAtRiskPanel
+org.biojava.nbio.survival.kaplanmeier.figure.JPanel <|-- org.biojava.nbio.survival.kaplanmeier.figure.KaplanMeierFigure
+org.biojava.nbio.survival.kaplanmeier.figure.KaplanMeierFigure +.. org.biojava.nbio.survival.kaplanmeier.figure.KaplanMeierFigure.PlotInfo
+java.util.Comparator <|.. org.biojava.nbio.survival.cox.comparators.CoxVariablesOverallModelFitComparator
+java.io.Serializable <|.. org.biojava.nbio.survival.cox.comparators.CoxVariablesOverallModelFitComparator
+org.biojava.nbio.survival.data.CharSequence <|.. org.biojava.nbio.survival.data.CompactCharSequence
+java.io.Serializable <|.. org.biojava.nbio.survival.data.CompactCharSequence
+org.biojava.nbio.survival.kaplanmeier.figure.Comparable <|.. org.biojava.nbio.survival.kaplanmeier.figure.CensorStatus
+java.util.Comparator <|.. org.biojava.nbio.survival.cox.comparators.SurvivalInfoComparator
+java.io.Serializable <|.. org.biojava.nbio.survival.cox.comparators.SurvivalInfoComparator
+org.biojava.nbio.survival.kaplanmeier.metadata.DiscreteQuantizerInterface <|.. org.biojava.nbio.survival.kaplanmeier.metadata.MeanQuantizer
+@enduml

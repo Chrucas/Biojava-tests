@@ -1,0 +1,382 @@
+@startuml
+interface org.biojava.nbio.protmod.structure.ModifiedCompound {
++ String getDescription()
++ void setDescription(String)
++ ProteinModification getModification()
++ void setModification(ProteinModification)
++ Set<StructureGroup> getGroups()
++ void setGroups(Set<StructureGroup>)
++ Set<StructureGroup> getGroups(boolean)
++ Set<StructureAtomLinkage> getAtomLinkages()
++ void setAtomLinkages(Set<StructureAtomLinkage>)
++ boolean addAtomLinkage(StructureAtomLinkage)
++ void addAtomLinkages(Collection<StructureAtomLinkage>)
++ boolean crossChains()
+}
+class org.biojava.nbio.protmod.ProteinModificationRegistry {
+- {static} Logger logger
+- {static} Set<ProteinModification> registry
+- {static} Map<String,ProteinModification> byId
+- {static} Map<String,Set<ProteinModification>> byResidId
+- {static} Map<String,Set<ProteinModification>> byPsimodId
+- {static} Map<String,Set<ProteinModification>> byPdbccId
+- {static} Map<String,Set<ProteinModification>> byKeyword
+- {static} Map<Component,Set<ProteinModification>> byComponent
+- {static} Map<ModificationCategory,Set<ProteinModification>> byCategory
+- {static} Map<ModificationOccurrenceType,Set<ProteinModification>> byOccurrenceType
+- {static} String DIR_XML_PTM_LIST
+- {static} void registerCommonProteinModifications(InputStream)
++ {static} void init()
++ {static} void init(InputStream)
+- {static} void lazyInit()
+- {static} void lazyInit(InputStream)
++ {static} void register(ProteinModification)
++ {static} void unregister(ProteinModification)
++ {static} ProteinModification getById(String)
++ {static} Set<ProteinModification> getByResidId(String)
++ {static} Set<ProteinModification> getByPsimodId(String)
++ {static} Set<ProteinModification> getByPdbccId(String)
++ {static} Set<ProteinModification> getByKeyword(String)
++ {static} Set<ProteinModification> getByComponent(Component,Component)
++ {static} Set<ProteinModification> allModifications()
++ {static} Set<ProteinModification> getByCategory(ModificationCategory)
++ {static} Set<ProteinModification> getByOccurrenceType(ModificationOccurrenceType)
++ {static} Set<String> allIds()
++ {static} Set<String> allPdbccIds()
++ {static} Set<String> allResidIds()
++ {static} Set<String> allPsimodIds()
++ {static} Set<Component> allComponents()
++ {static} Set<String> allKeywords()
+}
+class org.biojava.nbio.protmod.structure.ModifiedCompoundImpl {
+- {static} long serialVersionUID
+~ ProteinModification originalModification
+~ ProteinModification modification
+~ Set<StructureGroup> groups
+~ Map<Set<StructureGroup>,Set<StructureAtomLinkage>> atomLinkages
++ {static} String newline
++ void setModification(ProteinModification)
++ ProteinModification getModification()
+- void resetModification()
++ Set<StructureGroup> getGroups()
++ Set<StructureGroup> getGroups(boolean)
++ void setGroups(Set<StructureGroup>)
++ Set<StructureAtomLinkage> getAtomLinkages()
++ void setAtomLinkages(Set<StructureAtomLinkage>)
++ boolean addAtomLinkage(StructureAtomLinkage)
++ void addAtomLinkages(Collection<StructureAtomLinkage>)
++ boolean crossChains()
++ String toString()
++ String getDescription()
++ void setDescription(String)
++ int compareTo(ModifiedCompound)
++ boolean equals(Object)
++ int hashCode()
+}
+class org.biojava.nbio.protmod.io.ComponentXMLConverter {
++ {static} String toXML(Component)
++ {static} void toXML(Component,PrettyXMLWriter)
++ {static} Component fromXML(String)
++ {static} Component fromXML(Node)
+- {static} String getAttribute(Node,String)
+}
+class org.biojava.nbio.protmod.structure.ProteinModificationIdentifier {
+- {static} Logger logger
+- double bondLengthTolerance
+- boolean recordUnidentifiableModifiedCompounds
+- boolean recordAdditionalAttachments
+- Set<ModifiedCompound> identifiedModifiedCompounds
+- Set<StructureAtomLinkage> unidentifiableAtomLinkages
+- Set<StructureGroup> unidentifiableModifiedResidues
+- List<Group> residues
++ void destroy()
++ void setbondLengthTolerance(double)
++ void setRecordUnidentifiableCompounds(boolean)
++ boolean getRecordUnidentifiableCompounds()
++ void setRecordAdditionalAttachments(boolean)
++ boolean getRecordAdditionalAttachments()
++ Set<ModifiedCompound> getIdentifiedModifiedCompound()
++ Set<StructureAtomLinkage> getUnidentifiableAtomLinkages()
++ Set<StructureGroup> getUnidentifiableModifiedResidues()
++ void identify(Structure)
++ void identify(Structure,Set<ProteinModification>)
++ void identify(Chain)
++ void identify(List<Chain>)
++ void identify(Chain,Set<ProteinModification>)
++ void identify(List<Chain>,Set<ProteinModification>)
+- void reset()
+- void processMultiCrosslink(Map<Component,Set<Group>>,List<ModifiedCompound>,ProteinModification,ModificationCondition)
+- void processCrosslink1(Map<Component,Set<Group>>,List<ModifiedCompound>,ProteinModification,List<Component>)
+- void identifyAdditionalAttachments(ModifiedCompound,List<Group>,List<Chain>)
+- Group getGroup(StructureGroup,List<Chain>)
+- void mergeModComps(List<ModifiedCompound>)
+- void recordUnidentifiableAtomLinkages(List<ModifiedCompound>,List<Group>)
+- void recordUnidentifiableModifiedResidues(List<ModifiedCompound>)
+- void addModificationGroups(Set<ProteinModification>,List<Group>,List<Group>,Map<Component,Set<Group>>)
+- Set<Component> unionComponentSet(Set<Component>,Set<Component>)
+- List<List<Atom[]>> getMatchedAtomsOfLinkages(ModificationCondition,Map<Component,Set<Group>>)
+- void assembleLinkages(List<List<Atom[]>>,ProteinModification,List<ModifiedCompound>)
+- boolean matchLinkages(List<ModificationLinkage>,List<Atom[]>)
+}
+class org.biojava.nbio.protmod.io.StructureAtomXMLConverter {
++ {static} String toXML(StructureAtom)
++ {static} void toXML(StructureAtom,PrettyXMLWriter)
++ {static} StructureAtom fromXML(Node)
+- {static} String getAttribute(Node,String)
+}
+class org.biojava.nbio.protmod.ModificationLinkage {
+- List<Component> components
+- int indexOfComponent1
+- int indexOfComponent2
+- List<String> pdbNameOfPotentialAtomsOnComponent1
+- List<String> pdbNameOfPotentialAtomsOnComponent2
+- String labelOfAtomOnComponent1
+- String labelOfAtomOnComponent2
++ int getIndexOfComponent1()
++ int getIndexOfComponent2()
++ Component getComponent1()
++ Component getComponent2()
++ List<String> getPDBNameOfPotentialAtomsOnComponent1()
++ List<String> getPDBNameOfPotentialAtomsOnComponent2()
++ String getLabelOfAtomOnComponent1()
++ String getLabelOfAtomOnComponent2()
++ String toString()
+}
+class org.biojava.nbio.protmod.ModificationConditionImpl {
+- List<Component> components
+- List<ModificationLinkage> linkages
++ List<Component> getComponents()
++ List<ModificationLinkage> getLinkages()
++ String toString()
+}
+class org.biojava.nbio.protmod.structure.StructureUtil {
++ {static} StructureGroup getStructureGroup(Group,boolean)
++ {static} StructureAtom getStructureAtom(Atom,boolean)
++ {static} StructureAtomLinkage getStructureAtomLinkage(Atom,boolean,Atom,boolean)
++ {static} double getAtomDistance(Atom,Atom)
++ {static} Atom[] findNearestAtomLinkage(Group,Group,List<String>,List<String>,boolean,double)
++ {static} List<Atom[]> findAtomLinkages(Group,Group,boolean,double)
++ {static} List<Atom[]> findAtomLinkages(Group,Group,List<String>,List<String>,boolean,double)
++ {static} Atom[] findLinkage(Group,Group,String,String,double)
+- {static} boolean hasMetalBond(Atom,Atom,MetalBondDistance)
+- {static} MetalBondDistance getMetalDistanceCutoff(String,String)
++ {static} List<String> getAtomNames(Group)
++ {static} List<Group> getAminoAcids(Chain)
+}
+class org.biojava.nbio.phosphosite.Site {
+- {static} Logger logger
+~ String protein
+~ String uniprot
+~ String geneSymb
+~ String chrLoc
+~ String modType
+~ String residue
+~ String group
+~ String organism
++ {static} List<Site> parseSites(File)
+- {static} List<String> parseHeaderFields(String)
++ String getProtein()
++ void setProtein(String)
++ String getUniprot()
++ void setUniprot(String)
++ String getGeneSymb()
++ void setGeneSymb(String)
++ String getChrLoc()
++ void setChrLoc(String)
++ String getModType()
++ void setModType(String)
++ String getResidue()
++ void setResidue(String)
++ String getGroup()
++ void setGroup(String)
++ String getOrganism()
++ void setOrganism(String)
++ String toString()
+}
+class org.biojava.nbio.protmod.io.ProteinModificationXmlReader {
++ {static} void registerProteinModificationFromXml(InputStream)
+- {static} Map<String,List<Node>> getChildNodes(Node)
+}
+class org.biojava.nbio.protmod.io.ModifiedCompoundXMLConverter {
+- {static} Logger logger
++ {static} String toXML(ModifiedCompound)
++ {static} ModifiedCompound fromXML(String)
+- {static} StructureAtom getAtom(String,Node)
+- {static} String getAttribute(Node,String)
+}
+class org.biojava.nbio.protmod.Component {
+- Set<String> pdbccIds
+- boolean isNTerminal
+- boolean isCTerminal
+- {static} Set<Component> components
+- {static} Map<Set<String>,Component> nonTerminalComps
+- {static} Map<Set<String>,Component> nTerminalAminoAcids
+- {static} Map<Set<String>,Component> cTerminalAminoAcids
+- {static} void lazyInit()
++ Set<String> getPdbccIds()
++ boolean isNTerminal()
++ boolean isCTerminal()
++ {static} Component of(String)
++ {static} Component of(String,boolean,boolean)
++ {static} Component of(Set<String>)
++ {static} Component of(Set<String>,boolean,boolean)
++ {static} Set<Component> allComponents()
++ String toString()
+}
+class org.biojava.nbio.protmod.ProteinModificationImpl {
+- String id
+- ModificationCondition condition
+- ModificationCategory category
+- ModificationOccurrenceType occurrenceType
+- String pdbccId
+- String pdbccName
+- String residId
+- String residName
+- String psimodId
+- String psimodName
+- String sysName
+- String formula
+- Set<String> keywords
++ String getId()
++ String getPdbccId()
++ String getPdbccName()
++ String getResidId()
++ String getResidName()
++ String getPsimodId()
++ String getPsimodName()
++ String getSystematicName()
++ String getDescription()
++ Set<String> getKeywords()
++ ModificationCondition getCondition()
++ String getFormula()
++ ModificationCategory getCategory()
++ ModificationOccurrenceType getOccurrenceType()
++ String toString()
++ int hashCode()
++ boolean equals(Object)
++ int compareTo(ProteinModification)
+}
+class org.biojava.nbio.protmod.ProteinModificationImpl.Builder {
+- String id
+- ModificationCondition condition
+- ModificationCategory category
+- ModificationOccurrenceType occurrenceType
+- String pdbccId
+- String pdbccName
+- String residId
+- String residName
+- String psimodId
+- String psimodName
+- String sysName
+- String formula
+- Set<String> keywords
++ Builder setCategory(ModificationCategory)
++ Builder setOccurrenceType(ModificationOccurrenceType)
++ Builder setCondition(ModificationCondition)
++ Builder setPdbccId(String)
++ Builder setPdbccName(String)
++ Builder setResidId(String)
++ Builder setResidName(String)
++ Builder setPsimodId(String)
++ Builder setPsimodName(String)
++ Builder setSystematicName(String)
++ Builder setDescription(String)
++ Builder addKeyword(String)
++ Builder addKeywords(Collection<String>)
++ Builder setFormula(String)
++ ProteinModificationImpl build()
+}
+class org.biojava.nbio.protmod.structure.StructureAtomLinkage {
+- StructureAtom atom1
+- StructureAtom atom2
+- double distance
++ StructureAtom getAtom1()
++ StructureAtom getAtom2()
++ double getDistance()
++ boolean equals(Object)
++ int hashCode()
++ String toString()
+}
+interface org.biojava.nbio.protmod.ProteinModification {
++ String getId()
++ String getPdbccId()
++ String getPdbccName()
++ String getResidId()
++ String getResidName()
++ String getPsimodId()
++ String getPsimodName()
++ String getSystematicName()
++ String getDescription()
++ Set<String> getKeywords()
++ ModificationCondition getCondition()
++ String getFormula()
++ ModificationCategory getCategory()
++ ModificationOccurrenceType getOccurrenceType()
+}
+class org.biojava.nbio.protmod.structure.StructureAtom {
+- StructureGroup group
+- String atomName
++ StructureGroup getGroup()
++ String getAtomName()
++ boolean equals(Object)
++ int hashCode()
++ String toString()
+}
+class org.biojava.nbio.protmod.io.StructureGroupXMLConverter {
++ {static} void toXML(StructureGroup,PrettyXMLWriter)
++ {static} StructureGroup fromXML(Node)
+- {static} String getAttribute(Node,String)
+}
+class org.biojava.nbio.phosphosite.Dataset {
+- {static} Logger logger
++ {static} String ACETYLATION
++ {static} String DISEASE_ASSOC
++ {static} String METHYLATION
++ {static} String PHOSPHORYLATION
++ {static} String REGULATORY
++ {static} String SUMOYLATION
++ {static} String UBIQUITINATION
+- String[] getRemoteFiles()
++ File[] getLocalFiles()
++ File getLocalDir()
++ void download()
++ void downloadFile(URL,File)
++ {static} void copyFile(File,File)
++ {static} void main(String[])
+}
+class org.biojava.nbio.protmod.structure.StructureGroup {
+- ResidueNumber resNum
+- String pdbName
+- Boolean isAminoAcid
++ ResidueNumber getPDBResidueNumber()
++ void setPDBResidueNumber(ResidueNumber)
++ String getChainId()
++ void setChainId(String)
++ int getResidueNumber()
++ void setResidueNumber(int)
++ Character getInsCode()
++ void setInsCode(Character)
++ String getPDBName()
++ void setPDBName(String)
++ void setIsAminoAcid(boolean)
++ boolean isAminoAcid()
++ boolean equals(Object)
++ int hashCode()
++ String toString()
++ int compareTo(StructureGroup)
+}
+interface org.biojava.nbio.protmod.ModificationCondition {
++ List<Component> getComponents()
++ List<ModificationLinkage> getLinkages()
+}
+
+
+org.biojava.nbio.protmod.structure.ModifiedCompound <|.. org.biojava.nbio.protmod.structure.ModifiedCompoundImpl
+java.io.Serializable <|.. org.biojava.nbio.protmod.structure.ModifiedCompoundImpl
+org.biojava.nbio.protmod.structure.Comparable <|.. org.biojava.nbio.protmod.structure.ModifiedCompoundImpl
+org.biojava.nbio.protmod.ModificationCondition <|.. org.biojava.nbio.protmod.ModificationConditionImpl
+org.biojava.nbio.protmod.ProteinModification <|.. org.biojava.nbio.protmod.ProteinModificationImpl
+org.biojava.nbio.protmod.Comparable <|.. org.biojava.nbio.protmod.ProteinModificationImpl
+org.biojava.nbio.protmod.ProteinModificationImpl +.. org.biojava.nbio.protmod.ProteinModificationImpl.Builder
+org.biojava.nbio.protmod.structure.Comparable <|.. org.biojava.nbio.protmod.structure.StructureGroup
+@enduml

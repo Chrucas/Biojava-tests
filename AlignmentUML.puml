@@ -1,0 +1,804 @@
+@startuml
+interface org.biojava.nbio.alignment.template.ProfileProfileScorer {
+~ Profile<S,C> getQuery()
+~ Profile<S,C> getTarget()
+}
+class org.biojava.nbio.alignment.Alignments {
+- {static} Logger logger
++ {static} List<SequencePair<S,C>> getAllPairsAlignments(List<S>,PairwiseSequenceAlignerType,GapPenalty,SubstitutionMatrix<C>)
++ {static} Profile<S,C> getMultipleSequenceAlignment(List<S>,Object)
++ {static} SequencePair<S,C> getPairwiseAlignment(S,S,PairwiseSequenceAlignerType,GapPenalty,SubstitutionMatrix<C>)
+~ {static} List<PairwiseSequenceAligner<S,C>> getAllPairsAligners(List<S>,PairwiseSequenceAlignerType,GapPenalty,SubstitutionMatrix<C>)
++ {static} List<PairwiseSequenceScorer<S,C>> getAllPairsScorers(List<S>,PairwiseSequenceScorerType,GapPenalty,SubstitutionMatrix<C>)
++ {static} double[] getAllPairsScores(List<S>,PairwiseSequenceScorerType,GapPenalty,SubstitutionMatrix<C>)
+~ {static} List<E> getListFromFutures(List<Future<E>>)
++ {static} PairwiseSequenceAligner<S,C> getPairwiseAligner(S,S,PairwiseSequenceAlignerType,GapPenalty,SubstitutionMatrix<C>)
+~ {static} double getPairwiseScore(S,S,PairwiseSequenceScorerType,GapPenalty,SubstitutionMatrix<C>)
+~ {static} PairwiseSequenceScorer<S,C> getPairwiseScorer(S,S,PairwiseSequenceScorerType,GapPenalty,SubstitutionMatrix<C>)
+~ {static} ProfileProfileAligner<S,C> getProfileProfileAligner(Profile<S,C>,Profile<S,C>,ProfileProfileAlignerType,GapPenalty,SubstitutionMatrix<C>)
+~ {static} ProfileProfileAligner<S,C> getProfileProfileAligner(Future<ProfilePair<S,C>>,Future<ProfilePair<S,C>>,ProfileProfileAlignerType,GapPenalty,SubstitutionMatrix<C>)
+~ {static} ProfileProfileAligner<S,C> getProfileProfileAligner(Profile<S,C>,Future<ProfilePair<S,C>>,ProfileProfileAlignerType,GapPenalty,SubstitutionMatrix<C>)
+~ {static} ProfileProfileAligner<S,C> getProfileProfileAligner(Future<ProfilePair<S,C>>,Profile<S,C>,ProfileProfileAlignerType,GapPenalty,SubstitutionMatrix<C>)
+~ {static} ProfilePair<S,C> getProfileProfileAlignment(Profile<S,C>,Profile<S,C>,ProfileProfileAlignerType,GapPenalty,SubstitutionMatrix<C>)
++ {static} Profile<S,C> getProgressiveAlignment(GuideTree<S,C>,ProfileProfileAlignerType,GapPenalty,SubstitutionMatrix<C>)
+~ {static} List<SequencePair<S,C>> runPairwiseAligners(List<PairwiseSequenceAligner<S,C>>)
++ {static} double[] runPairwiseScorers(List<PairwiseSequenceScorer<S,C>>)
+~ {static} List<ProfilePair<S,C>> runProfileAligners(List<ProfileProfileAligner<S,C>>)
+}
+interface org.biojava.nbio.alignment.template.HierarchicalClusterer {
+~ float[][] getDistanceMatrix()
+~ GuideTreeNode<S,C> getRoot()
+}
+class org.biojava.nbio.alignment.template.CallablePairwiseSequenceAligner {
+- PairwiseSequenceAligner<S,C> psa
++ SequencePair<S,C> call()
+}
+class org.biojava.nbio.alignment.io.StockholmResidueAnnotation {
+- String secondaryStructure
+- String surfaceAccessibility
+- String transMembrane
+- String posteriorProbability
+- String ligandBinding
+- String activeSite
+- String asPFamPredicted
+- String asSwissProt
+- String intron
++ String getSecondaryStructure()
++ void setSecondaryStructure(String)
++ String getSurfaceAccessibility()
++ void setSurfaceAccessibility(String)
++ String getTransMembrane()
++ void setTransMembrane(String)
++ String getPosteriorProbability()
++ void setPosteriorProbability(String)
++ String getLigandBinding()
++ void setLigandBinding(String)
++ String getActiveSite()
++ void setActiveSite(String)
++ String getAsPFamPredicted()
++ void setAsPFamPredicted(String)
++ String getAsSwissProt()
++ void setAsSwissProt(String)
++ String getIntron()
++ void setIntron(String)
+}
+abstract class org.biojava.nbio.alignment.template.AbstractPairwiseSequenceAligner {
+- S query
+# SequencePair<S,C> pair
++ void setQuery(S)
++ void setTarget(S)
++ SequencePair<S,C> getPair()
++ S getQuery()
++ S getTarget()
+# CompoundSet<C> getCompoundSet()
+# List<C> getCompoundsOfQuery()
+# List<C> getCompoundsOfTarget()
+# int[] getScoreMatrixDimensions()
+# int getSubstitutionScore(int,int)
+# boolean isReady()
+# void reset()
+}
+interface org.biojava.nbio.alignment.template.GuideTreeNode {
+~ GuideTreeNode<S,C> getChild1()
+~ GuideTreeNode<S,C> getChild2()
+~ double getDistanceToParent()
+~ String getName()
+~ Profile<S,C> getProfile()
+~ Future<ProfilePair<S,C>> getProfileFuture()
+~ void setProfile(Profile<S,C>)
+~ void setProfileFuture(Future<ProfilePair<S,C>>)
+}
+class org.biojava.nbio.alignment.SmithWaterman {
+# void setProfile(List<Step>,List<Step>)
+}
+class org.biojava.nbio.alignment.io.StockholmFileParser {
+- {static} Logger logger
++ {static} int INFINITY
+- {static} String GENERIC_PER_FILE_ANNOTATION
+- {static} String GENERIC_PER_CONSENSUS_ANNOTATION
+- {static} String GENERIC_PER_SEQUENCE_ANNOTATION
+- {static} String GENERIC_PER_RESIDUE_ANNOTATION
+- {static} String GF_ACCESSION_NUMBER
+- {static} String GF_IDENTIFICATION
+- {static} String GF_DEFINITION
+- {static} String GF_AUTHOR
+- {static} String GF_ALIGNMENT_METHOD
+- {static} String GF_BUILD_METHOD
+- {static} String GF_SEARCH_METHOD
+- {static} String GF_SOURCE_SEED
+- {static} String GF_SOURCE_STRUCTURE
+- {static} String GF_GATHERING_THRESHOLD
+- {static} String GF_TRUSTED_CUTOFF
+- {static} String GF_NOISE_CUTOFF
+- {static} String GF_TYPE_FIELD
+- {static} String GF_SEQUENCE
+- {static} String GF_DB_COMMENT
+- {static} String GF_DB_REFERENCE
+- {static} String GF_REFERENCE_COMMENT
+- {static} String GF_REFERENCE_NUMBER
+- {static} String GF_REFERENCE_MEDLINE
+- {static} String GF_REFERENCE_TITLE
+- {static} String GF_REFERENCE_AUTHOR
+- {static} String GF_REFERENCE_LOCALTION
+- {static} String GF_PREVIOUS_IDS
+- {static} String GF_KEYWORDS
+- {static} String GF_COMMENT
+- {static} String GF_PFAM_ACCESSION
+- {static} String GF_LOCATION
+- {static} String GF_WIKIPEDIA_LINK
+- {static} String GF_CLAN
+- {static} String GF_MEMBERSHIP
+- {static} String GF_NEW_HAMPSHIRE
+- {static} String GF_TREE_ID
+- {static} String GF_FALSE_DISCOVERY_RATE
+- {static} String GS_ACCESSION_NUMBER
+- {static} String GS_DESCRIPTION
+- {static} String GS_DATABASE_REFERENCE
+- {static} String GS_ORGANISM_SPECIES
+- {static} String GS_ORGANISM_CLASSIFICATION
+- {static} String GS_LOOK
+- {static} String GR_SECONDARY_STRUCTURE
+- {static} String GR_SURFACE_ACCESSIBILITY
+- {static} String GR_TRANS_MEMBRANE
+- {static} String GR_POSTERIOR_PROBABILITY
+- {static} String GR_LIGAND_BINDING
+- {static} String GR_ACTIVE_SITE
+- {static} String GR_AS_PFAM_PREDICTED
+- {static} String GR_AS_SWISSPROT
+- {static} String GR_INTRON
+- {static} String GC_SEQUENSE_CONSENSUS
+- {static} String GC_SECONDARY_STRUCTURE
+- {static} String GC_SURFACE_ACCESSIBILITY
+- {static} String GC_TRANS_MEMBRANE
+- {static} String GC_POSTERIOR_PROBABILITY
+- {static} String GC_LIGAND_BINDING
+- {static} String GC_ACTIVE_SITE
+- {static} String GC_AS_PFAM_PREDICTED
+- {static} String GC_AS_SWISSPROT
+- {static} String GC_INTRON
+- {static} String GC_REFERENCE_ANNOTATION
+- {static} String GC_MODEL_MASK
+- StockholmStructure stockholmStructure
+~ Scanner internalScanner
+- InputStream cashedInputStream
++ StockholmStructure parse(String)
++ List<StockholmStructure> parse(String,int)
++ StockholmStructure parse(InputStream)
++ List<StockholmStructure> parse(InputStream,int)
++ List<StockholmStructure> parseNext(int)
+~ StockholmStructure parse(Scanner)
+- void handleSequenceLine(String)
+- void handleFileAnnotation(String,String)
+- void handleConsensusAnnotation(String,String)
+- void handleSequenceAnnotation(String,String,String)
+- void handleResidueAnnotation(String,String,String)
+}
+interface org.biojava.nbio.alignment.template.PairwiseSequenceScorer {
+~ S getQuery()
+~ S getTarget()
+}
+interface org.biojava.nbio.alignment.template.PairInProfileScorer {
+~ Profile<S,C> getProfile()
+}
+abstract class org.biojava.nbio.alignment.template.AbstractScorer {
++ double getDistance()
++ double getDistance(double)
++ double getSimilarity()
++ double getSimilarity(double)
+}
+class org.biojava.nbio.alignment.GuideTree {
+- List<S> sequences
+- List<PairwiseSequenceScorer<S,C>> scorers
+- BasicSymmetricalDistanceMatrix distances
+- String newick
+- Node root
++ double[] getAllPairsScores()
++ double[][] getDistanceMatrix()
++ Node getRoot()
++ double[][] getScoreMatrix()
++ List<S> getSequences()
++ Iterator<GuideTreeNode<S,C>> iterator()
++ String toString()
+}
+class org.biojava.nbio.alignment.GuideTree.Node {
+- GuideTreeNode<S,C> parent
+- double distance
+- String name
+- boolean isLeaf
+- Profile<S,C> profile
+- Future<ProfilePair<S,C>> profileFuture
++ GuideTreeNode<S,C> getChild1()
++ GuideTreeNode<S,C> getChild2()
++ double getDistanceToParent()
++ String getName()
++ Profile<S,C> getProfile()
++ Future<ProfilePair<S,C>> getProfileFuture()
++ void setProfile(Profile<S,C>)
++ void setProfileFuture(Future<ProfilePair<S,C>>)
++ Enumeration<GuideTreeNode<S,C>> children()
++ boolean getAllowsChildren()
++ GuideTreeNode<S,C> getChildAt(int)
++ int getChildCount()
++ int getIndex(TreeNode)
++ GuideTreeNode<S,C> getParent()
++ boolean isLeaf()
+- void clearVisited()
+- boolean isVisited()
+- void visit()
+}
+class org.biojava.nbio.alignment.GuideTree.PostOrderIterator {
+- Stack<Node> nodes
++ boolean hasNext()
++ GuideTreeNode<S,C> next()
++ void remove()
+}
+interface org.biojava.nbio.alignment.template.Aligner {
+~ long getComputationTime()
+~ Profile<S,C> getProfile()
+}
+class org.biojava.nbio.alignment.io.StockholmStructure {
+- {static} Logger logger
++ {static} String PFAM
++ {static} String RFAM
+- StockholmFileAnnotation fileAnnotation
+- StockholmConsensusAnnotation consAnnotation
+- Map<String,StringBuffer> sequences
+- Map<String,StockholmSequenceAnnotation> seqsAnnotation
+- Map<String,StockholmResidueAnnotation> resAnnotation
++ StockholmFileAnnotation getFileAnnotation()
++ StockholmConsensusAnnotation getConsAnnotation()
++ void appendToSequence(String,String)
++ Map<String,StringBuffer> getSequences()
+- StockholmSequenceAnnotation getSequenceAnnotation(String)
++ void addGSAccessionNumber(String,String)
++ void addGSDescription(String,String)
++ void addGSdbReference(String,String)
++ void addGSOrganismSpecies(String,String)
++ void addGSOrganismClassification(String,String)
++ void addGSLook(String,String)
+- StockholmResidueAnnotation getResidueAnnotation(String)
++ void addSurfaceAccessibility(String,String)
++ void addTransMembrane(String,String)
++ void addPosteriorProbability(String,String)
++ void addLigandBinding(String,String)
++ void addActiveSite(String,String)
++ void addASPFamPredicted(String,String)
++ void addASSwissProt(String,String)
++ void addIntron(String,String)
++ void addSecondaryStructure(String,String)
++ List<AbstractSequence<? extends AbstractCompound>> getBioSequences()
++ List<AbstractSequence<? extends AbstractCompound>> getBioSequences(boolean,String)
++ List<AbstractSequence<? extends AbstractCompound>> getBioSequences(boolean)
+- String[] splitSeqName(String)
++ String toString()
+}
+class org.biojava.nbio.alignment.io.StockholmStructure.DatabaseReference {
++ {static} String EXPERT
++ {static} String MIM
++ {static} String PFAMB
++ {static} String PRINTS
++ {static} String PROSITE
++ {static} String PROSITE_PROFILE
++ {static} String SCOP
++ {static} String PDB
++ {static} String SMART
++ {static} String URL
++ {static} String LOAD
++ {static} String HOMSTRAD
++ {static} String INTERPRO
+- String database
+- String reference
++ String toString()
++ String getDatabase()
++ String getReference()
+}
+class org.biojava.nbio.phylo.ForesterWrapper {
++ {static} Msa convert(MultipleSequenceAlignment<C,D>)
++ {static} String getNewickString(Phylogeny,boolean)
++ {static} BasicSymmetricalDistanceMatrix cloneDM(BasicSymmetricalDistanceMatrix)
+}
+class org.biojava.nbio.phylo.TreeConstructor {
+- {static} Logger logger
++ {static} Phylogeny distanceTree(BasicSymmetricalDistanceMatrix,TreeConstructorType)
+}
+class org.biojava.nbio.alignment.StandardRescoreRefiner {
+- PairInProfileScorerType pips
+- ProfileProfileAlignerType ppa
++ PairInProfileScorerType getPairInProfileScorer()
++ ProfileProfileAlignerType getProfileProfileAligner()
++ long getComputationTime()
++ Profile<S,C> getProfile()
++ double getMaxScore()
++ double getMinScore()
++ double getScore()
+}
+class org.biojava.nbio.alignment.routines.AlignerHelper {
++ {static} int addAnchors(Cut[],int[],boolean,int[])
++ {static} Cut[] getCuts(int,Subproblem,int[],boolean)
++ {static} void setCuts(int,Subproblem,Last[][],Cut[])
++ {static} Last[] setScorePoint(int,int,int,int,int,int[][][])
++ {static} Last setScorePoint(int,int,int,int,int[][][])
++ {static} Last[][] setScoreVector(int,Subproblem,int,int,int[],boolean,int[][][])
++ {static} Last[][] setScoreVector(int,int,int,int,int,int,int[],boolean,int[][][],boolean)
++ {static} Last[][] setScoreVector(int,Subproblem,int,int[],boolean,int[][][])
++ {static} Last[][] setScoreVector(int,int,int,int,int,int[],boolean,int[][][],boolean)
++ {static} Last[][] setScoreVector(int,int,int,int[],boolean,int[][][],int[],int)
++ {static} Last[][] setScoreVector(int,int,int,int,int,int,int[],boolean,int[][][],int[],int)
++ {static} Last[][] setScoreVector(int,int,int[],boolean,int[][][],int[],int)
++ {static} Last[][] setScoreVector(int,int,int,int,int,int[],boolean,int[][][],int[],int)
+- {static} void ensureScoringMatrixColumn(int,boolean,int[][][])
++ {static} int[] setSteps(Last[][][],boolean,int[],Last,List<Step>,List<Step>)
++ {static} int[] setSteps(Last[][][],int[][][],List<Step>,List<Step>)
++ {static} int[] setSteps(Last[][][],int[],List<Step>,List<Step>)
++ {static} String tracebackToString(Last[][][])
+}
+class org.biojava.nbio.alignment.routines.AlignerHelper.Cut {
+- int queryIndex
+- int[][] targetIndices
++ int getQueryIndex()
++ int getTargetIndex(int)
++ void update(int,Subproblem,Last[][])
+- void updateAdvance(Subproblem,Last[][])
+- void updateInitial(Subproblem,Last[][])
+- void updateLinearAdvance(Subproblem,Last[][])
+- void updateLinearInitial(Subproblem,Last[][])
+}
+class org.biojava.nbio.alignment.routines.AlignerHelper.Anchor {
+- int queryIndex
+- int targetIndex
++ int getQueryIndex()
++ int getTargetIndex()
+}
+class org.biojava.nbio.alignment.routines.AlignerHelper.Anchor.QueryIndexComparator {
+- {static} long serialVersionUID
++ int compare(Anchor,Anchor)
+}
+class org.biojava.nbio.alignment.routines.AlignerHelper.Subproblem {
+- int queryStartIndex
+- int targetStartIndex
+- int queryEndIndex
+- int targetEndIndex
+- boolean isAnchored
++ int getTargetStartIndex()
++ int getQueryEndIndex()
++ int getTargetEndIndex()
++ int getQueryStartIndex()
++ boolean isStartAnchored()
++ {static} List<Subproblem> getSubproblems(List<Anchor>,int,int)
+}
+interface org.biojava.nbio.alignment.template.ProfileProfileAligner {
+~ ProfilePair<S,C> getPair()
+}
+interface org.biojava.nbio.alignment.template.PartitionRefiner {
+~ ProfileProfileAlignerType getProfileProfileAligner()
+}
+interface org.biojava.nbio.alignment.template.PairwiseSequenceAligner {
+~ SequencePair<S,C> getPair()
+}
+class org.biojava.nbio.alignment.FractionalSimilarityInProfileScorer {
+- Profile<S,C> profile
++ Profile<S,C> getProfile()
+}
+class org.biojava.nbio.alignment.template.CallableProfileProfileAligner {
+- ProfileProfileAligner<S,C> ppa
++ ProfilePair<S,C> call()
+}
+class org.biojava.nbio.alignment.template.CallablePairwiseSequenceScorer {
+- PairwiseSequenceScorer<S,C> pss
++ Double call()
+}
+class org.biojava.nbio.alignment.SubstitutionMatrixScorer {
+- SubstitutionMatrix<C> matrix
+- S query
+- S target
+- double score
++ double getMaxScore()
++ double getMinScore()
++ double getScore()
++ S getQuery()
++ S getTarget()
+}
+class org.biojava.nbio.alignment.routines.GuanUberbacher {
+- {static} int defaultCutsPerSection
++ {static} void setDefaultCutsPerSection(int)
++ int getCutsPerSection()
++ void setCutsPerSection(int)
+}
+class org.biojava.nbio.alignment.NeedlemanWunsch {
+}
+class org.biojava.nbio.alignment.io.StockholmSequenceAnnotation {
+- String accessionNumber
+- CharSequence description
+- Set<DatabaseReference> dbReferences
+- String organism
+- String organismClassification
+- String look
++ String getDescription()
++ void setDescription(CharSequence)
++ void addToDescription(CharSequence)
++ Set<DatabaseReference> getDbReferences()
++ void setDbReferences(Set<DatabaseReference>)
++ void addDBReference(String)
++ String getAccessionNumber()
++ void setAccessionNumber(String)
++ String getOrganism()
++ void setOrganism(String)
++ String getOrganismClassification()
++ void setOrganismClassification(String)
++ String getLook()
++ void setLook(String)
+}
+class org.biojava.nbio.phylo.DistanceTreeEvaluator {
+- {static} Logger logger
++ {static} double evaluate(Phylogeny,DistanceMatrix)
+- {static} double getNodeDistance(PhylogenyNode,PhylogenyNode)
+- {static} PhylogenyNode findCommonParent(PhylogenyNode,Set<PhylogenyNode>)
+- {static} void markPathToRoot(PhylogenyNode,Set<PhylogenyNode>)
+}
+abstract class org.biojava.nbio.alignment.template.AbstractMatrixAligner {
+# GapPenalty gapPenalty
+- SubstitutionMatrix<C> subMatrix
+- boolean local
+# List<Anchor> anchors
+# int cutsPerSection
+# Profile<S,C> profile
+# int[] xyStart
+# int[] xyMax
+# int max
+# int[][][] scores
+- String[] types
+# long time
++ GapPenalty getGapPenalty()
++ SubstitutionMatrix<C> getSubstitutionMatrix()
++ boolean isLocal()
++ boolean isStoringScoreMatrix()
++ void setGapPenalty(GapPenalty)
++ void setSubstitutionMatrix(SubstitutionMatrix<C>)
++ void setStoringScoreMatrix(boolean)
++ int[][][] getScoreMatrix()
++ String getScoreMatrixAsString()
+- String scoreMatrixToString(int[][][])
++ long getComputationTime()
++ Profile<S,C> getProfile()
++ double getMaxScore()
++ double getMinScore()
++ double getScore()
+# void align()
+# int[] getSubstitutionScoreVector(int)
+# int[] getSubstitutionScoreVector(int,Subproblem)
+# void reset()
+# {abstract}CompoundSet<C> getCompoundSet()
+# {abstract}List<C> getCompoundsOfQuery()
+# {abstract}List<C> getCompoundsOfTarget()
+# {abstract}int[] getScoreMatrixDimensions()
+# {abstract}int getSubstitutionScore(int,int)
+# {abstract}boolean isReady()
+# {abstract}void setProfile(List<Step>,List<Step>)
+}
+interface org.biojava.nbio.alignment.template.MatrixAligner {
+~ int[][][] getScoreMatrix()
+~ String getScoreMatrixAsString()
+}
+interface org.biojava.nbio.alignment.template.Scorer {
+~ double getDistance()
+~ double getDistance(double)
+~ double getMaxScore()
+~ double getMinScore()
+~ double getScore()
+~ double getSimilarity()
+~ double getSimilarity(double)
+}
+class org.biojava.nbio.phylo.Comparison {
+- {static} int caseShift
++ {static} float PID(String,String)
++ {static} float PID(String,String,int,int)
++ {static} boolean isGap(char)
+}
+class org.biojava.nbio.alignment.SimpleGapPenalty {
+- {static} long serialVersionUID
+- {static} int dgop
+- GapPenalty.Type type
+- int gop
++ {static} void setDefaultExtensionPenalty(int)
++ {static} void setDefaultOpenPenalty(int)
++ int getExtensionPenalty()
++ int getOpenPenalty()
++ Type getType()
++ void setExtensionPenalty(int)
++ void setOpenPenalty(int)
+- void setType()
+}
+class org.biojava.nbio.alignment.SimpleProfileProfileAligner {
+# void setProfile(List<Step>,List<Step>)
+}
+class org.biojava.nbio.alignment.io.StockholmFileAnnotation {
+- {static} String TREE_DEFAULT_ID
+- {static} String PB_PFAM_STRING
+- {static} String PF_PFAM_STRING
+- {static} String RF_RFAM_STRING
+- StringBuffer format
+- StringBuffer version
+- String accessionNumber
+- StringBuffer identification
+- StringBuffer definition
+- String[] authors
+- String alignmentMethod
+- CharSequence buildMethod
+- StringBuffer searchMethod
+- StringBuffer sourceSeed
+- StringBuffer sourceStructure
+- float[] gatheringThreshs
+- float[] noiseCutoffs
+- float[] trustedCutoffs
+- String typeField
+- String[] previousIDs
+- int numSequences
+- StringBuffer dbComment
+- Set<DatabaseReference> dbReferences
+- StringBuffer refComment
+- Vector<StockholmFileAnnotationReference> references
+- StringBuffer keywords
+- CharSequence comment
+- StringBuffer pfamAccession
+- StringBuffer location
+- StringBuffer wikipediaLink
+- StringBuffer clan
+- StringBuffer membership
+- Map<String,List<String>> embTrees
+- float falseDiscoveryRate
++ StringBuffer getDbComment()
++ void setDbComment(String)
++ Set<DatabaseReference> getDbReferences()
++ void setDbReferences(Set<DatabaseReference>)
++ void addDBReference(String)
++ float getFalseDiscoveryRate()
++ void setFalseDiscoveryRate(float)
++ StringBuffer getRefComment()
++ StringBuffer getKeywords()
++ String getComment()
++ StringBuffer getPfamAccession()
++ StringBuffer getLocation()
++ StringBuffer getWikipediaLink()
++ StringBuffer getClan()
++ StringBuffer getMembership()
++ Map<String,List<String>> getEmbTrees()
++ void setNumSequences(int)
++ StringBuffer getIdentification()
++ void setGFIdentification(String)
++ StringBuffer getDefinition()
++ void setGFDefinition(String)
++ String[] getAuthors()
++ void setGFAuthors(String)
++ String getBuildMethod()
++ void addGFBuildMethod(String)
++ StringBuffer getSearchMethod()
++ void setGFSearchMethod(String)
++ StringBuffer getSourceSeed()
++ void setGFSourceSeed(String)
++ StringBuffer getSourceStructure()
++ void setGFSourceStructure(String)
++ float[] getGatheringThreshs()
++ void setGFGatheringThreshs(String)
++ float[] getNoiseCutoffs()
++ void setGFNoiseCutoffs(String)
++ float[] getTrustedCutoffs()
++ void setGFTrustedCutoffs(String)
++ float[] stringToFloats(String)
++ String getTypeField()
++ void setGFTypeField(String)
++ String[] getPreviousIDs()
++ void setGFPreviousIDs(String)
++ StringBuffer getFormat()
++ void setFormat(String)
++ StringBuffer getVersion()
++ void setVersion(String)
++ String getAccessionNumber()
++ void setGFAccessionNumber(String)
++ boolean isPFam()
++ boolean isRFam()
++ int getNumSequences()
++ void setGFNumSequences(String)
++ void setGFDBComment(String)
++ void setGFRefComment(String)
++ void setGFKeywords(String)
++ void addToGFComment(String)
++ void setGFPfamAccession(String)
++ void setGFLocation(String)
++ void setGFWikipediaLink(String)
++ void setGFClan(String)
++ void setGFMembership(String)
++ void addGFNewHampshire(String)
++ void addGFTreeID(String)
++ void addGFFalseDiscoveryRate(String)
++ String getAlignmentMethod()
++ void setAlignmentMethod(String)
++ Vector<StockholmFileAnnotationReference> getReferences()
++ void setReferences(Vector<StockholmFileAnnotationReference>)
+}
+class org.biojava.nbio.alignment.io.StockholmFileAnnotation.StockholmFileAnnotationReference {
+- String refMedline
+- CharSequence refTitle
+- CharSequence refAuthor
+- String refLocation
++ String getRefMedline()
++ void setRefMedline(String)
++ String getRefTitle()
++ void setRefTitle(String)
++ void addToRefTitle(String)
++ String getRefAuthor()
++ void setRefAuthor(StringBuffer)
++ void addToRefAuthor(String)
++ String getRefLocation()
++ void setRefLocation(String)
+}
+interface org.biojava.nbio.alignment.template.GapPenalty {
+~ int getExtensionPenalty()
+~ int getOpenPenalty()
+~ Type getType()
+~ void setExtensionPenalty(int)
+~ void setOpenPenalty(int)
+}
+class org.biojava.nbio.alignment.io.StockholmConsensusAnnotation {
+- String secondaryStructure
+- String sequenceConsensus
+- String surfaceAccessibility
+- String transMembrane
+- String posteriorProbability
+- String ligandBinding
+- String activeSite
+- String asPFamPredicted
+- String asSwissProt
+- String intron
+- String referenceAnnotation
+- String modelMask
++ String getSecondaryStructure()
++ void setSecondaryStructure(String)
++ String getSequenceConsensus()
++ void setSequenceConsensus(String)
++ String getSurfaceAccessibility()
++ void setSurfaceAccessibility(String)
++ String getTransMembrane()
++ void setTransMembrane(String)
++ String getPosteriorProbability()
++ void setPosteriorProbability(String)
++ String getLigandBinding()
++ void setLigandBinding(String)
++ String getActiveSite()
++ void setActiveSite(String)
++ String getAsPFamPredicted()
++ void setAsPFamPredicted(String)
++ String getAsSwissProt()
++ void setAsSwissProt(String)
++ String getIntron()
++ void setIntron(String)
++ String getReferenceAnnotation()
++ void setReferenceAnnotation(String)
++ String getModelMask()
++ void setModelMask(String)
+}
+class org.biojava.nbio.alignment.FractionalSimilarityScorer {
+- S query
+- int max
+- PairwiseSequenceAligner<S,C> aligner
++ S getQuery()
++ S getTarget()
++ double getMaxScore()
++ double getMinScore()
++ double getScore()
+- void align()
+}
+class org.biojava.nbio.alignment.FractionalIdentityInProfileScorer {
+- Profile<S,C> profile
++ Profile<S,C> getProfile()
+}
+abstract class org.biojava.nbio.alignment.template.AbstractProfileProfileAligner {
+- {static} Logger logger
+- Profile<S,C> query
+- Future<ProfilePair<S,C>> queryFuture
+- List<C> cslist
+- float[][] qfrac
+# ProfilePair<S,C> pair
++ void setQuery(Profile<S,C>)
++ void setTarget(Profile<S,C>)
++ ProfilePair<S,C> getPair()
++ Profile<S,C> getQuery()
++ Profile<S,C> getTarget()
+# CompoundSet<C> getCompoundSet()
+# List<C> getCompoundsOfQuery()
+# List<C> getCompoundsOfTarget()
+# int[] getScoreMatrixDimensions()
+# int getSubstitutionScore(int,int)
+# boolean isReady()
+# void reset()
+- int getSubstitutionScore(float[],float[])
+}
+interface org.biojava.nbio.alignment.template.RescoreRefiner {
+~ PairInProfileScorerType getPairInProfileScorer()
+~ ProfileProfileAlignerType getProfileProfileAligner()
+}
+class org.biojava.nbio.phylo.DistanceMatrixCalculator {
+- {static} Logger logger
++ {static} DistanceMatrix fractionalDissimilarity(MultipleSequenceAlignment<C,D>)
++ {static} DistanceMatrix poissonDistance(MultipleSequenceAlignment<C,D>)
++ {static} DistanceMatrix kimuraDistance(MultipleSequenceAlignment<C,D>)
++ {static} DistanceMatrix percentageIdentity(MultipleSequenceAlignment<C,D>)
++ {static} DistanceMatrix fractionalDissimilarityScore(MultipleSequenceAlignment<C,D>,SubstitutionMatrix<D>)
++ {static} DistanceMatrix dissimilarityScore(MultipleSequenceAlignment<C,D>,SubstitutionMatrix<D>)
++ {static} DistanceMatrix pamMLdistance(MultipleSequenceAlignment<C,D>)
++ {static} DistanceMatrix structuralDistance(double[][],double,double,double)
+}
+class org.biojava.nbio.alignment.FractionalIdentityScorer {
+- S query
+- int max
+- PairwiseSequenceAligner<S,C> aligner
++ S getQuery()
++ S getTarget()
++ double getMaxScore()
++ double getMinScore()
++ double getScore()
+- void align()
+}
+class org.biojava.nbio.alignment.routines.AnchoredPairwiseSequenceAligner {
++ int[] getAnchors()
++ void setAnchors(int[])
++ void addAnchor(int,int)
+# void setProfile(List<Step>,List<Step>)
+}
+
+
+org.biojava.nbio.alignment.template.Scorer <|-- org.biojava.nbio.alignment.template.ProfileProfileScorer
+java.util.concurrent.Callable <|.. org.biojava.nbio.alignment.template.CallablePairwiseSequenceAligner
+org.biojava.nbio.alignment.template.PairwiseSequenceAligner <|.. org.biojava.nbio.alignment.template.AbstractPairwiseSequenceAligner
+org.biojava.nbio.alignment.template.AbstractMatrixAligner <|-- org.biojava.nbio.alignment.template.AbstractPairwiseSequenceAligner
+javax.swing.tree.TreeNode <|-- org.biojava.nbio.alignment.template.GuideTreeNode
+org.biojava.nbio.alignment.template.AbstractPairwiseSequenceAligner <|-- org.biojava.nbio.alignment.SmithWaterman
+org.biojava.nbio.alignment.template.Scorer <|-- org.biojava.nbio.alignment.template.PairwiseSequenceScorer
+org.biojava.nbio.alignment.template.PairwiseSequenceScorer <|-- org.biojava.nbio.alignment.template.PairInProfileScorer
+org.biojava.nbio.alignment.template.Scorer <|.. org.biojava.nbio.alignment.template.AbstractScorer
+org.biojava.nbio.alignment.Iterable <|.. org.biojava.nbio.alignment.GuideTree
+org.biojava.nbio.alignment.GuideTree +.. org.biojava.nbio.alignment.GuideTree.Node
+org.biojava.nbio.alignment.GuideTreeNode <|.. org.biojava.nbio.alignment.GuideTree.Node
+org.biojava.nbio.alignment.GuideTree +.. org.biojava.nbio.alignment.GuideTree.PostOrderIterator
+org.biojava.nbio.alignment.Iterator <|.. org.biojava.nbio.alignment.GuideTree.PostOrderIterator
+org.biojava.nbio.alignment.template.Scorer <|-- org.biojava.nbio.alignment.template.Aligner
+org.biojava.nbio.alignment.io.StockholmStructure +.. org.biojava.nbio.alignment.io.StockholmStructure.DatabaseReference
+org.biojava.nbio.alignment.template.RescoreRefiner <|.. org.biojava.nbio.alignment.StandardRescoreRefiner
+org.biojava.nbio.alignment.template.AbstractScorer <|-- org.biojava.nbio.alignment.StandardRescoreRefiner
+org.biojava.nbio.alignment.routines.AlignerHelper +.. org.biojava.nbio.alignment.routines.AlignerHelper.Cut
+org.biojava.nbio.alignment.routines.AlignerHelper +.. org.biojava.nbio.alignment.routines.AlignerHelper.Anchor
+org.biojava.nbio.alignment.routines.AlignerHelper.Anchor +.. org.biojava.nbio.alignment.routines.AlignerHelper.Anchor.QueryIndexComparator
+org.biojava.nbio.alignment.routines.Comparator <|.. org.biojava.nbio.alignment.routines.AlignerHelper.Anchor.QueryIndexComparator
+org.biojava.nbio.alignment.routines.Serializable <|.. org.biojava.nbio.alignment.routines.AlignerHelper.Anchor.QueryIndexComparator
+org.biojava.nbio.alignment.routines.AlignerHelper +.. org.biojava.nbio.alignment.routines.AlignerHelper.Subproblem
+org.biojava.nbio.alignment.template.Aligner <|-- org.biojava.nbio.alignment.template.ProfileProfileAligner
+org.biojava.nbio.alignment.template.ProfileProfileScorer <|-- org.biojava.nbio.alignment.template.ProfileProfileAligner
+org.biojava.nbio.alignment.template.Aligner <|-- org.biojava.nbio.alignment.template.PartitionRefiner
+org.biojava.nbio.alignment.template.ProfileProfileScorer <|-- org.biojava.nbio.alignment.template.PartitionRefiner
+org.biojava.nbio.alignment.template.Aligner <|-- org.biojava.nbio.alignment.template.PairwiseSequenceAligner
+org.biojava.nbio.alignment.template.PairwiseSequenceScorer <|-- org.biojava.nbio.alignment.template.PairwiseSequenceAligner
+org.biojava.nbio.alignment.template.PairInProfileScorer <|.. org.biojava.nbio.alignment.FractionalSimilarityInProfileScorer
+org.biojava.nbio.alignment.FractionalSimilarityScorer <|-- org.biojava.nbio.alignment.FractionalSimilarityInProfileScorer
+java.util.concurrent.Callable <|.. org.biojava.nbio.alignment.template.CallableProfileProfileAligner
+java.util.concurrent.Callable <|.. org.biojava.nbio.alignment.template.CallablePairwiseSequenceScorer
+org.biojava.nbio.alignment.template.PairwiseSequenceScorer <|.. org.biojava.nbio.alignment.SubstitutionMatrixScorer
+org.biojava.nbio.alignment.template.AbstractScorer <|-- org.biojava.nbio.alignment.SubstitutionMatrixScorer
+org.biojava.nbio.alignment.routines.AnchoredPairwiseSequenceAligner <|-- org.biojava.nbio.alignment.routines.GuanUberbacher
+org.biojava.nbio.alignment.routines.AnchoredPairwiseSequenceAligner <|-- org.biojava.nbio.alignment.NeedlemanWunsch
+org.biojava.nbio.alignment.template.MatrixAligner <|.. org.biojava.nbio.alignment.template.AbstractMatrixAligner
+org.biojava.nbio.alignment.template.AbstractScorer <|-- org.biojava.nbio.alignment.template.AbstractMatrixAligner
+org.biojava.nbio.alignment.template.Aligner <|-- org.biojava.nbio.alignment.template.MatrixAligner
+org.biojava.nbio.alignment.template.GapPenalty <|.. org.biojava.nbio.alignment.SimpleGapPenalty
+java.io.Serializable <|.. org.biojava.nbio.alignment.SimpleGapPenalty
+org.biojava.nbio.alignment.AbstractProfileProfileAligner <|-- org.biojava.nbio.alignment.SimpleProfileProfileAligner
+org.biojava.nbio.alignment.io.StockholmFileAnnotation +.. org.biojava.nbio.alignment.io.StockholmFileAnnotation.StockholmFileAnnotationReference
+org.biojava.nbio.alignment.PairwiseSequenceScorer <|.. org.biojava.nbio.alignment.FractionalSimilarityScorer
+org.biojava.nbio.alignment.AbstractScorer <|-- org.biojava.nbio.alignment.FractionalSimilarityScorer
+org.biojava.nbio.alignment.template.PairInProfileScorer <|.. org.biojava.nbio.alignment.FractionalIdentityInProfileScorer
+org.biojava.nbio.alignment.FractionalIdentityScorer <|-- org.biojava.nbio.alignment.FractionalIdentityInProfileScorer
+org.biojava.nbio.alignment.template.ProfileProfileAligner <|.. org.biojava.nbio.alignment.template.AbstractProfileProfileAligner
+org.biojava.nbio.alignment.template.AbstractMatrixAligner <|-- org.biojava.nbio.alignment.template.AbstractProfileProfileAligner
+org.biojava.nbio.alignment.template.Aligner <|-- org.biojava.nbio.alignment.template.RescoreRefiner
+org.biojava.nbio.alignment.PairwiseSequenceScorer <|.. org.biojava.nbio.alignment.FractionalIdentityScorer
+org.biojava.nbio.alignment.AbstractScorer <|-- org.biojava.nbio.alignment.FractionalIdentityScorer
+org.biojava.nbio.alignment.template.AbstractPairwiseSequenceAligner <|-- org.biojava.nbio.alignment.routines.AnchoredPairwiseSequenceAligner
+@enduml
