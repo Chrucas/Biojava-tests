@@ -33,8 +33,7 @@ public class UT3Tests {
     @Test
     public void readGBFileTest() {
         //Arrange
-        File dnaFile = new File("C:\\Users\\Dr.Chruc\\Documents\\biojava\\Biojava-tests" +
-                                            "\\biojava-core\\src\\test\\resources\\NM_000266.gb");
+        File dnaFile = new File("src/test/resources/NM_000266.gb");
         ByteArrayOutputStream fragWriter = new ByteArrayOutputStream();
         ArrayList<DNASequence> seqs = new ArrayList<>();
         //Act
@@ -66,8 +65,7 @@ public class UT3Tests {
     @Test
     public void writeGBFileTest(){
         //Arrange
-        File dnaFile = new File("C:\\Users\\Dr.Chruc\\Documents\\biojava\\Biojava-tests" +
-                                            "\\biojava-core\\src\\test\\resources\\NM_000266.gb");
+        File dnaFile = new File("src/test/resources/NM_000266.gb");
         File myFile = new File("Testfile.gb");
         ArrayList<DNASequence> seqs = new ArrayList<>();
         LinkedHashMap<String, DNASequence> dnaSequences = null;
