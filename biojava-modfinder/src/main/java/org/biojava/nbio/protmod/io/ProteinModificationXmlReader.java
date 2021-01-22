@@ -63,6 +63,8 @@ public final class ProteinModificationXmlReader {
 		}
 
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+		factory.setFeature("http://xml.org/sax/features/external-general-entities", false);
 		DocumentBuilder builder = factory.newDocumentBuilder();
 		Document doc = builder.parse(isXml);
 

@@ -240,6 +240,8 @@ public class BiologicalAssemblyTransformation implements Cloneable, Comparable<B
 
 		// read the XML of a string and returns a ModelTransformationmatrix
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+		factory.setFeature("http://xml.org/sax/features/external-general-entities", false);
 		DocumentBuilder db = factory.newDocumentBuilder();
 
 		InputSource inStream = new InputSource();

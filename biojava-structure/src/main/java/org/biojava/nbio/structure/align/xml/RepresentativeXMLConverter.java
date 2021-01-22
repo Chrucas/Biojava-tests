@@ -63,6 +63,8 @@ public class RepresentativeXMLConverter {
 		SortedSet<String> representatives = new TreeSet<String>();
 		try {
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+			factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+			factory.setFeature("http://xml.org/sax/features/external-general-entities", false);
 			DocumentBuilder db = factory.newDocumentBuilder();
 			InputSource inStream = new InputSource();
 			inStream.setCharacterStream(new StringReader(xml));

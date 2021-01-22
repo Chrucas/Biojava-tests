@@ -73,6 +73,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
                     <debug>true</debug>
+                    <source>9</source>
+                    <target>9</target>
                 </configuration>
             </plugin>
         </plugins>

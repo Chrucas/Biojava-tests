@@ -65,7 +65,10 @@ public class SiftsXMLParser {
 		//get the factory
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 
+
 		try {
+			dbf.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+			dbf.setFeature("http://xml.org/sax/features/external-general-entities", false);
 
 			//Using factory get an instance of document builder
 			DocumentBuilder db = dbf.newDocumentBuilder();

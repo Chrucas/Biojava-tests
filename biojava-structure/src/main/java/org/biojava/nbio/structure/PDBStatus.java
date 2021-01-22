@@ -574,7 +574,7 @@ public class PDBStatus {
 			InputStream uStream = url.openStream();
 
 			InputSource source = new InputSource(uStream);
-			SAXParserFactory parserFactory = SAXParserFactory.newInstance();
+			SAXParserFactory parserFactory = SAXParserFactory.newDefaultInstance();
 			SAXParser parser = parserFactory.newSAXParser();
 			XMLReader reader = parser.getXMLReader();
 

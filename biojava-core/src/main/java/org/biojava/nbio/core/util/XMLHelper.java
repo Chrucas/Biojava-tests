@@ -60,6 +60,8 @@ public class XMLHelper {
 
 		//Create instance of DocumentBuilderFactory
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+		factory.setFeature("http://xml.org/sax/features/external-general-entities", false);
 		//Get the DocumentBuilder
 		DocumentBuilder docBuilder = factory.newDocumentBuilder();
 		//Create blank DOM Document
@@ -76,6 +78,9 @@ public class XMLHelper {
 
 	static public Document inputStreamToDocument(InputStream inputStream) throws SAXException, IOException, ParserConfigurationException  {
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		dbf.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+		dbf.setFeature("http://xml.org/sax/features/external-general-entities", false);
+
 
 		DocumentBuilder db = dbf.newDocumentBuilder();
 
@@ -88,6 +93,8 @@ public class XMLHelper {
 	static public void outputToStream(Document document, OutputStream outputStream) throws TransformerException {
 		// Use a Transformer for output
 		TransformerFactory tFactory = TransformerFactory.newInstance();
+		tFactory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+		tFactory.setFeature("http://xml.org/sax/features/external-general-entities", false);
 		Transformer transformer = tFactory.newTransformer();
 		//    transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 
@@ -101,6 +108,8 @@ public class XMLHelper {
 	static public void outputToStream(Element document, OutputStream outputStream) throws TransformerException  {
 		// Use a Transformer for output
 		TransformerFactory tFactory = TransformerFactory.newInstance();
+		tFactory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+		tFactory.setFeature("http://xml.org/sax/features/external-general-entities", false);
 		Transformer transformer = tFactory.newTransformer();
 		//     transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 
@@ -138,7 +147,7 @@ public class XMLHelper {
 			return null;
 			//  }
 		} else {
-			XPath xpath = XPathFactory.newInstance().newXPath();
+			XPath xpath = XPathFactory.newDefaultInstance().newXPath();
 			Element node = (Element) xpath.evaluate(xpathExpression, element, XPathConstants.NODE);
 			return node;
 		}
@@ -158,7 +167,7 @@ public class XMLHelper {
 				}
 			}
 		} else {
-			XPath xpath = XPathFactory.newInstance().newXPath();
+			XPath xpath = XPathFactory.newDefaultInstance().newXPath();
 			NodeList nodes = (NodeList) xpath.evaluate(xpathExpression, element, XPathConstants.NODESET);
 
 

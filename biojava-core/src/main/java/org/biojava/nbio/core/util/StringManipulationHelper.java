@@ -140,6 +140,8 @@ public class StringManipulationHelper  {
 		Document actualDocument=null;
 		try {
 			DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+			documentBuilderFactory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+			documentBuilderFactory.setFeature("http://xml.org/sax/features/external-general-entities", false);
 			DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
 			expectedDocument = documentBuilder.parse(new ByteArrayInputStream(expected.getBytes()));
 			actualDocument = documentBuilder.parse(new ByteArrayInputStream(actual.getBytes()));
