@@ -540,7 +540,7 @@ public class BasePairParameters implements Serializable {
 			s1 = pdbFileReader.getStructure(new ByteArrayInputStream(STANDARD_BASES[type1].getBytes()));
 			s2 = pdbFileReader.getStructure(new ByteArrayInputStream(STANDARD_BASES[type2].getBytes()));
 		} catch (IOException e) {
-			e.printStackTrace();
+			
 			return null;
 		}
 		Group std1 = s1.getChain("A").getAtomGroup(0);

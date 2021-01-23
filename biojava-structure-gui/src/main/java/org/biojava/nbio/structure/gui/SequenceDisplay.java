@@ -138,7 +138,7 @@ public class SequenceDisplay extends JPanel implements ChangeListener {
 			});
 
 		} catch (Exception e){
-			e.printStackTrace();
+			
 		}
 
 	}

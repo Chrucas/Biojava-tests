@@ -40,7 +40,7 @@ public class CookbookAlignAllLocal {
 		try {
 			alignAllLocal(ids);
 		} catch (Exception e){
-			e.printStackTrace();
+			
 		}
 	}
 

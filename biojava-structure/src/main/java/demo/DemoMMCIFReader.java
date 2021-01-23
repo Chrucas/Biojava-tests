@@ -67,7 +67,7 @@ public class DemoMMCIFReader
 			System.out.println(pdbId + " has nr atoms: " + StructureTools.getNrAtoms(s));
 
 		} catch (Exception e){
-			e.printStackTrace();
+			
 		}
 	}
 
@@ -110,7 +110,7 @@ public class DemoMMCIFReader
 			System.out.println("Entities: " + s.getEntityInfos());
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			
 		}
 
 

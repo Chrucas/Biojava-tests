@@ -140,7 +140,7 @@ public class MySaveFileListener implements ActionListener {
 			out.close();
 
 		} catch (Exception e){
-			e.printStackTrace();
+			
 			JOptionPane.showMessageDialog(null,
 					"Could not save file. Exception: " + e.getMessage());
 		}

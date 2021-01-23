@@ -79,7 +79,7 @@ public class DemoFATCAT
 			//System.out.println(AFPChainXMLConverter.toXML(afpChain,ca1,ca2));
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			
 			return;
 		}
 	}

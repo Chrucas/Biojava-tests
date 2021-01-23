@@ -81,7 +81,7 @@ import java.util.List;
  * 			structure = pdbreader.getStructure(pathToPDBFile);
  * 			System.out.println(structure);
  * 		} catch (IOException e) {
- * 			e.printStackTrace();
+ * 			
  * 		}
  * 		return structure;
  * 	}
@@ -136,7 +136,7 @@ import java.util.List;
  *
  * 					phi = {@link Calc}.getPhi(a,b);
  * 				} catch ({@link StructureException} e){
- * 					e.printStackTrace();
+ * 					
  * 					phi = 360.0 ;
  * 				}
  * 			}
@@ -145,7 +145,7 @@ import java.util.List;
  * 				try {
  * 					psi = {@link Calc}.getPsi(b,c);
  * 				}catch ({@link StructureException} e){
- * 					e.printStackTrace();
+ * 					
  * 					psi = 360.0 ;
  * 				}
  * 			}

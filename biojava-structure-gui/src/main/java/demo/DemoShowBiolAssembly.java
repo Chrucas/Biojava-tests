@@ -60,7 +60,7 @@ public class DemoShowBiolAssembly {
 			System.out.println("done!");
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			
 		}
 	}
 }

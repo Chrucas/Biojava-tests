@@ -83,7 +83,7 @@ public class DemoSW3DAligner {
 			StructureAlignmentDisplay.display(afpChain, ca1, ca2);
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			
 			return;
 		}
 	}

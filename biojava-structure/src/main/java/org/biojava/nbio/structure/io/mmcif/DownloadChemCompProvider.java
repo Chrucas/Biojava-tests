@@ -442,7 +442,7 @@ public class DownloadChemCompProvider implements ChemCompProvider {
 
 				Thread.sleep(500);
 			} catch (InterruptedException e) {
-				//e.printStackTrace();
+				//
 				logger.error("Thread interrupted "+e.getMessage());
 			}
 

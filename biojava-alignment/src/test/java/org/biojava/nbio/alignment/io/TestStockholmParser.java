@@ -60,7 +60,7 @@ public class TestStockholmParser {
 //
 //		} catch (Exception e) {
 //
-//			e.printStackTrace();
+//			
 //			fail(e.getMessage());
 //		}
 //
@@ -87,7 +87,7 @@ public class TestStockholmParser {
 
 		} catch (Exception e) {
 
-			e.printStackTrace();
+			
 			Assert.fail(e.getMessage());
 		}
 

@@ -37,7 +37,7 @@ public class CookbookAlignPairLocal {
 		try {
 			alignPairLocal(ids[0], ids[1]);
 		} catch (Exception e){
-			e.printStackTrace();
+			
 		}
 	}
 

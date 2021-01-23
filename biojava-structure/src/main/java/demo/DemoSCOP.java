@@ -155,7 +155,7 @@ public class DemoSCOP
 				System.out.println(AfpChainWriter.toScoresList(afpChain));
 
 			} catch (Exception e){
-				e.printStackTrace();
+				
 			}
 		}
 

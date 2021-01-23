@@ -105,7 +105,7 @@ public class DemoCE
 			System.out.println(AfpChainWriter.toScoresList(afpChain));
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			
 			return;
 		}
 	}

@@ -26,6 +26,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -93,8 +94,9 @@ public class XMLHelper {
 	static public void outputToStream(Document document, OutputStream outputStream) throws TransformerException {
 		// Use a Transformer for output
 		TransformerFactory tFactory = TransformerFactory.newInstance();
-		tFactory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
-		tFactory.setFeature("http://xml.org/sax/features/external-general-entities", false);
+		tFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+		tFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+		tFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
 		Transformer transformer = tFactory.newTransformer();
 		//    transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 
@@ -108,8 +110,9 @@ public class XMLHelper {
 	static public void outputToStream(Element document, OutputStream outputStream) throws TransformerException  {
 		// Use a Transformer for output
 		TransformerFactory tFactory = TransformerFactory.newInstance();
-		tFactory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
-		tFactory.setFeature("http://xml.org/sax/features/external-general-entities", false);
+		tFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+		tFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+		tFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
 		Transformer transformer = tFactory.newTransformer();
 		//     transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 

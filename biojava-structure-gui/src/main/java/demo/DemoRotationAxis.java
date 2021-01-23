@@ -119,9 +119,9 @@ public final class DemoRotationAxis {
 			*/
 
 		} catch (IOException e) {
-			e.printStackTrace();
+			
 		} catch (StructureException e) {
-			e.printStackTrace();
+			
 		}
 	}
 }

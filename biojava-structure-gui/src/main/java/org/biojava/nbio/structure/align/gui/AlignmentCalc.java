@@ -111,7 +111,7 @@ public class AlignmentCalc implements AlignmentCalculationRunnable {
 			System.out.println(afpChain.toCE(ca1,ca2));
 
 		} catch (StructureException e){
-			e.printStackTrace();
+			
 			logger.warn(e.getMessage());
 		}
 

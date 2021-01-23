@@ -161,7 +161,7 @@ public class WebStartMain
 					showStructureAlignment(algorithm ,ca1,ca2,pair.getName1(),pair.getName2());
 
 				} catch (Exception e){
-					e.printStackTrace();
+					
 					JOptionPane.showMessageDialog(null,
 							"Something went wrong! : " + e.getMessage());
 				}
@@ -171,7 +171,7 @@ public class WebStartMain
 				try {
 					//showBiojava(ca1,ca2);
 				} catch (Exception e){
-					e.printStackTrace();
+					
 					JOptionPane.showMessageDialog(null,
 							"Something went wrong! : " + e.getMessage());
 					System.exit(0);
@@ -180,7 +180,7 @@ public class WebStartMain
 
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			
 			JOptionPane.showMessageDialog(null,
 					"Error: " + e.getMessage());
 			System.exit(0);
@@ -377,7 +377,7 @@ public class WebStartMain
 //			jmol.evalString("model 0;");
 //
 //		} catch (StructureException e){
-//			e.printStackTrace();
+//			
 //		}
 //
 //	}

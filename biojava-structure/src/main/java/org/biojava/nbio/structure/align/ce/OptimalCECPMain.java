@@ -635,7 +635,7 @@ public class OptimalCECPMain extends CeMain {
 			scanner.close();
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			
 		}
 	}
 

@@ -176,7 +176,7 @@ public class FileConvert {
 			try {
 				site.toPDB(str);
 			} catch (Exception e){
-				e.printStackTrace();
+				
 			}
 		}
 

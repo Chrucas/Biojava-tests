@@ -66,7 +66,7 @@ public class TestDNAAlignment {
 
 			//System.out.printf("MSA:%n%s%n", profile);
 		} catch (Exception e) {
-			e.printStackTrace();
+			
 			Assert.fail(e.getMessage());
 		}
 		ConcurrencyTools.shutdown();

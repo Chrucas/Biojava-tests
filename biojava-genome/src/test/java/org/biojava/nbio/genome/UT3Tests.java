@@ -58,7 +58,7 @@ public class UT3Tests {
             }
         } catch (Exception e) {
             fail();
-            e.printStackTrace();
+            
         }
     }
 
@@ -85,9 +85,9 @@ public class UT3Tests {
             GenbankWriterHelper.writeNucleotideSequence(myFile, seqs);
         } catch (IOException e) {
             System.out.println("An error occurred.");
-            e.printStackTrace();
+            
         } catch (Exception e) {
-            e.printStackTrace();
+            
         }
         //Assert
         assertTrue(myFile.exists());

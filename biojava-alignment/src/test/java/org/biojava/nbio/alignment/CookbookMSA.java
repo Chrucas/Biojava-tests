@@ -37,7 +37,7 @@ public class CookbookMSA {
 		try {
 			multipleSequenceAlignment(ids);
 		} catch (Exception e){
-			e.printStackTrace();
+			
 		}
 	}
 

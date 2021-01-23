@@ -95,7 +95,7 @@ implements AlignmentPositionListener, WindowListener {
 			this.repaint();
 
 		} catch (Exception e){
-			e.printStackTrace();
+			
 		}
 	}
 
@@ -128,7 +128,7 @@ implements AlignmentPositionListener, WindowListener {
 			this.setText(msg);
 
 		} catch (Exception e){
-			e.printStackTrace();
+			
 		}
 	}
 
@@ -162,7 +162,7 @@ implements AlignmentPositionListener, WindowListener {
 			this.setText(msg);
 
 		} catch (Exception e){
-			e.printStackTrace();
+			
 		}
 	}
 

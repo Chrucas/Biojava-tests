@@ -307,7 +307,7 @@ public class AFPChainXMLParser
 						calcTime = Long.parseLong(calcTimeS);
 
 					} catch (Exception e){
-						e.printStackTrace();
+						
 					}
 				}
 				a.setCalculationTime(calcTime);
@@ -360,7 +360,7 @@ public class AFPChainXMLParser
 			((x == null) ? e : x).printStackTrace ();
 		}
 		catch (ParserConfigurationException e) {
-			e.printStackTrace();
+			
 		}
 
 		return afpChains.toArray(new AFPChain[afpChains.size()]);

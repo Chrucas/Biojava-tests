@@ -206,7 +206,7 @@ public class AllChemCompProvider implements ChemCompProvider, Runnable{
 				Thread.sleep(500);
 			} catch (InterruptedException e) {
 				logger.error("Interrepted thread while waiting: "+e.getMessage());
-				//e.printStackTrace();
+				//
 			}
 		}
 

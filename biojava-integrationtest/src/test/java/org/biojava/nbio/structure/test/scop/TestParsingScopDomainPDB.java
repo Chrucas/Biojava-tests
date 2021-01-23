@@ -49,7 +49,7 @@ public class TestParsingScopDomainPDB {
 			Assert.assertTrue(StructureTools.getAllAtomArray(s).length > 100);
 		} catch (Exception e){
 
-			e.printStackTrace();
+			
 			Assert.fail(e.getMessage());
 		}
 	}

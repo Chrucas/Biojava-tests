@@ -90,7 +90,7 @@ public class MultipleAlignmentCalc implements AlignmentCalculationRunnable {
 			MultipleAlignmentJmolDisplay.display(msa);
 
 		} catch (StructureException e) {
-			e.printStackTrace();
+			
 			logger.warn(e.getMessage());
 		}
 

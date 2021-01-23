@@ -58,7 +58,7 @@ public class UT1Tests {
             assertNotEquals(structure, newstruc);
         } catch(Exception e)
         {
-            e.printStackTrace();
+            
         }
     }
 

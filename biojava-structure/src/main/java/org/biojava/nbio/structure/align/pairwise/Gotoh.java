@@ -238,7 +238,7 @@ public class Gotoh {
 				} catch(Exception e){
 
 
-					e.printStackTrace();
+					
 					for (int f=0; f< n;f++){
 						System.out.println(backId[f]);
 					}
@@ -249,7 +249,7 @@ public class Gotoh {
 					System.out.println("el = null! x:"+ x + " y " + y);
 				backId[n] = el;
 			} catch (Exception e){
-				e.printStackTrace();
+				
 				System.out.println("x " + x);
 				System.out.println("y " + y);
 				System.out.println(backId[n-2]);

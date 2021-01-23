@@ -988,7 +988,7 @@ public class CoxR {
 				CoxInfo ci = cox.process(variables, survivalInfoList, false, true,false, false);
 				System.out.println(ci);
 			} catch (Exception e) {
-				e.printStackTrace();
+				
 			}
 
 
@@ -1052,7 +1052,7 @@ public class CoxR {
 //
 //
 //            } catch (Exception e) {
-//                e.printStackTrace();
+//                
 //            }
 //        }
 

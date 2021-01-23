@@ -180,7 +180,7 @@ public class SimpleMMcifParser implements MMcifParser {
 			// convert it to a PDB file...
 			System.out.println(s.toPDB());
 		} catch (IOException e) {
-			e.printStackTrace();
+			
 		}
 
 	}

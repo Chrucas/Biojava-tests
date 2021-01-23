@@ -94,7 +94,7 @@ public class DemoShowLargeAssembly {
 		try {
 			structure = StructureIO.getBiologicalAssembly(pdbId,bioAssemblyId);
 		} catch (Exception e){
-			e.printStackTrace();
+			
 			return null;
 		}
 		return structure;

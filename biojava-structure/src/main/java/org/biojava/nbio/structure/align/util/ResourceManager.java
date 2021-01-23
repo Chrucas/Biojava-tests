@@ -53,7 +53,7 @@ public class ResourceManager {
 		try {
 			RESOURCE_BUNDLE = ResourceBundle.getBundle(bundleName);
 		} catch(Exception e){
-			e.printStackTrace();
+			
 		}
 
 	}

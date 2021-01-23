@@ -561,7 +561,7 @@ public class SurvFitKM {
 
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			
 		}
 	}
 }

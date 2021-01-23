@@ -75,7 +75,7 @@ public class BiojavaJmol  {
 			jmolPanel.evalString("select *; spacefill off; wireframe off; backbone 0.4;  ");
 			jmolPanel.evalString("save STATE state_1");
 		} catch (Exception e){
-			e.printStackTrace();
+			
 		}
 	}
 
@@ -205,7 +205,7 @@ public class BiojavaJmol  {
 		try {
 			Class.forName(viewer);
 		} catch (ClassNotFoundException e){
-			e.printStackTrace();
+			
 			return false;
 		}
 		return true;

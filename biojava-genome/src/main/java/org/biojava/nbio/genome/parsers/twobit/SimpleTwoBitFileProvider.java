@@ -83,7 +83,7 @@ public class SimpleTwoBitFileProvider {
 		try {
 			downloadIfNoTwoBitFileExists(new File("/Users/yana/spark/2bit/hg38.2bit"),"hg38");
 		} catch (IOException e) {
-			e.printStackTrace();
+			
 		}
 	}
 

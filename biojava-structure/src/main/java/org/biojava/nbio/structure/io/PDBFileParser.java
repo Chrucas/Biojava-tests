@@ -121,7 +121,7 @@ import org.slf4j.LoggerFactory;
  * 		structure = pdbreader.getStructure(pathToPDBFile);
  * 		System.out.println(structure);
  * 	} catch (IOException e) {
- * 		e.printStackTrace();
+ * 		
  * 	}
  * 	return structure;
  * }

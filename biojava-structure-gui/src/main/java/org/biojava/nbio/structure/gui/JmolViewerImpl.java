@@ -70,7 +70,7 @@ public class JmolViewerImpl implements StructureViewer {
 			jmolPanel = new JmolPanel();
 
 		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+			
 			System.err.println("Could not find Jmol in classpath, please install first. http://www.jmol.org");
 			return;
 		}
@@ -243,7 +243,7 @@ public class JmolViewerImpl implements StructureViewer {
 			try {
 				evalString.invoke(viewerO, rasmolScript);
 			} catch (Exception e) {
-				e.printStackTrace();
+				
 			}
 		}
 
@@ -251,7 +251,7 @@ public class JmolViewerImpl implements StructureViewer {
 			try {
 				openStringInline.invoke(viewerO, pdbFile);
 			} catch (Exception e) {
-				e.printStackTrace();
+				
 			}
 		}
 
@@ -259,7 +259,7 @@ public class JmolViewerImpl implements StructureViewer {
 			try {
 				evalString.invoke(viewerO, rasmolScript);
 			} catch (Exception e) {
-				e.printStackTrace();
+				
 			}
 		}
 		final Dimension currentSize = new Dimension();
@@ -274,7 +274,7 @@ public class JmolViewerImpl implements StructureViewer {
 			try {
 				renderScreenImage.invoke(viewerO, g, currentSize, rectClip);
 			} catch (Exception e) {
-				e.printStackTrace();
+				
 			}
 		}
 	}

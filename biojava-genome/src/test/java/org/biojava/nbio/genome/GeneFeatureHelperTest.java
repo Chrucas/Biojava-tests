@@ -29,8 +29,10 @@ import org.biojava.nbio.core.sequence.GeneSequence;
 import org.biojava.nbio.core.sequence.ProteinSequence;
 import org.biojava.nbio.core.sequence.io.FastaWriterHelper;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import static org.junit.Assert.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -160,4 +162,133 @@ public class GeneFeatureHelperTest {
 		FastaWriterHelper.writeGeneSequence(tmp, geneSequences, true);
 	}
 
+	@Test
+	public void loadFastaAddGeneFeaturesFromUpperCaseExonFastaFile() {
+
+		//arrange
+		File fastaSequenceFile = new File("src/test/resources/volvox_all.fna");
+		File uppercaseFastaFile = new File("src/test/resources/volvox_all_genes_exon_uppercase.fna");
+		boolean throwExceptionGeneNotFound = false;
+		LinkedHashMap<String, ChromosomeSequence> chromosomeSequenceHashMap = null;
+
+		//act
+		try {
+			chromosomeSequenceHashMap = GeneFeatureHelper.loadFastaAddGeneFeaturesFromUpperCaseExonFastaFile(fastaSequenceFile,
+																		uppercaseFastaFile,
+																		throwExceptionGeneNotFound);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		//assert
+		Assert.assertNotNull(chromosomeSequenceHashMap);
+
+	}
+
+	@Test
+	public void outputFastaSequenceLengthGFF3() throws Exception {
+		//Arrange
+		File fastaSequenceFile = new File("src/test/resources/volvox_all.fna");
+		File gffFile = File.createTempFile("volvox_length", "gff3");
+		//Act
+		gffFile.deleteOnExit();
+		GeneFeatureHelper.outputFastaSequenceLengthGFF3(fastaSequenceFile, gffFile);
+
+		//Assert
+		FileAssert.assertEquals("volvox_length.gff3 and volvox_length_output.gff3 are not equal", gffFile,
+				new File("src/test/resources/volvox_length_reference.gff3"));
+	}
+
+	@Test
+	public void loadFastaAddGeneFeaturesFromGeneIDGFF2() {
+	}
+
+	@Test
+	public void addGeneIDGFF2GeneFeatures() {
+	}
+
+	@Test
+	public void getChromosomeSequenceFromDNASequence() {
+	}
+
+	@Test
+	public void loadFastaAddGeneFeaturesFromGmodGFF3() throws Exception{
+		//Arrange
+		LinkedHashMap<String, ChromosomeSequence> chromosomeSequenceList = GeneFeatureHelper
+				.loadFastaAddGeneFeaturesFromGmodGFF3(new File("src/test/resources/volvox_all.fna"), new File(
+						"src/test/resources/volvox.gff3"), false);
+		//Act
+		ChromosomeSequence ctgASequence = chromosomeSequenceList.get("ctgA");
+		GeneSequence edenGeneSequence = ctgASequence.getGene("EDEN");
+
+		//Assert
+		assertNotNull(ctgASequence);
+		assertNotNull(edenGeneSequence);
+
+		logger.info("Note {}", edenGeneSequence.getNotesList());
+	}
+
+	@Test
+	public void addGmodGFF3GeneFeatures() {
+	}
+
+	@Test
+	public void loadFastaAddGeneFeaturesFromGlimmerGFF3() {
+	}
+
+	@Test
+	public void addGlimmerGFF3GeneFeatures() {
+	}
+
+	@Test
+	public void loadFastaAddGeneFeaturesFromGeneMarkGTF() {
+	}
+
+	@Test
+	public void addGeneMarkGTFGeneFeatures() {
+	}
+
+	@Test
+	public void getProteinSequences() throws Exception {
+		//Arrange
+		LinkedHashMap<String, ChromosomeSequence> chromosomeSequenceList = GeneFeatureHelper
+				.loadFastaAddGeneFeaturesFromGmodGFF3(new File("src/test/resources/volvox_all.fna"), new File(
+						"src/test/resources/volvox.gff3"), false);
+		File tmp = File.createTempFile("volvox_all", "faa");
+
+		//Act
+		LinkedHashMap<String, ProteinSequence> proteinSequenceList = GeneFeatureHelper
+				.getProteinSequences(chromosomeSequenceList.values());
+		tmp.deleteOnExit();
+
+		//Assert
+		FastaWriterHelper.writeProteinSequence(tmp, proteinSequenceList.values());
+		FileAssert.assertEquals("volvox_all_reference.faa and volvox_all.faa are not equal", new File(
+				"src/test/resources/volvox_all_reference.faa"), tmp);
+	}
+
+	@Test
+	public void getGeneSequences() throws Exception{
+		//Arrange
+		LinkedHashMap<String, ChromosomeSequence> chromosomeSequenceList = GeneFeatureHelper
+				.loadFastaAddGeneFeaturesFromGmodGFF3(new File("src/test/resources/volvox_all.fna"), new File(
+						"src/test/resources/volvox.gff3"), true);
+		LinkedHashMap<String, GeneSequence> geneSequenceHashMap = GeneFeatureHelper
+				.getGeneSequences(chromosomeSequenceList.values());
+
+		//Act
+		Collection<GeneSequence> geneSequences = geneSequenceHashMap.values();
+
+		File tmp = File.createTempFile("volvox_all_genes_exon_uppercase", "fna");
+		tmp.deleteOnExit();
+
+		//Assert
+		assertNotNull(geneSequences);
+		FastaWriterHelper.writeGeneSequence(tmp, geneSequences, true);
+
+	}
+
+	@Test
+	public void main() {
+	}
 }

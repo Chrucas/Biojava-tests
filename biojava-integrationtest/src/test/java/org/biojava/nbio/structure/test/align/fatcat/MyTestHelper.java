@@ -144,7 +144,7 @@ public class MyTestHelper
 			}
 
 		} catch ( Exception e){
-			e.printStackTrace();
+			
 			return e.getMessage();
 		}
 

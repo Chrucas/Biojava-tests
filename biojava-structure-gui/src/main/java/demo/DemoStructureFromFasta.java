@@ -63,7 +63,7 @@ public class DemoStructureFromFasta {
 		try {
 			fasta = new ByteArrayInputStream(fastaStr.getBytes("UTF-8"));
 		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
+			
 			return;
 		}
 
@@ -89,10 +89,10 @@ public class DemoStructureFromFasta {
 		try {
 			parser.process();
 		} catch (IOException e) {
-			e.printStackTrace();
+			
 			return;
 		} catch (StructureException e) {
-			e.printStackTrace();
+			
 			return;
 		}
 

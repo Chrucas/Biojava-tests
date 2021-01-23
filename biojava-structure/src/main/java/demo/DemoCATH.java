@@ -54,7 +54,7 @@ public class DemoCATH {
 			System.out.println(cathDomainStructure);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
 		}
 
 

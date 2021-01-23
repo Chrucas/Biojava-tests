@@ -87,7 +87,7 @@ public class StatusDisplay extends JTextField implements AlignmentPositionListen
 
 
 		} catch (StructureException e){
-			e.printStackTrace();
+			
 		}
 
 		this.repaint();
@@ -123,7 +123,7 @@ public class StatusDisplay extends JTextField implements AlignmentPositionListen
 
 			this.setText(msg);
 		} catch (StructureException e){
-			e.printStackTrace();
+			
 		}
 
 	}
@@ -159,7 +159,7 @@ public class StatusDisplay extends JTextField implements AlignmentPositionListen
 
 			this.setText(msg);
 		} catch (StructureException e){
-			e.printStackTrace();
+			
 		}
 
 

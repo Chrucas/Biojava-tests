@@ -137,7 +137,7 @@ public class CoxHelper {
 
 			return ci;
 		} catch (Exception e) {
-			e.printStackTrace();
+			
 		}
 		return null;
 	}
@@ -173,7 +173,7 @@ public class CoxHelper {
 
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			
 		}
 	}
 }

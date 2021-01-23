@@ -55,7 +55,7 @@ public class FlipAFPChainTest {
 
 			flip(name1,name2, CeCPMain.algorithmName);
 		} catch (Exception e){
-			e.printStackTrace();
+			
 			fail(e.getMessage());
 		}
 
@@ -70,7 +70,7 @@ public class FlipAFPChainTest {
 			String name2 = "4hhb.B";
 			flip(name1,name2, CeMain.algorithmName);
 		} catch (Exception e){
-			e.printStackTrace();
+			
 			fail(e.getMessage());
 		}
 	}

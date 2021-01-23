@@ -146,7 +146,7 @@ implements StructurePairSelector {
 			s = reader.getStructure(f);
 		} catch (IOException  e){
 			logger.warn(e.getMessage());
-			//e.printStackTrace();
+			//
 			throw new StructureException(e);
 		}
 
@@ -166,7 +166,7 @@ implements StructurePairSelector {
 			fileURL = u.toString() ;
 
 		} catch (Exception e){
-			e.printStackTrace();
+			
 		}
 
 		reduced.setPDBCode(fileURL);

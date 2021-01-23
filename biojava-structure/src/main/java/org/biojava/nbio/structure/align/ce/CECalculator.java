@@ -199,7 +199,7 @@ public class CECalculator {
 //			frame.pack();
 //			frame.setVisible(true);
 //		} catch (Exception e) {
-//			e.printStackTrace();
+//			
 //		}
 
 
@@ -786,7 +786,7 @@ public class CECalculator {
 //			frame.pack();
 //			frame.setVisible(true);
 //		} catch (Exception e) {
-//			e.printStackTrace();
+//			
 //		}
 
 
@@ -1260,7 +1260,7 @@ nBestTrace=nTrace;
 				strBuf[i]=a;
 			} else {
 				// 	probably a GLY and no CB was found...
-				//e.printStackTrace();
+				//
 			}
 		strBuf[i+pos] = a;
 		pos++;

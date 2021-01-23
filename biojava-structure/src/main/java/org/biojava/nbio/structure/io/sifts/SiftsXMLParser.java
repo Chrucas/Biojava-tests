@@ -79,11 +79,11 @@ public class SiftsXMLParser {
 			parseDocument();
 
 		}catch(ParserConfigurationException pce) {
-			pce.printStackTrace();
+
 		}catch(SAXException se) {
-			se.printStackTrace();
+
 		}catch(IOException ioe) {
-			ioe.printStackTrace();
+
 		}
 	}
 

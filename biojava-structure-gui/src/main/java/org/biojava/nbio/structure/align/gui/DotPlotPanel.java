@@ -281,9 +281,9 @@ public class DotPlotPanel extends ScaleableMatrixPanel {
 
 
 		} catch (StructureException e) {
-			e.printStackTrace();
+
 		} catch (IOException e) {
-			e.printStackTrace();
+
 		}
 
 	}

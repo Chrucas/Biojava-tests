@@ -59,7 +59,7 @@ public class TestDNAAlignment
 		  assertNotNull(txt);
 
 		} catch (StructureException e){
-			e.printStackTrace();
+			
 			fail(e.getMessage());
 		}
 	}

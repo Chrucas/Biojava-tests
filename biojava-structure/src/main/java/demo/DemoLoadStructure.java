@@ -72,7 +72,7 @@ public class DemoLoadStructure
 			System.out.println(StructureTools.getNrAtoms(s2));
 
 		} catch (Exception e){
-			e.printStackTrace();
+			
 		}
 
 	}
@@ -111,7 +111,7 @@ public class DemoLoadStructure
 
 
 		} catch (Exception e){
-			e.printStackTrace();
+			
 		}
 
 	}
@@ -142,7 +142,7 @@ public class DemoLoadStructure
 			System.out.println("First entity: " + firstEntity);
 
 		} catch (Exception e){
-			e.printStackTrace();
+			
 		}
 
 	}

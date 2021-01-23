@@ -170,7 +170,7 @@ public abstract class AbstractUserArgumentProcessor implements UserArgumentProce
 				GuiWrapper.showAlignmentGUI();
 			} catch (Exception e){
 				System.err.println(e.getMessage());
-				e.printStackTrace();
+				
 			}
 		}
 
@@ -208,7 +208,7 @@ public abstract class AbstractUserArgumentProcessor implements UserArgumentProce
 
 			System.out.println("Protein Comparison Tool " + version + " " + build);
 		} catch (Exception e){
-			e.printStackTrace();
+			
 		}
 
 
@@ -277,7 +277,7 @@ public abstract class AbstractUserArgumentProcessor implements UserArgumentProce
 			out.close();
 			is.close();
 		} catch(Exception e){
-			e.printStackTrace();
+			
 		}
 	}
 
@@ -397,7 +397,7 @@ public abstract class AbstractUserArgumentProcessor implements UserArgumentProce
 					} catch (Exception e){
 
 						System.err.println(e.getMessage());
-						e.printStackTrace();
+						
 					}
 					//StructureAlignmentJmol jmol = algorithm.display(afpChain,ca1,ca2,hetatms1, nucs1, hetatms2, nucs2);
 
@@ -427,22 +427,22 @@ public abstract class AbstractUserArgumentProcessor implements UserArgumentProce
 			}
 
 		} catch (IOException e) {
-			e.printStackTrace();
+			
 			System.exit(1); return;
 		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+			
 			System.exit(1); return;
 		} catch (NoSuchMethodException e) {
-			e.printStackTrace();
+			
 			System.exit(1); return;
 		} catch (InvocationTargetException e) {
-			e.printStackTrace();
+			
 			System.exit(1); return;
 		} catch (IllegalAccessException e) {
-			e.printStackTrace();
+			
 			System.exit(1); return;
 		} catch (StructureException e) {
-			e.printStackTrace();
+			
 			System.exit(1); return;
 		}
 	}

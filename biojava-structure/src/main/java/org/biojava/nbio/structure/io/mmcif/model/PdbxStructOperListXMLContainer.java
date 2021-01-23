@@ -42,7 +42,7 @@ public class PdbxStructOperListXMLContainer {
 			try {
 				jaxbContext= JAXBContext.newInstance(PdbxStructOperList.class);
 			} catch (Exception e){
-				e.printStackTrace();
+				
 			}
 		}
 
@@ -72,7 +72,7 @@ public class PdbxStructOperListXMLContainer {
 
 
 			} catch (Exception e){
-				e.printStackTrace();
+				
 			}
 
 			return baos.toString();
@@ -92,7 +92,7 @@ public class PdbxStructOperListXMLContainer {
 				job = (PdbxStructOperListXMLContainer) un.unmarshal(bais);
 
 			} catch (Exception e){
-				e.printStackTrace();
+				
 			}
 
 			return job;

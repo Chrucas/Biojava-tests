@@ -82,7 +82,7 @@ public class StructureLoaderThread extends SwingWorker<String, Object> {
 
 
 		} catch (Exception e){
-			e.printStackTrace();
+			
 
 			JOptionPane.showMessageDialog(null, "Error while loading " + name + ":" + e.getMessage());
 

@@ -66,7 +66,7 @@ public class CathTest {
 //			knownDomain.setDate(format.parse("21-Sep-2011"));
 //		} catch (ParseException e) {
 //			// TODO Auto-generated catch block
-//			e.printStackTrace();
+//
 //			fail(e.getMessage());
 //		}
 //		knownDomain.setName("Nuclear RNA export factor. Chain: a. Fragment: uba domain, residues 56" +

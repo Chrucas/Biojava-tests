@@ -45,7 +45,7 @@ public class ShowStructureInJmol {
 			jmolPanel.evalString("select nucleic; cartoon on;");
 			jmolPanel.evalString("select *; spacefill off; wireframe off; cartoon on;  ");
 		} catch (Exception e){
-			e.printStackTrace();
+			
 		}
 	}
 }

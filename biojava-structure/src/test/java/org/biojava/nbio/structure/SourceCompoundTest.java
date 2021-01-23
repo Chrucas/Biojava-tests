@@ -43,7 +43,7 @@ public class SourceCompoundTest {
 		try {
 			structure = pdbpars.parsePDBFile(inStream) ;
 		} catch (IOException e) {
-			e.printStackTrace();
+			
 		}
 		return structure;
 	}

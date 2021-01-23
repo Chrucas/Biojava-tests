@@ -254,7 +254,7 @@ public class StructureAlignmentOptimizer
 			/*try {
 				System.out.println("before superimpos: " + equSet[0][i]+"-"+ equSet[1][i]+ " dist:" + Calc.getDistance(tmp1[i], cod2[equSet[1][i]]));
 			} catch (Exception e){
-				e.printStackTrace();
+				
 			}*/
 		}
 
@@ -277,7 +277,7 @@ public class StructureAlignmentOptimizer
 //         try {
 //            System.err.println("after superimpos: " + equSet[0][i]+"-"+ equSet[1][i]+ " dist:" + Calc.getDistance(tmp1[i], cod2[equSet[1][i]]));
 //         } catch (Exception e){
-//            e.printStackTrace();
+//            
 //         }
 //      }
 

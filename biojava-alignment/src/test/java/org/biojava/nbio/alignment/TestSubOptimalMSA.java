@@ -45,7 +45,7 @@ public class TestSubOptimalMSA {
 			sequences.add(new DNASequence("TTGGGGCCTCTAAACGGGTCTT"));
 			sequences.add(new DNASequence("TTGGGGCTCTAACGGGTCTT"));
 		} catch (CompoundNotFoundException e) {
-			e.printStackTrace();
+			
 		}
 	}
 

@@ -151,7 +151,7 @@ public class PDBStatusTest {
 			Assert.assertEquals(Arrays.asList("G", "F", "D", "C", "B", "A", "1"), a);
 
 		} catch(Exception e) {
-			e.printStackTrace();
+			
 			Assert.fail(e.getMessage());
 		}
 	}
@@ -209,7 +209,7 @@ public class PDBStatusTest {
 
 
 		} catch(Exception e) {
-			e.printStackTrace();
+			
 			Assert.fail(e.getMessage());
 		}
 	}

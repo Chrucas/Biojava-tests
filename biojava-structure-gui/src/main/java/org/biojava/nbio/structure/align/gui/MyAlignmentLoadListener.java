@@ -120,7 +120,7 @@ public class MyAlignmentLoadListener implements ActionListener {
 					}
 				}
 			} catch (Exception e){
-				e.printStackTrace();
+				
 				JOptionPane.showMessageDialog(null,"Could not load alignment "
 						+ "file. Exception: " + e.getMessage());
 			}

@@ -60,7 +60,7 @@ public class AligUIManager
 
 
 		} catch ( Exception e ) {
-			e.printStackTrace();
+
 		}
 
 	}

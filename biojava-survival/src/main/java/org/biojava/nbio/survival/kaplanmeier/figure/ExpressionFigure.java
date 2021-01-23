@@ -403,7 +403,7 @@ public class ExpressionFigure extends JPanel {
 			expressionFigure.savePNG("/Users/Scooter/Downloads/test.png");
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			
 		}
 	}
 }

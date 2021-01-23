@@ -104,7 +104,7 @@ public class CookBook
 
 
 		} catch (Exception e){
-			e.printStackTrace();
+			
 		}
 	}
 }

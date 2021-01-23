@@ -73,7 +73,7 @@ public class TestAlignDBSearchPairs
 //
 //         }
 //      } catch (Exception e){
-//         e.printStackTrace();
+//         
 //         fail(e.getMessage());
 //      }
 //   }

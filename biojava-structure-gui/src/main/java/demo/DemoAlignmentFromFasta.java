@@ -71,7 +71,7 @@ public class DemoAlignmentFromFasta {
 		try {
 			fasta = new ByteArrayInputStream(fastaStr.getBytes("UTF-8"));
 		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
+			
 			return;
 		}
 
@@ -97,10 +97,10 @@ public class DemoAlignmentFromFasta {
 		try {
 			parser.process();
 		} catch (IOException e) {
-			e.printStackTrace();
+			
 			return;
 		} catch (StructureException e) {
-			e.printStackTrace();
+			
 			return;
 		}
 
@@ -127,7 +127,7 @@ public class DemoAlignmentFromFasta {
 		try {
 			StructureAlignmentDisplay.display(afp, ca1, ca2);
 		} catch (StructureException e) {
-			e.printStackTrace();
+			
 			return;
 		}
 	}

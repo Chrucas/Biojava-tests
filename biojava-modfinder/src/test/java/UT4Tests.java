@@ -77,7 +77,7 @@ public class UT4Tests {
         } catch(IOException e) {
             System.out.println("failed");
             fail();
-            e.printStackTrace();
+            
         }
     }
 
@@ -102,7 +102,7 @@ public class UT4Tests {
         }catch(IOException e) {
             System.out.println("failed");
             fail();
-            e.printStackTrace();
+            
 
         }
     }

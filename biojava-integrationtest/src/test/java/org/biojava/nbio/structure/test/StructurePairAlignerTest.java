@@ -84,7 +84,7 @@ public class StructurePairAlignerTest {
 		} catch (Exception e){
 			msg = e.getMessage();
 			allFine = false;
-			e.printStackTrace();
+			
 		}
 		Assert.assertTrue(allFine);
 		Assert.assertEquals("an error occured", "", msg);

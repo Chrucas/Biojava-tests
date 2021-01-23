@@ -97,7 +97,7 @@ public class DemoCE {
 
 			printScores(afpChain);
 		} catch (Exception e) {
-			e.printStackTrace();
+			
 			return;
 		}
 	}

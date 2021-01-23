@@ -117,7 +117,7 @@ public class AligPanel  extends JPrintPanel implements AlignmentPositionListener
 
 
 		} catch (Exception e){
-			e.printStackTrace();
+			
 		}
 	}
 
@@ -392,7 +392,7 @@ public void paintComponent(Graphics g){
 
 
 			} catch (StructureException e){
-				e.printStackTrace();
+				
 			}
 		}
 
@@ -466,7 +466,7 @@ public void mouseOverPosition(AlignedPosition p) {
 
 
 		} catch (StructureException e){
-			e.printStackTrace();
+			
 		}
 		if ( nrSelected == 0)
 			cmd.append(" none;");

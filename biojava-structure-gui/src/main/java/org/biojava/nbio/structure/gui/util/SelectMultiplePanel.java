@@ -122,7 +122,7 @@ public class SelectMultiplePanel extends JPanel {
 			s = cache.getStructure(name);
 			s.setName(name.getIdentifier());
 		} catch (Exception e){
-			e.printStackTrace();
+
 		}
 		return s;
 	}

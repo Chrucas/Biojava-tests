@@ -192,7 +192,7 @@ public class AlignmentGui extends JFrame{
 		try {
 			algorithm = StructureAlignmentFactory.getAlgorithm(algorithms[0]);
 		} catch (StructureException e){
-			e.printStackTrace();
+			
 		}
 
 		JLabel algoLabel = new JLabel("Select alignment algorithm: ");

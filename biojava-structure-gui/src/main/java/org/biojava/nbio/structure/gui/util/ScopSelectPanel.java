@@ -143,7 +143,7 @@ implements StructurePairSelector
 			s =	cache.getStructure(domainID);
 			s.setName(domainID);
 		} catch (Exception e){
-			e.printStackTrace();
+			
 		}
 		return s;
 
@@ -166,7 +166,7 @@ implements StructurePairSelector
 //        	 s.setName(domainID);
 //         s.setPDBCode(domainID);
 //      } catch (Exception e){
-//         e.printStackTrace();
+//         
 //         logger.warning(e.getMessage());
 //      }
 //

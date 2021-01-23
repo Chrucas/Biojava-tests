@@ -109,7 +109,7 @@ public class DemoChangeChemCompProvider {
 
 
 		} catch (Exception e){
-			e.printStackTrace();
+			
 		}
 
 	}

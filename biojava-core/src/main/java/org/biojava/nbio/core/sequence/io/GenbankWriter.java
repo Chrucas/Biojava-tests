@@ -162,7 +162,7 @@ public class GenbankWriter<S extends Sequence<?>, C extends Compound> {
 	 * fileOutputStream.close();
 	 *
 	 *
-	 * } catch (Exception e) { e.printStackTrace(); } }
+	 * } catch (Exception e) {  } }
 	 */
 	/**
 	 * @return the lineLength

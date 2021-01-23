@@ -146,7 +146,7 @@ public class MultipleAlignmentGUI extends JFrame {
 		try {
 			pairwise = StructureAlignmentFactory.getAlgorithm(pairAlgo[0]);
 		} catch (StructureException e){
-			e.printStackTrace();
+			
 		}
 		JLabel algoLabel = new JLabel("Select pairwise aligner: ");
 

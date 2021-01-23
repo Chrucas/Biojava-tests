@@ -374,7 +374,7 @@ public class JAutoSuggest extends JTextField{
 					dialog.setVisible(false);
 				}
 			} catch (Exception e) {
-				//e.printStackTrace();
+				//
 				// ignore...
 
 			}

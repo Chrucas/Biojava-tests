@@ -93,7 +93,7 @@ public class RepresentativeXMLConverter {
 			}
 
 		} catch (Exception e){
-			e.printStackTrace();
+			
 		}
 
 		return representatives;

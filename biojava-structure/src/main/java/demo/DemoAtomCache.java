@@ -50,7 +50,7 @@ public class DemoAtomCache {
 
 			// do something with them...
 		} catch (Exception e){
-			e.printStackTrace();
+			
 		}
 
 	}
@@ -81,7 +81,7 @@ public class DemoAtomCache {
 			} catch (Exception e){
 				// something crazy happened...
 				System.err.println("Can't load structure " + pdbID + " reason: " + e.getMessage());
-				//e.printStackTrace();
+				//
 			}
 		}
 

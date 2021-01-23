@@ -175,7 +175,7 @@ public class URLIdentifier implements StructureIdentifier {
 			try {
 				parser.parse(new BufferedReader(new InputStreamReader(inStream)));
 			} catch (IOException e){
-				e.printStackTrace();
+				
 			}
 
 			// now get the protein structure.

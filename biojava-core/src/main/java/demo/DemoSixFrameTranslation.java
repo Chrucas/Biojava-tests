@@ -141,7 +141,7 @@ public class DemoSixFrameTranslation {
 
 			}
 		} catch (Exception e){
-			e.printStackTrace();
+			
 		}
 
 

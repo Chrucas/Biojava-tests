@@ -46,10 +46,10 @@ public class JronnExample {
 		try {
 			Jronn.calculateDisorder("src/test/resources/fasta.in", "src/test/resources/result.txt", 4, ResultLayout.HORIZONTAL);
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			
 			fail(e.getMessage());
 		} catch (IOException e) {
-			e.printStackTrace();
+			
 			fail(e.getMessage());
 		}
 	}

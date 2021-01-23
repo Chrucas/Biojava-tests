@@ -908,7 +908,7 @@ public class KaplanMeierFigure extends JPanel {
 			kaplanMeierFigure.savePNGKMNumRisk("test.png");
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			
 		}
 	}
 }

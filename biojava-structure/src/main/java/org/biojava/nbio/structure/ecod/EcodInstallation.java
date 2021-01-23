@@ -803,7 +803,7 @@ v1.4 - added seqid_range and headers (develop101)
 				i++;
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			
 		}
 	}
 }

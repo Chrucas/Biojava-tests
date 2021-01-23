@@ -80,7 +80,7 @@ public class DemoDomainsplit {
 				}
 			}
 		} catch (Exception e){
-			e.printStackTrace();
+			
 		}
 
 	}

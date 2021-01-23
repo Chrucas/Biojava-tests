@@ -37,7 +37,7 @@ public class CookbookAlignPairGlobal {
 		try {
 			alignPairGlobal(ids[0], ids[1]);
 		} catch (Exception e){
-			e.printStackTrace();
+			
 		}
 	}
 

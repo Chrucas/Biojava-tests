@@ -309,7 +309,7 @@ public class ParameterGUI extends JFrame{
 
 
 		} catch (Exception e){
-			e.printStackTrace();
+			
 
 		}
 
@@ -337,7 +337,7 @@ public class ParameterGUI extends JFrame{
 
 			return value;
 		} catch (Exception e){
-			e.printStackTrace();
+			
 			return null;
 		}
 

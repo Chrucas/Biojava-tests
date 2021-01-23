@@ -98,7 +98,7 @@ public class PdbPairXMLConverter {
 			}
 
 		} catch (Exception e){
-			e.printStackTrace();
+			
 		}
 		message.setPairs(pairs);
 		return message;

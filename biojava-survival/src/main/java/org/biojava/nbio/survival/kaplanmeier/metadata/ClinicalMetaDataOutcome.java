@@ -97,7 +97,7 @@ public class ClinicalMetaDataOutcome {
 
 			ClinicalMetaDataOutcome.process(worksheet, sensorMapColumn, censorMap, timeColumn, timeScale, metaDataInfoList);
 		} catch (Exception e) {
-			e.printStackTrace();
+			
 		}
 	}
 }

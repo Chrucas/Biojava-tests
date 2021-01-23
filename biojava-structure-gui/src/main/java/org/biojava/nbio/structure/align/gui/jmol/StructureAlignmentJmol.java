@@ -83,7 +83,7 @@ public class StructureAlignmentJmol extends AbstractAlignmentJmol implements Cha
 			jmolPanel.evalString("select *; spacefill off; wireframe off; backbone 0.4;  ");
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			
 		}
 	}
 
@@ -149,7 +149,7 @@ public class StructureAlignmentJmol extends AbstractAlignmentJmol implements Cha
 		jmolPanel.addMouseListener(this);
 
 		//		} catch (ClassNotFoundException e){
-		//			e.printStackTrace();
+		//			
 		//			System.err.println("Could not find Jmol in classpath, please install first. http://www.jmol.org");
 		//			return;
 		//		}
@@ -355,7 +355,7 @@ public class StructureAlignmentJmol extends AbstractAlignmentJmol implements Cha
 			artificial.setPDBHeader(header);
 			setStructure(artificial);
 		} catch (StructureException e) {
-			e.printStackTrace();
+			
 		}
 	}
 

@@ -40,7 +40,7 @@ public class PdbxStructAssemblyXMLContainer {
 		try {
 			jaxbContext= JAXBContext.newInstance(PdbxStructAssemblyXMLContainer.class);
 		} catch (Exception e){
-			e.printStackTrace();
+			
 		}
 	}
 
@@ -70,7 +70,7 @@ public class PdbxStructAssemblyXMLContainer {
 
 
 		} catch (Exception e){
-			e.printStackTrace();
+			
 		}
 
 		return baos.toString();
@@ -90,7 +90,7 @@ public class PdbxStructAssemblyXMLContainer {
 			job = (PdbxStructAssemblyXMLContainer) un.unmarshal(bais);
 
 		} catch (Exception e){
-			e.printStackTrace();
+			
 		}
 
 		return job;

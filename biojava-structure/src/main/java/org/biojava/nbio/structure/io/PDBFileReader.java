@@ -62,7 +62,7 @@ import java.io.InputStream;
  * 		structure = pdbreader.getStructure(pathToPDBFile);
  * 		System.out.println(structure);
  * 	} catch (IOException e) {
- * 		e.printStackTrace();
+ * 		
  * 	}
  * 	return structure;
  * }
@@ -79,7 +79,7 @@ import java.io.InputStream;
  * 	try {
  * 		structure = pdbreader.getStructureById("5pti");
  * 	} catch (IOException e){
- * 		e.printStackTrace();
+ * 		
  * 	}
  * 	return structure;
  *

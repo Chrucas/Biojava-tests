@@ -53,7 +53,7 @@ public class AFPChainSerialisationTest
 //         testAlignment(name1,name2,ca1,ca2,true);
 //
 //      } catch (Exception e){
-//         e.printStackTrace();
+//         
 //         fail(e.getMessage());
 //      }
 //
@@ -92,7 +92,7 @@ public class AFPChainSerialisationTest
 //         testAlignment("1cdg.A","1tim.A",ca1,ca2,true);
 //
 //      } catch (Exception e) {
-//         e.printStackTrace();
+//         
 //         fail(e.getMessage());
 //      }
 //   }
@@ -110,7 +110,7 @@ public class AFPChainSerialisationTest
 //         testAlignment("4hhb.A","4hhb.B",ca1,ca2,true);
 //
 //      } catch (Exception e) {
-//         e.printStackTrace();
+//         
 //         fail(e.getMessage());
 //      }
 //   }

@@ -449,7 +449,7 @@ public class FatCatParameters implements ConfigStrucAligParams
 
 			return value;
 		} catch (Exception e){
-			e.printStackTrace();
+			
 			return null;
 		}
 

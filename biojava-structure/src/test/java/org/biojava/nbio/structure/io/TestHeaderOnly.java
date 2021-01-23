@@ -138,7 +138,7 @@ public class TestHeaderOnly {
 			// A larger structure could be parsed ~ 4.991s (no header) vs 5.867s (header) ~ 16% faster
 			// s = fr.getStructureById("4V60");
 		} catch (IOException e) {
-			e.printStackTrace();
+			
 			System.exit(1);
 		}
 		long stop = System.nanoTime();

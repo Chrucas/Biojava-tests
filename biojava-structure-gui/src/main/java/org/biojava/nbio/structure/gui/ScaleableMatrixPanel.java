@@ -138,7 +138,7 @@ implements ChangeListener, ActionListener {
 			frame.setVisible(true);
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			
 		}
 
 	}

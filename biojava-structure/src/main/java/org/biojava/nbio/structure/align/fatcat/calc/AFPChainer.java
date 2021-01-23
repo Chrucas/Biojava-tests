@@ -687,7 +687,7 @@ public class AFPChainer
 			rmsd = getRmsd(tmp1,tmp2);
 
 		} catch (Exception e){
-			e.printStackTrace();
+
 		}
 		return rmsd;
 

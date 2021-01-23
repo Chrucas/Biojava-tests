@@ -356,7 +356,7 @@ public class MultipleAlignmentJmol extends AbstractAlignmentJmol {
 			setStructure(artificial);
 			logger.info(artificial.getPDBHeader().getTitle());
 		} catch (StructureException e) {
-			e.printStackTrace();
+			
 		}
 	}
 
